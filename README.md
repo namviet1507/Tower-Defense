@@ -1,17 +1,17 @@
 # Tower Defense
 Tower Defense Game using OOP and C++ language | Ho Chi Minh City University of Science
-## 1 Introduction
+## 1. Introduction
 - In this project we will combine techniques, basic data structures as well as objectoriented knowledge to build a simple game, tower defense.
 - To carry out this project, we need basic knowledge such as: file handling, processes, basic data structures and object-oriented knowledge...
 - The tutorial helps students build games at a basic level, and groups research on their own to complete it in the best way possible.
-## 2 Screenplay
+## 2. Screenplay
 - At the beginning of the game, a map and a table of parameters will appear that need the player to determine. Once all parameters are available, the game operates automatically, and players wait to see the results.
 - When all the “characters” are destroyed or when one of the characters has reached the finish line, the program will notify the player to select the ‘y’ key if they want to continue (the program will reset to the original state) or select ‘any key’ if you want to exit the game.
 - When you destroy all the characters, you advance to a new level (for example, the number of characters is larger, or the character can resist...). When you reach a certain level, it is considered a victory or the game restarts as at the beginning.
 
 ![Screenshot 2024-10-08 221820](https://github.com/user-attachments/assets/40a80556-be26-43ae-b662-14fe34a00983)
 
-## 3 REQUIREMENTS
+## 3. REQUIREMENTS
 In the above instructions, we still lack basic functions
 ### Handle collisions between characters and bullets
 - A group of students should design collision effects to make the game more attractive
