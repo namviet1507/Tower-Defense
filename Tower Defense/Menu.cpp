@@ -5,9 +5,7 @@
 bool Menu::music_is_open = false;
 bool Menu::sound_is_open = false;
 
-
 bool Screen::isVie;
-Menu a;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
 	Controller::gotoXY(left, top);
@@ -422,8 +420,6 @@ int Screen::printLevel() {
 	}
 }
 
-void Menu::helpScreen() {}
-
 void Menu::readLoadGame() {}
 
 void Menu::Setting() {}
@@ -546,4 +542,105 @@ void Screen::printLogo() {
 	   ~~~~~~~       ~~~~~~~~~~
 	)";
 
+}
+
+void Menu::helpScreen() {
+	Controller::showCursor(false);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	system("cls");
+	int left = 5, top = 2, width = 100, height = 23;
+	int line1 = 7, line2 = 19, line3 = 23;
+	Screen::printRectangle(left, top, width, height);
+	Controller::gotoXY(left + 1, line1);
+	for (int i = 0; i < width; i++)
+	{
+		putchar(196);
+	}
+	Controller::gotoXY(left + 1, line2);
+	for (int i = 0; i < width; i++)
+	{
+		putchar(196);
+	}
+	Controller::gotoXY(left + 1, line3);
+	for (int i = 0; i < width; i++)
+	{
+		putchar(196);
+	}
+	for (int i = 1; i < height; i++)
+	{
+		Controller::gotoXY(line2 + 1, top + i);
+		putchar(179);
+	}
+	Controller::gotoXY(line2 + 1, line1);
+	putchar(197);
+	Controller::gotoXY(line2 + 1, line2);
+	putchar(197);
+
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(left + 3, top + 2);
+	Screen::printVietnamese(L"Giới thiệu:");
+
+	Controller::gotoXY(left + 17, top + 1);
+	putchar(249);
+	Screen::printVietnamese(L"  Tower Defense là một thể loại game chiến thuật rất phổ biến, trong đó người chơi");
+	Controller::gotoXY(left + 17, top + 2);
+	Screen::printVietnamese(L" phải xây dựng các tháp (towers) để bảo vệ căn cứ khỏi các đợt tấn công của kẻ thù.");
+	
+	Controller::gotoXY(left + 17, top + 3);
+	putchar(249);
+	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
+	Controller::gotoXY(left + 17, top + 4);
+	Screen::printVietnamese(L" là ngăn chặn kẻ địch tiến vào căn cứ của mình.");
+
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(left + 3, top + 8);
+	Screen::printVietnamese(L"Luật chơi:");
+	Controller::gotoXY(left + 17, top + 11);
+	int left1 = left + 17;
+	putchar(249);
+	Screen::printVietnamese(L" Bàn cờ caro có kích thước 14x14.");
+	Controller::gotoXY(left1, top + 12);
+	putchar(249);
+	
+
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::gotoXY(left + 3, top + 19);
+	cout << "Developers:";
+	Controller::gotoXY(left + 31, top + 18);
+	Screen::printVietnamese(L"Dev 1: Bùi Nam Việt (23127516)");
+	Controller::gotoXY(left + 31, top + 19);
+	Screen::printVietnamese(L"Dev 2: Trương Hoàng Lâm (23127402)");
+	Controller::gotoXY(left + 31, top + 20);
+	Screen::printVietnamese(L"Dev 3: Trương Quang Huy (23127530)");
+
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(left + 3, top + 22);
+	Screen::printVietnamese(L"Giảng viên: ");
+	Controller::gotoXY(left + 40, top + 22);
+	Screen::printVietnamese(L"Trương Toàn Thịnh");
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printRectangle(45, 27, 8, 2);
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(43, 28);
+	putchar(175);
+	Controller::gotoXY(47, 28);
+	Screen::printVietnamese(L"Trở về");
+	Controller::gotoXY(56, 28);
+	putchar(174);
+	while (Controller::getConsoleInput() != 6)
+	{
+		if (Menu::sound_is_open)
+			Controller::playSound(ERROR_SOUND);
+	}
+	if (Menu::sound_is_open)
+		Controller::playSound(ENTER_SOUND);
+	if (Game::isPlaying) {
+		
+	}
+	else Menu::goBack();
+}
+
+void Menu::goBack() {
+	Screen::printMainScreen();
 }
