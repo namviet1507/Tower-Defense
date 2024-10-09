@@ -10,8 +10,10 @@ int main() {
 	Sleep(1000);
 	Map test;
 
-	test.setMap("./Map/level1.txt");
-	test.printMap();
+	test.createMap();
+
+	//test.setMap("./Map/level1.txt");
+	//test.printMap();
 
 	system("PAUSE");
 
