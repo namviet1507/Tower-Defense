@@ -549,7 +549,7 @@ void Menu::helpScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 	int left = 5, top = 2, width = 100, height = 23;
-	int line1 = 7, line2 = 19, line3 = 23;
+	int line1 = 8, line2 = 17, line3 = 23;
 	Screen::printRectangle(left, top, width, height);
 	Controller::gotoXY(left + 1, line1);
 	for (int i = 0; i < width; i++)
@@ -568,12 +568,12 @@ void Menu::helpScreen() {
 	}
 	for (int i = 1; i < height; i++)
 	{
-		Controller::gotoXY(line2 + 1, top + i);
+		Controller::gotoXY(line2 + 3, top + i);
 		putchar(179);
 	}
-	Controller::gotoXY(line2 + 1, line1);
+	Controller::gotoXY(line2 + 3, line1);
 	putchar(197);
-	Controller::gotoXY(line2 + 1, line2);
+	Controller::gotoXY(line2 + 3, line2);
 	putchar(197);
 
 	Controller::SetColor(BRIGHT_WHITE, BLUE);
@@ -590,28 +590,52 @@ void Menu::helpScreen() {
 	putchar(249);
 	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
 	Controller::gotoXY(left + 17, top + 4);
-	Screen::printVietnamese(L" là ngăn chặn kẻ địch tiến vào căn cứ của mình.");
+	Screen::printVietnamese(L" là ngăn chặn kẻ địch tiến vào căn cứ của mình. Nếu kẻ địch đến được căn cứ của bạn,");
+	Controller::gotoXY(left + 17, top + 5);
+	Screen::printVietnamese(L" bạn sẽ mất máu hoặc điểm. Khi hết máu, game kết thúc.");
 
 	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
-	Controller::gotoXY(left + 3, top + 8);
+	Controller::gotoXY(left + 3, top + 11);
 	Screen::printVietnamese(L"Luật chơi:");
-	Controller::gotoXY(left + 17, top + 11);
+
+	Controller::gotoXY(left + 17, top + 7);
 	int left1 = left + 17;
 	putchar(249);
-	Screen::printVietnamese(L" Bàn cờ caro có kích thước 14x14.");
+	Screen::printVietnamese(L"  Người chơi bắt đầu game với một số lượng tiền nhất định và một số tháp cơ bản.");
+	Controller::gotoXY(left1, top + 8);
+	Screen::printVietnamese(L" Kẻ địch bắt đầu xuất hiện từ các điểm spawn.");
+
+	Controller::gotoXY(left1, top + 9);
+	putchar(249);
+	Screen::printVietnamese(L"  Một số kẻ địch có tốc độ di chuyển nhanh, trong khi một số khác có nhiều máu hơn,");
+	Controller::gotoXY(left1, top + 10);
+	Screen::printVietnamese(L" hoặc có khả năng phòng thủ cao. Bạn cần xây dựng tháp sao cho phù hợp với");
+	Controller::gotoXY(left1, top + 11);
+	Screen::printVietnamese(L" từng loại kẻ địch.");
+
 	Controller::gotoXY(left1, top + 12);
 	putchar(249);
+	Screen::printVietnamese(L"  Khi một kẻ địch vượt qua hệ thống phòng thủ của bạn và vào căn cứ,");
+	Controller::gotoXY(left1, top + 13);
+	Screen::printVietnamese(L" bạn sẽ mất một lượng máu nhất định. Khi hết máu, bạn sẽ thua cuộc.");
 	
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(left1 + 30, top + 14);
+	Screen::printVietnamese(L"Chúc bạn nhiều may mắn !");
 
 	Controller::SetColor(BRIGHT_WHITE, AQUA);
-	Controller::gotoXY(left + 3, top + 19);
+	Controller::gotoXY(left + 3, top + 18);
 	cout << "Developers:";
-	Controller::gotoXY(left + 31, top + 18);
-	Screen::printVietnamese(L"Dev 1: Bùi Nam Việt (23127516)");
-	Controller::gotoXY(left + 31, top + 19);
+	Controller::gotoXY(left + 31, top + 16);
+	Screen::printVietnamese(L"Dev 1: Nguyễn Bách Khoa (23127066)");
+	Controller::gotoXY(left + 31, top + 17);
 	Screen::printVietnamese(L"Dev 2: Trương Hoàng Lâm (23127402)");
+	Controller::gotoXY(left + 31, top + 18);
+	Screen::printVietnamese(L"Dev 3: Bùi Quang Sơn (23127468)");
+	Controller::gotoXY(left + 31, top + 19);
+	Screen::printVietnamese(L"Dev 4: Bùi Nam Việt (23127516)");
 	Controller::gotoXY(left + 31, top + 20);
-	Screen::printVietnamese(L"Dev 3: Trương Quang Huy (23127530)");
+	Screen::printVietnamese(L"Dev 5: Trương Quang Huy (23127530)");
 
 	Controller::SetColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 22);
