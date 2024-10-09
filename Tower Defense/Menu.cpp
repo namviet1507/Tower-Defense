@@ -262,6 +262,120 @@ void Menu::Setting() {}
 
 void Menu::signup() {}
 
-void Screen::printLogo() {}
+void Screen::printVietnamese(wstring text) {
+	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
+	wcout << text;
+	mode = _setmode(_fileno(stdout), _O_TEXT);
+}
 
-void Screen::printVietnamese(wstring str) {}
+void Screen::printLogoStandard() {
+
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_AQUA);
+	Controller::gotoXY(6, 5);
+	Screen::printVietnamese(L"████████╗ ██████╗ ██╗    ██╗███████╗██████╗ \n");
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::gotoXY(6, 6);
+	Screen::printVietnamese(L"╚══██╔══╝██╔═══██╗██║    ██║██╔════╝██╔══██╗\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(6, 7);
+	Screen::printVietnamese(L"   ██║   ██║   ██║██║ █╗ ██║█████╗  ██████╔╝\n");
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(6, 8);
+	Screen::printVietnamese(L"   ██║   ██║   ██║██║███╗██║██╔══╝  ██╔══██╗\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(6, 9);
+	Screen::printVietnamese(L"   ██║   ╚██████╔╝╚███╔███╔╝███████╗██║  ██║\n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(6, 10);
+	Screen::printVietnamese(L"   ╚═╝    ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝\n");
+
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(56, 5);
+	Screen::printVietnamese(L"██████╗ ███████╗███████╗███████╗███╗   ██╗███████╗███████╗\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(56, 6);
+	Screen::printVietnamese(L"██╔══██╗██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝██╔════╝\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(56, 7);
+	Screen::printVietnamese(L"██║  ██║█████╗  █████╗  █████╗  ██╔██╗ ██║███████╗█████╗  \n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(56, 8);
+	Screen::printVietnamese(L"██║  ██║██╔══╝  ██╔══╝  ██╔══╝  ██║╚██╗██║╚════██║██╔══╝  \n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(56, 9);
+	Screen::printVietnamese(L"██████╔╝███████╗██║     ███████╗██║ ╚████║███████║███████╗\n");
+	Controller::SetColor(BRIGHT_WHITE, GRAY);
+	Controller::gotoXY(56, 10);
+	Screen::printVietnamese(L"╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝\n");
+
+}
+
+void Screen::printLogoEffect() {
+	int cnt = 15;
+	while (cnt--) {
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 5);
+		Screen::printVietnamese(L"████████╗ ██████╗ ██╗    ██╗███████╗██████╗ \n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 6);
+		Screen::printVietnamese(L"╚══██╔══╝██╔═══██╗██║    ██║██╔════╝██╔══██╗\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 7);
+		Screen::printVietnamese(L"   ██║   ██║   ██║██║ █╗ ██║█████╗  ██████╔╝\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 8);
+		Screen::printVietnamese(L"   ██║   ██║   ██║██║███╗██║██╔══╝  ██╔══██╗\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 9);
+		Screen::printVietnamese(L"   ██║   ╚██████╔╝╚███╔███╔╝███████╗██║  ██║\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(6, 10);
+		Screen::printVietnamese(L"   ╚═╝    ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝\n");
+
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 5);
+		Screen::printVietnamese(L"██████╗ ███████╗███████╗███████╗███╗   ██╗███████╗███████╗\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 6);
+		Screen::printVietnamese(L"██╔══██╗██╔════╝██╔════╝██╔════╝████╗  ██║██╔════╝██╔════╝\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 7);
+		Screen::printVietnamese(L"██║  ██║█████╗  █████╗  █████╗  ██╔██╗ ██║███████╗█████╗  \n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 8);
+		Screen::printVietnamese(L"██║  ██║██╔══╝  ██╔══╝  ██╔══╝  ██║╚██╗██║╚════██║██╔══╝  \n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 9);
+		Screen::printVietnamese(L"██████╔╝███████╗██║     ███████╗██║ ╚████║███████║███████╗\n");
+		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
+		Controller::gotoXY(56, 10);
+		Screen::printVietnamese(L"╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝\n");
+		Sleep(125);
+	}
+}
+
+int check = 1;
+void Screen::printLogo() {
+	if (check) {
+		check = 0;
+		Screen::printLogoEffect();
+	}
+	Screen::printLogoStandard();
+
+	Controller::gotoXY(10, 15);
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	cout << R"(
+
+	       [ O ]
+		 \ \      p
+		  \ \  \o/
+		   \ \--'---_
+		   /\ \   / ~~\_
+	 ./---/__|=/_/------//~~~\
+	/___________________/O   O \
+	(===(\_________(===(Oo o o O)
+	 \~~~\____/     \---\Oo__o--
+	   ~~~~~~~       ~~~~~~~~~~
+	)";
+
+}
