@@ -3,17 +3,9 @@
 
 int main() {
 	Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
-	//Screen::printMainScreen();
-	// hello
-
-	for (int i = 0; i < 36; i++) {
-		for (int j = 0; j < 56; j++) {
-			cout << "01";
-		}
-		cout << '\n';
-	}
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
+	Screen::printMainScreen();
 
 	system("PAUSE");
 	return 0;
