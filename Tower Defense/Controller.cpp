@@ -40,7 +40,7 @@ void Controller::showCursor(bool show)
 
 void Controller::setConsoleTitle()
 {
-	SetConsoleTitleA("CARO GAME");
+	SetConsoleTitleA("TOWER DEFENSE");
 }
 
 void Controller::setAndCenterWindow()
