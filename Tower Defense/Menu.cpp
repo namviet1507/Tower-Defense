@@ -262,8 +262,19 @@ void Menu::Setting() {}
 
 void Menu::signup() {}
 
+<<<<<<< HEAD
 void Screen::printLogoStandard() {
 
+=======
+void Screen::printVietnamese(wstring text) {
+	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
+	wcout << text;
+	mode = _setmode(_fileno(stdout), _O_TEXT);
+}
+
+void Screen::printLogoStandard() {
+
+>>>>>>> 46e839356593e403559f5a7077ec1c58ab720f70
 	Controller::SetColor(BRIGHT_WHITE, LIGHT_AQUA);
 	Controller::gotoXY(6, 5);
 	Screen::printVietnamese(L"████████╗ ██████╗ ██╗    ██╗███████╗██████╗ \n");
@@ -326,6 +337,10 @@ void Screen::printLogoEffect() {
 		Controller::gotoXY(6, 10);
 		Screen::printVietnamese(L"   ╚═╝    ╚═════╝  ╚══╝╚══╝ ╚══════╝╚═╝  ╚═╝\n");
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 46e839356593e403559f5a7077ec1c58ab720f70
 		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
 		Controller::gotoXY(56, 5);
 		Screen::printVietnamese(L"██████╗ ███████╗███████╗███████╗███╗   ██╗███████╗███████╗\n");
@@ -344,6 +359,10 @@ void Screen::printLogoEffect() {
 		Controller::SetColor(BRIGHT_WHITE, rand() % 6 + 1);
 		Controller::gotoXY(56, 10);
 		Screen::printVietnamese(L"╚═════╝ ╚══════╝╚═╝     ╚══════╝╚═╝  ╚═══╝╚══════╝╚══════╝\n");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 46e839356593e403559f5a7077ec1c58ab720f70
 		Sleep(125);
 	}
 }
@@ -370,6 +389,7 @@ void Screen::printLogo() {
 	(===(\_________(===(Oo o o O)
 	 \~~~\____/     \---\Oo__o--
 	   ~~~~~~~       ~~~~~~~~~~
+<<<<<<< HEAD
 	)";
 
 }
@@ -378,4 +398,8 @@ void Screen::printVietnamese(wstring text){
 	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
 	wcout << text;
 	mode = _setmode(_fileno(stdout), _O_TEXT);
+=======
+
+		)";
+>>>>>>> 46e839356593e403559f5a7077ec1c58ab720f70
 }

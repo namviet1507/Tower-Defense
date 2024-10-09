@@ -11,5 +11,5 @@ class Map {
 public:
 	void setSize(int, int);
 	void setMap(string);
-
+	void printMap();
 };

@@ -1,5 +1,6 @@
 # Tower Defense
-Tower Defense Game using OOP and C++ language | Ho Chi Minh City University of Science
++ Tower Defense Game using OOP and C++ language | Ho Chi Minh City University of Science
++ Lecturer: TRUONG TOAN THINH
 ## 1. Introduction
 - In this project we will combine techniques, basic data structures as well as objectoriented knowledge to build a simple game, tower defense.
 - To carry out this project, we need basic knowledge such as: file handling, processes, basic data structures and object-oriented knowledge...
