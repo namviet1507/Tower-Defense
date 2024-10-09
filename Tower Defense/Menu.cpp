@@ -509,46 +509,6 @@ void Menu::Setting() {
 	Controller::gotoXY(2, 28);
 	Screen::printVietnamese(L"                  ██████\n");
 
-//	cout << R"(
-//                  ██████                  
-//                ██      ██                
-//      ██████    ██      ██    ██████      
-//    ██      ████          ████      ██    
-//    ██                              ██    
-//    ██                              ██    
-//      ██                          ██      
-//      ██                          ██      
-//  ████            ██████            ████  
-//██              ██      ██              ██
-//██              ██      ██              ██
-//██              ██      ██              ██
-//  ████            ██████            ████  
-//      ██                          ██      
-//      ██                          ██      
-//    ██                              ██    
-//    ██                              ██    
-//    ██      ████          ████      ██    
-//      ██████    ██      ██    ██████      
-//                ██      ██                
-//                  ██████                  
-//
-//	)";
-
-	/*Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
-	fstream file;
-	file.open("setting logo.txt", ios::in | ios::binary);
-	string s;
-	int line = 0;
-	while (getline(file, s)) {
-		Controller::gotoXY(2, 11 + line++);
-		for (int i = 0; i < s.length(); i++) {
-			if (isalpha(s[i]))
-				putchar(219);
-			else cout << " ";
-		}
-		cout << endl;
-	}
-	file.close();*/
 
 	while (true) {
 		choice[curChoice] = 1;
