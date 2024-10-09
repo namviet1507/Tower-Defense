@@ -7,9 +7,8 @@ class Player {
 		int score;
 	public:
 		Player();
-		wstring getPlayerName();
 		void setPlayerName(wstring);
-		int getScore();
 		void setScore(int);
-
+		wstring getPlayerName();
+		int getScore();
 };

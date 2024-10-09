@@ -2,6 +2,10 @@
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
+bool Menu::music_is_open = false;
+bool Menu::sound_is_open = false;
+
+
 bool Screen::isVie;
 Menu a;
 void Screen::printRectangle(int left, int top, int width, int height)
@@ -245,3 +249,19 @@ void Screen::printMainScreen() {
 		}
 	}
 }
+
+int Screen::printLevel() {
+	return 0;
+}
+
+void Menu::helpScreen() {}
+
+void Menu::readLoadGame() {}
+
+void Menu::Setting() {}
+
+void Menu::signup() {}
+
+void Screen::printLogo() {}
+
+void Screen::printVietnamese(wstring str) {}
