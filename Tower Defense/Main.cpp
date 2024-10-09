@@ -6,6 +6,7 @@ int main() {
 	//Menu::music_is_open = true;
 	//Menu::sound_is_open = true;
 	//Screen::printMainScreen();
+	// hello
 
 	for (int i = 0; i < 36; i++) {
 		for (int j = 0; j < 56; j++) {
