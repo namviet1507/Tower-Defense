@@ -16,9 +16,15 @@ public:
 	void setColor(int);
 	void setPos(int, int);
 	void setArea(int, int);
+
 	void setFlagBuild(bool);
 	void setFlagTower(bool);
 	void setFlagRoad(bool);
+
+	bool getFlagBuild();
+	bool getFlagTower();
+	bool getFlagRoad();
+
 	int getColor();
 	void printCell();
 };
