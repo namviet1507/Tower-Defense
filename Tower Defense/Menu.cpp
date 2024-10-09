@@ -251,7 +251,175 @@ void Screen::printMainScreen() {
 }
 
 int Screen::printLevel() {
-	return 0;
+	system("cls");
+	Screen::printLogo();
+	int choice[4] = { 0,0,0,0 }, curChoice = 0;
+	while (true) {
+		choice[curChoice] = 1;
+		if (choice[0]) {
+			Controller::SetColor(GREEN, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 14 + i);
+				cout << "              ";
+			}
+			
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 15);
+				Screen::printVietnamese(L"DỄ");
+			}
+			else {
+				Controller::gotoXY(55, 15);
+				cout << "EASY";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 15);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 14, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 15);
+				Screen::printVietnamese(L"DỄ");
+			}
+			else {
+				Controller::gotoXY(55, 15);
+				cout << "EASY";
+			}
+		}
+		if (choice[1]) {
+			Controller::SetColor(GREEN, LIGHT_YELLOW);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 18 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(51, 19);
+				Screen::printVietnamese(L"BÌNH THƯỜNG");
+			}
+			else {
+				Controller::gotoXY(54, 19);
+				cout << "NORMAL";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 19);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 18, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+			if (Screen::isVie) {
+				Controller::gotoXY(51, 19);
+				Screen::printVietnamese(L"BÌNH THƯỜNG");
+			}
+			else {
+				Controller::gotoXY(54, 19);
+				cout << "NORMAL";
+			}
+		}
+		if (choice[2]) {
+			Controller::SetColor(GREEN, LIGHT_RED);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 22 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 23);
+				Screen::printVietnamese(L"KHÓ");
+			}
+			else {
+				Controller::gotoXY(52, 23);
+				cout << "DIFFICULT";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 23);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 22, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 23);
+				Screen::printVietnamese(L"KHÓ");
+			}
+			else {
+				Controller::gotoXY(52, 23);
+				cout << "DIFFICULT";
+			}
+		}
+
+		if (choice[3]) {
+			Controller::SetColor(GREEN, LIGHT_RED);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 26 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 27);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 27);
+				cout << "BACK";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 27);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 26, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 27);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 27);
+				cout << "BACK";
+			}
+		}
+
+		int temp, key;
+		if (temp = _getch()) {
+			if (temp != 224 && temp)
+			{
+				if (temp == KEY_ENTER) {
+					if (Menu::sound_is_open)
+						Controller::playSound(ENTER_SOUND);
+					return curChoice;
+				}
+			}
+			else {
+				key = _getch();
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
+				switch (key)
+				{
+				case KEY_UP:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice > 0) curChoice--;
+					else curChoice = 3;
+					break;
+				case KEY_DOWN:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice < 3) curChoice++;
+					else curChoice = 0;
+				default:
+					break;
+				}
+			}
+		}
+	}
 }
 
 void Menu::helpScreen() {}
