@@ -422,7 +422,368 @@ int Screen::printLevel() {
 
 void Menu::readLoadGame() {}
 
-void Menu::Setting() {}
+void Menu::Setting() {
+	system("cls");
+	system("color F0");
+	int choice[4] = { 0,0,0,0 }, temp, key, curChoice = 0;
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_AQUA);
+	Controller::gotoXY(30, 2);
+	Screen::printVietnamese(L"███████╗███████╗████████╗████████╗██╗███╗   ██╗ ██████╗ \n");
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::gotoXY(30, 3);
+	Screen::printVietnamese(L"██╔════╝██╔════╝╚══██╔══╝╚══██╔══╝██║████╗  ██║██╔════╝ \n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(30, 4);
+	Screen::printVietnamese(L"███████╗█████╗     ██║      ██║   ██║██╔██╗ ██║██║  ███╗\n");
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(30, 5);
+	Screen::printVietnamese(L"╚════██║██╔══╝     ██║      ██║   ██║██║╚██╗██║██║   ██║\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(30, 6);
+	Screen::printVietnamese(L"███████║███████╗   ██║      ██║   ██║██║ ╚████║╚██████╔╝\n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(30, 7);
+	Screen::printVietnamese(L"╚══════╝╚══════╝   ╚═╝      ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ \n");
+	
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(2, 8);
+	Screen::printVietnamese(L"                  ██████\n");
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(2, 9);
+	Screen::printVietnamese(L"                ██      ██\n");
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(2, 10);
+	Screen::printVietnamese(L"      ██████    ██      ██    ██████\n");
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(2, 11);
+	Screen::printVietnamese(L"    ██      ████          ████      ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(2, 12);
+	Screen::printVietnamese(L"    ██                              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(2, 13);
+	Screen::printVietnamese(L"    ██                              ██ \n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(2, 14);
+	Screen::printVietnamese(L"      ██                          ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(2, 15);
+	Screen::printVietnamese(L"      ██                          ██\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(2, 16);
+	Screen::printVietnamese(L"  ████            ██████            ████\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(2, 17);
+	Screen::printVietnamese(L"██              ██      ██              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(2, 18);
+	Screen::printVietnamese(L"██              ██      ██              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(2, 19);
+	Screen::printVietnamese(L"██              ██      ██              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(2, 20);
+	Screen::printVietnamese(L"  ████            ██████            ████\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(2, 21);
+	Screen::printVietnamese(L"      ██                          ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(2, 22);
+	Screen::printVietnamese(L"      ██                          ██\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(2, 23);
+	Screen::printVietnamese(L"    ██                              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(2, 24);
+	Screen::printVietnamese(L"    ██                              ██\n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(2, 25);
+	Screen::printVietnamese(L"    ██      ████          ████      ██ \n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(2, 26);
+	Screen::printVietnamese(L"      ██████    ██      ██    ██████\n");
+	Controller::SetColor(BRIGHT_WHITE, GRAY);
+	Controller::gotoXY(2, 27);
+	Screen::printVietnamese(L"                ██      ██\n");
+	Controller::SetColor(BRIGHT_WHITE, GRAY);
+	Controller::gotoXY(2, 28);
+	Screen::printVietnamese(L"                  ██████\n");
+
+//	cout << R"(
+//                  ██████                  
+//                ██      ██                
+//      ██████    ██      ██    ██████      
+//    ██      ████          ████      ██    
+//    ██                              ██    
+//    ██                              ██    
+//      ██                          ██      
+//      ██                          ██      
+//  ████            ██████            ████  
+//██              ██      ██              ██
+//██              ██      ██              ██
+//██              ██      ██              ██
+//  ████            ██████            ████  
+//      ██                          ██      
+//      ██                          ██      
+//    ██                              ██    
+//    ██                              ██    
+//    ██      ████          ████      ██    
+//      ██████    ██      ██    ██████      
+//                ██      ██                
+//                  ██████                  
+//
+//	)";
+
+	/*Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	fstream file;
+	file.open("setting logo.txt", ios::in | ios::binary);
+	string s;
+	int line = 0;
+	while (getline(file, s)) {
+		Controller::gotoXY(2, 11 + line++);
+		for (int i = 0; i < s.length(); i++) {
+			if (isalpha(s[i]))
+				putchar(219);
+			else cout << " ";
+		}
+		cout << endl;
+	}
+	file.close();*/
+
+	while (true) {
+		choice[curChoice] = 1;
+		if (Menu::music_is_open) {
+			Controller::SetColor(GREEN, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 12 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(74, 13);
+			if (Screen::isVie)
+				Screen::printVietnamese(L"BẬT");
+			else cout << "ON";
+		}
+		else {
+			Controller::SetColor(RED, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 12 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(74, 13);
+			if (Screen::isVie)
+				Screen::printVietnamese(L"TẮT");
+			else cout << "OFF";
+		}
+		if (Menu::sound_is_open) {
+			Controller::SetColor(GREEN, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 15 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(74, 16);
+			if (Screen::isVie)
+				Screen::printVietnamese(L"BẬT");
+			else cout << "ON";
+		}
+		else {
+			Controller::SetColor(RED, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 15 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(74, 16);
+			if (Screen::isVie)
+				Screen::printVietnamese(L"TẮT");
+			else cout << "OFF";
+		}
+		if (Screen::isVie) {
+			Controller::SetColor(AQUA, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 18 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(71, 19);
+			Screen::printVietnamese(L"TIẾNG VIỆT");
+		}
+		else {
+			Controller::SetColor(PURPLE, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(70, 18 + i);
+				cout << "           ";
+			}
+			Controller::gotoXY(72, 19);
+			cout << "ENGLISH";
+		}
+		if (choice[0]) {
+			Controller::SetColor(GREEN, BRIGHT_WHITE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 12 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 13);
+				Screen::printVietnamese(L"ÂM NHẠC");
+			}
+			else {
+				Controller::gotoXY(54, 13);
+				cout << "MUSIC";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 13);
+			Controller::SetColor(BRIGHT_WHITE, WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 12, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 13);
+				Screen::printVietnamese(L"ÂM NHẠC");
+			}
+			else {
+				Controller::gotoXY(54, 13);
+				cout << "MUSIC";
+			}
+		}
+		if (choice[1]) {
+			Controller::SetColor(GREEN, LIGHT_YELLOW);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 15 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 16);
+				Screen::printVietnamese(L"ÂM THANH");
+			}
+			else {
+				Controller::gotoXY(55, 16);
+				cout << "SFX";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 16);
+			Controller::SetColor(BRIGHT_WHITE, WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 15, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 16);
+				Screen::printVietnamese(L"ÂM THANH");
+			}
+			else {
+				Controller::gotoXY(55, 16);
+				cout << "SFX";
+			}
+		}
+
+		if (choice[2]) {
+			Controller::SetColor(GREEN, LIGHT_PURPLE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 18 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 19);
+				Screen::printVietnamese(L"NGÔN NGỮ");
+			}
+			else {
+				Controller::gotoXY(53, 19);
+				cout << "LANGUAGE";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 19);
+			Controller::SetColor(BRIGHT_WHITE, WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 18, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 19);
+				Screen::printVietnamese(L"NGÔN NGỮ");
+			}
+			else {
+				Controller::gotoXY(53, 19);
+				cout << "LANGUAGE";
+			}
+		}
+
+		if (choice[3]) {
+			Controller::SetColor(GREEN, LIGHT_PURPLE);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 21 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 22);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 22);
+				cout << "BACK";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 22);
+			Controller::SetColor(BRIGHT_WHITE, WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 21, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 22);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 22);
+				cout << "BACK";
+			}
+		}
+		if (temp = _getch()) {
+			if (temp != 224 && temp)
+			{
+				if (temp == KEY_ENTER) {
+					if (Menu::sound_is_open)
+						Controller::playSound(ENTER_SOUND);
+					if (curChoice == 0)
+						Menu::music_is_open = !Menu::music_is_open;
+					else if (curChoice == 1)
+						Menu::sound_is_open = !Menu::sound_is_open;
+					else if (curChoice == 2)
+						Screen::isVie = !Screen::isVie;
+					else
+						if (Game::isPlaying) {
+							
+						}
+						else Menu::goBack();
+				}
+			}
+			else {
+				key = _getch();
+				switch (key)
+				{
+				case KEY_UP:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice > 0) curChoice--;
+					else curChoice = 3;
+					break;
+				case KEY_DOWN:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice < 3) curChoice++;
+					else curChoice = 0;
+				default:
+					break;
+				}
+			}
+		}
+	}
+}
 
 void Menu::signup() {}
 
