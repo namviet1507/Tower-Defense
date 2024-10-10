@@ -249,7 +249,7 @@ void Screen::printMainScreen() {
 }
 
 int Screen::printLevel() {
-	system("cls");
+	//system("cls");
 	Screen::printLogo();
 	int choice[4] = { 0,0,0,0 }, curChoice = 0;
 	while (true) {
@@ -262,7 +262,7 @@ int Screen::printLevel() {
 			}
 			
 			if (Screen::isVie) {
-				Controller::gotoXY(53, 15);
+				Controller::gotoXY(56, 15);
 				Screen::printVietnamese(L"DỄ");
 			}
 			else {
@@ -278,7 +278,7 @@ int Screen::printLevel() {
 			Screen::printRectangle(50, 14, 12, 2);
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
 			if (Screen::isVie) {
-				Controller::gotoXY(53, 15);
+				Controller::gotoXY(56, 15);
 				Screen::printVietnamese(L"DỄ");
 			}
 			else {
@@ -293,7 +293,7 @@ int Screen::printLevel() {
 				cout << "              ";
 			}
 			if (Screen::isVie) {
-				Controller::gotoXY(51, 19);
+				Controller::gotoXY(52, 19);
 				Screen::printVietnamese(L"BÌNH THƯỜNG");
 			}
 			else {
@@ -309,7 +309,7 @@ int Screen::printLevel() {
 			Screen::printRectangle(50, 18, 12, 2);
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
 			if (Screen::isVie) {
-				Controller::gotoXY(51, 19);
+				Controller::gotoXY(52, 19);
 				Screen::printVietnamese(L"BÌNH THƯỜNG");
 			}
 			else {
@@ -324,7 +324,7 @@ int Screen::printLevel() {
 				cout << "              ";
 			}
 			if (Screen::isVie) {
-				Controller::gotoXY(53, 23);
+				Controller::gotoXY(55, 23);
 				Screen::printVietnamese(L"KHÓ");
 			}
 			else {
@@ -341,7 +341,7 @@ int Screen::printLevel() {
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
 
 			if (Screen::isVie) {
-				Controller::gotoXY(53, 23);
+				Controller::gotoXY(55, 23);
 				Screen::printVietnamese(L"KHÓ");
 			}
 			else {
