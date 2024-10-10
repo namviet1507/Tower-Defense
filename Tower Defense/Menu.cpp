@@ -2,8 +2,8 @@
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
-bool Menu::music_is_open = false;
-bool Menu::sound_is_open = false;
+bool Menu::music_is_open;
+bool Menu::sound_is_open;
 
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
