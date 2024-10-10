@@ -4,7 +4,8 @@
 
 bool Menu::music_is_open;
 bool Menu::sound_is_open;
-
+char Menu::FILENAME[100];
+char Menu::NAMEFILE[100];
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
@@ -420,7 +421,346 @@ int Screen::printLevel() {
 	}
 }
 
-void Menu::readLoadGame() {}
+void Screen::printListFile(int start, int end, vector<string> arrFilename) {
+	int y = 0;
+	for (int i = start; i < arrFilename.size() && i <= end; i++) {
+		Controller::SetColor(BRIGHT_WHITE, BLACK);
+		Controller::gotoXY(40, 15 + y);
+		y++;
+		cout << i + 1 << ". " << arrFilename[i];
+		size_t x = arrFilename[i].size();
+		while (x < 30) {
+			cout << ' ';
+			x++;
+		}
+	}
+}
+
+string Menu::getFile() {
+	fstream listFile;
+	listFile.open(LIST_FILE, ios::in | ios::binary);
+
+	if (!listFile) {
+		Controller::SetColor(BLACK, BRIGHT_WHITE);
+		system("cls");
+		exit(0);
+		return "";
+	}
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printRectangle(35, 12, 40, 14);
+	Controller::gotoXY(49, 13);
+	Screen::printVietnamese(L"Danh sách FILE");
+	Controller::gotoXY(36, 14);
+	for (int i = 0; i < 39; i++) {
+		putchar(196);
+	}
+
+	char* filename = new char[100]; // ten file user luu
+	vector<string> arrFilename;
+	bool check = true;
+	while (listFile.read((char*)filename, 100)) {
+		check = false;
+		arrFilename.push_back(filename);
+	}
+
+	int left = 0;
+	size_t right = arrFilename.size() - 1;
+	while (left < right) {
+		swap(arrFilename[left], arrFilename[right]);
+		left++;
+		right--;
+	}
+
+	if (arrFilename.size() == 0) {
+		Controller::SetColor(BRIGHT_WHITE, BLACK);
+		Screen::printRectangle(51, 27, 8, 2);
+		Controller::SetColor(BRIGHT_WHITE, RED);
+		Controller::gotoXY(49, 28);
+		putchar(175);
+		Controller::gotoXY(53, 28);
+		if (Screen::isVie)
+			Screen::printVietnamese(L"Trở về");
+		else
+			cout << "BACK";
+		Controller::gotoXY(62, 28);
+		putchar(174);
+		int key = Controller::getConsoleInput();
+		while (key != 6) {
+			if (Menu::sound_is_open)
+				Controller::playSound(ERROR_SOUND);
+			key = Controller::getConsoleInput();
+		}
+		return "";
+	}
+
+	int index = 0;
+	int top = 0;
+	int bot = 10;
+	int y = 0;
+	bool isBack = false;
+	Screen::printListFile(top, bot, arrFilename);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printRectangle(51, 27, 8, 2);
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(53, 28);
+	if (Screen::isVie)
+		Screen::printVietnamese(L"Trở về");
+	else
+		cout << "BACK";
+
+
+	Controller::SetColor(GREEN, BLACK);
+	Controller::gotoXY(38, 15 + index);
+	cout << index + 1 << ". " << arrFilename[index];
+	size_t x = arrFilename[index].size();
+	while (x < 30) {
+		cout << ' ';
+		x++;
+	}
+
+	while (true) {
+		if (_kbhit()) {
+			switch (Controller::getConsoleInput()) {
+			case 2: // UP
+				if (isBack) {
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					Controller::SetColor(BRIGHT_WHITE, RED);
+					Controller::gotoXY(49, 28);
+					putchar(32);
+					Controller::gotoXY(62, 28);
+					putchar(32);
+
+					isBack = false;
+
+					Controller::SetColor(GREEN, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << index + 1 << ". " << arrFilename[index];
+					x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+				}
+				else if (index > 0) {
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					Controller::SetColor(BRIGHT_WHITE, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << "  " << index + 1 << ". " << arrFilename[index];
+					size_t x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+
+					if (index == top) {
+						top--;
+						bot--;
+						Screen::printListFile(top, bot, arrFilename);
+					}
+					else y--;
+					index--;
+
+					Controller::SetColor(GREEN, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << index + 1 << ". " << arrFilename[index];
+					x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+				}
+				else if (Menu::sound_is_open)
+					Controller::playSound(ERROR_SOUND);
+				break;
+			case 5: // DOWN
+				if (isBack) {
+					if (Menu::sound_is_open)
+						Controller::playSound(ERROR_SOUND);
+				}
+				else if (index < arrFilename.size() - 1) {
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+
+					Controller::SetColor(BRIGHT_WHITE, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << "  " << index + 1 << ". " << arrFilename[index];
+					size_t x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+
+					if (index == bot) {
+						top++;
+						bot++;
+						Screen::printListFile(top, bot, arrFilename);
+					}
+					else y++;
+					index++;
+
+					Controller::SetColor(GREEN, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << index + 1 << ". " << arrFilename[index];
+					x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+				}
+				else if (index == arrFilename.size() - 1) {
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					isBack = true;
+
+					Controller::SetColor(BRIGHT_WHITE, BLACK);
+					Controller::gotoXY(38, 15 + y);
+					cout << "  " << index + 1 << ". " << arrFilename[index];
+					size_t x = arrFilename[index].size();
+					while (x < 30) {
+						cout << ' ';
+						x++;
+					}
+
+					Controller::SetColor(BRIGHT_WHITE, BLACK);
+					Screen::printRectangle(51, 27, 8, 2);
+					Controller::SetColor(BRIGHT_WHITE, RED);
+					Controller::gotoXY(49, 28);
+					putchar(175);
+					Controller::gotoXY(53, 28);
+					if (Screen::isVie)
+						Screen::printVietnamese(L"Trở về");
+					else
+						cout << "BACK";
+					Controller::gotoXY(62, 28);
+					putchar(174);
+				}
+				break;
+			case 6: // Enter
+				if (isBack) return "";
+				else {
+					strcpy_s(filename, 100, arrFilename[index].c_str());
+					char* temp = new char[100];
+					strcpy_s(temp, 100, filename);
+					strcpy_s(Menu::FILENAME, 100, filename);
+					strcat_s(temp, 100, ".bin\0");
+					return temp;
+				}
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	return "";
+}
+
+//void Menu::processLoadFile(string filename) {
+//	fstream inFile;
+//
+//	inFile.open("readLoadGame/" + filename, ios::in | ios::binary);
+//
+//	if (!inFile) return;
+//
+//	int row, col;
+//	char last_sign, sign;
+//	size_t size;
+//
+//	size_t length;
+//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
+//	wstring wstr1(length, L'\0');
+//	inFile.read(reinterpret_cast<char*>(&wstr1[0]), length * sizeof(wchar_t));
+//	a.playerName = wstr1;
+//
+//	inFile.read((char*)&a.score, sizeof(a.score));
+//
+//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
+//	wstring wstr2(length, L'\0');
+//	inFile.read(reinterpret_cast<char*>(&wstr2[0]), length * sizeof(wchar_t));
+//	b.playerName = wstr2;
+//
+//	inFile.read((char*)&b.score, sizeof(b.score));
+//
+//	inFile.read((char*)&mode, sizeof(mode));
+//
+//	inFile.read((char*)&row, sizeof(row));
+//	inFile.read((char*)&col, sizeof(col));
+//	inFile.read((char*)&last_sign, sizeof(last_sign));
+//	inFile.read((char*)&size, sizeof(size));
+//	createBoard();
+//	cur_point = &board[row][col];
+//	for (int i = 0; i < size; i++) {
+//
+//		inFile.read((char*)&row, sizeof(row));
+//		inFile.read((char*)&col, sizeof(col));
+//		inFile.read((char*)&sign, sizeof(sign));
+//		board[row][col].sign = sign;
+//		history.push(&board[row][col]);
+//	}
+//
+//	system("cls");
+//	system("color F0");
+//	printBoard();
+//	printScoreBoard(); // in bảng điểm
+//	Game::isPlaying = true;
+//	controlPoint();
+//
+//	inFile.close();
+//}
+
+void Menu::readLoadGame() {
+	system("cls");
+
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_AQUA);
+	Controller::gotoXY(18, 5);
+	Screen::printVietnamese(L"██╗      ██████╗  █████╗ ██████╗  \n");
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::gotoXY(18, 6);
+	Screen::printVietnamese(L"██║     ██╔═══██╗██╔══██╗██╔══██╗ \n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(18, 7);
+	Screen::printVietnamese(L"██║     ██║   ██║███████║██║  ██║\n");
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(18, 8);
+	Screen::printVietnamese(L"██║     ██║   ██║██╔══██║██║  ██║\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(18, 9);
+	Screen::printVietnamese(L"███████╗╚██████╔╝██║  ██║██████╔╝\n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(18, 10);
+	Screen::printVietnamese(L"╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═════╝ \n");
+
+	Controller::SetColor(BRIGHT_WHITE, YELLOW);
+	Controller::gotoXY(60, 5);
+	Screen::printVietnamese(L" ██████╗  █████╗ ███╗   ███╗███████╗\n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(60, 6);
+	Screen::printVietnamese(L"██╔════╝ ██╔══██╗████╗ ████║██╔════╝\n");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(60, 7);
+	Screen::printVietnamese(L"██║  ███╗███████║██╔████╔██║█████╗  \n");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Controller::gotoXY(60, 8);
+	Screen::printVietnamese(L"██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  \n");
+	Controller::SetColor(BRIGHT_WHITE, PURPLE);
+	Controller::gotoXY(60, 9);
+	Screen::printVietnamese(L"╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗\n");
+	Controller::SetColor(BRIGHT_WHITE, GRAY);
+	Controller::gotoXY(60, 10);
+	Screen::printVietnamese(L" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝\n");
+
+
+	//string filename = getFile();
+	//if (filename != "") {
+	//	//Game::processLoadFile(filename);
+	//	return;
+	//}
+	//else {
+	//	Menu::goBack();
+	//}
+}
 
 void Menu::Setting() {
 	system("cls");
@@ -898,7 +1238,7 @@ void Menu::helpScreen() {
 	putchar(197);
 
 	Controller::SetColor(BRIGHT_WHITE, BLUE);
-	Controller::gotoXY(left + 3, top + 2);
+	Controller::gotoXY(left + 3, top + 3);
 	Screen::printVietnamese(L"Giới thiệu:");
 
 	Controller::gotoXY(left + 17, top + 1);
