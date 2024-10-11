@@ -3,17 +3,17 @@
 #include "Map.h"
 
 int main() {
-	/*Controller::setUpConsole();
+	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	Screen::printMainScreen();*/
-	Sleep(2000);
-	Map test;
+	Screen::printMainScreen();
+	
 
-	//test.createMap();
-
-	test.setMap("./Map/level1.txt");
-	test.printMap();
+	//Sleep(2000);
+	//Map test;
+	////test.createMap();
+	//test.setMap("./Map/level1.txt");
+	//test.printMap();
 
 	system("PAUSE");
 
