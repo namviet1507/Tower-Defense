@@ -2,10 +2,16 @@
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
+<<<<<<< HEAD
 bool Menu::music_is_open;
 bool Menu::sound_is_open;
 char Menu::FILENAME[100];
 char Menu::NAMEFILE[100];
+=======
+bool Menu::music_is_open = false;
+bool Menu::sound_is_open = false;
+
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
@@ -250,7 +256,11 @@ void Screen::printMainScreen() {
 }
 
 int Screen::printLevel() {
+<<<<<<< HEAD
 	//system("cls");
+=======
+	system("cls");
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 	Screen::printLogo();
 	int choice[4] = { 0,0,0,0 }, curChoice = 0;
 	while (true) {
@@ -263,7 +273,11 @@ int Screen::printLevel() {
 			}
 			
 			if (Screen::isVie) {
+<<<<<<< HEAD
 				Controller::gotoXY(56, 15);
+=======
+				Controller::gotoXY(53, 15);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 				Screen::printVietnamese(L"DỄ");
 			}
 			else {
@@ -279,7 +293,11 @@ int Screen::printLevel() {
 			Screen::printRectangle(50, 14, 12, 2);
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
 			if (Screen::isVie) {
+<<<<<<< HEAD
 				Controller::gotoXY(56, 15);
+=======
+				Controller::gotoXY(53, 15);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 				Screen::printVietnamese(L"DỄ");
 			}
 			else {
@@ -294,7 +312,11 @@ int Screen::printLevel() {
 				cout << "              ";
 			}
 			if (Screen::isVie) {
+<<<<<<< HEAD
 				Controller::gotoXY(52, 19);
+=======
+				Controller::gotoXY(51, 19);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 				Screen::printVietnamese(L"BÌNH THƯỜNG");
 			}
 			else {
@@ -310,7 +332,11 @@ int Screen::printLevel() {
 			Screen::printRectangle(50, 18, 12, 2);
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
 			if (Screen::isVie) {
+<<<<<<< HEAD
 				Controller::gotoXY(52, 19);
+=======
+				Controller::gotoXY(51, 19);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 				Screen::printVietnamese(L"BÌNH THƯỜNG");
 			}
 			else {
@@ -325,7 +351,11 @@ int Screen::printLevel() {
 				cout << "              ";
 			}
 			if (Screen::isVie) {
+<<<<<<< HEAD
 				Controller::gotoXY(55, 23);
+=======
+				Controller::gotoXY(53, 23);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 				Screen::printVietnamese(L"KHÓ");
 			}
 			else {
@@ -340,6 +370,7 @@ int Screen::printLevel() {
 			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
 			Screen::printRectangle(50, 22, 12, 2);
 			Controller::SetColor(BRIGHT_WHITE, GREEN);
+<<<<<<< HEAD
 
 			if (Screen::isVie) {
 				Controller::gotoXY(55, 23);
@@ -432,6 +463,85 @@ void Screen::printListFile(int start, int end, vector<string> arrFilename) {
 		while (x < 30) {
 			cout << ' ';
 			x++;
+=======
+
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 23);
+				Screen::printVietnamese(L"KHÓ");
+			}
+			else {
+				Controller::gotoXY(52, 23);
+				cout << "DIFFICULT";
+			}
+		}
+
+		if (choice[3]) {
+			Controller::SetColor(GREEN, LIGHT_RED);
+			for (int i = 0; i < 3; i++) {
+				Controller::gotoXY(50, 26 + i);
+				cout << "              ";
+			}
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 27);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 27);
+				cout << "BACK";
+			}
+		}
+		else {
+			Controller::gotoXY(50, 27);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			cout << "              ";
+			Controller::SetColor(BRIGHT_WHITE, LIGHT_GREEN);
+			Screen::printRectangle(50, 26, 12, 2);
+			Controller::SetColor(BRIGHT_WHITE, GREEN);
+
+			if (Screen::isVie) {
+				Controller::gotoXY(53, 27);
+				Screen::printVietnamese(L"QUAY LẠI");
+			}
+			else {
+				Controller::gotoXY(55, 27);
+				cout << "BACK";
+			}
+		}
+
+		int temp, key;
+		if (temp = _getch()) {
+			if (temp != 224 && temp)
+			{
+				if (temp == KEY_ENTER) {
+					if (Menu::sound_is_open)
+						Controller::playSound(ENTER_SOUND);
+					return curChoice;
+				}
+			}
+			else {
+				key = _getch();
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
+				switch (key)
+				{
+				case KEY_UP:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice > 0) curChoice--;
+					else curChoice = 3;
+					break;
+				case KEY_DOWN:
+					if (Menu::sound_is_open)
+						Controller::playSound(MOVE_SOUND);
+					choice[curChoice] = 0;
+					if (curChoice < 3) curChoice++;
+					else curChoice = 0;
+				default:
+					break;
+				}
+			}
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 		}
 	}
 }
@@ -1210,7 +1320,11 @@ void Menu::helpScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 	int left = 5, top = 2, width = 100, height = 23;
+<<<<<<< HEAD
 	int line1 = 8, line2 = 17, line3 = 23;
+=======
+	int line1 = 7, line2 = 19, line3 = 23;
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 	Screen::printRectangle(left, top, width, height);
 	Controller::gotoXY(left + 1, line1);
 	for (int i = 0; i < width; i++)
@@ -1229,6 +1343,7 @@ void Menu::helpScreen() {
 	}
 	for (int i = 1; i < height; i++)
 	{
+<<<<<<< HEAD
 		Controller::gotoXY(line2 + 3, top + i);
 		putchar(179);
 	}
@@ -1239,6 +1354,18 @@ void Menu::helpScreen() {
 
 	Controller::SetColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 3);
+=======
+		Controller::gotoXY(line2 + 1, top + i);
+		putchar(179);
+	}
+	Controller::gotoXY(line2 + 1, line1);
+	putchar(197);
+	Controller::gotoXY(line2 + 1, line2);
+	putchar(197);
+
+	Controller::SetColor(BRIGHT_WHITE, BLUE);
+	Controller::gotoXY(left + 3, top + 2);
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 	Screen::printVietnamese(L"Giới thiệu:");
 
 	Controller::gotoXY(left + 17, top + 1);
@@ -1251,6 +1378,7 @@ void Menu::helpScreen() {
 	putchar(249);
 	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
 	Controller::gotoXY(left + 17, top + 4);
+<<<<<<< HEAD
 	Screen::printVietnamese(L" là ngăn chặn kẻ địch tiến vào căn cứ của mình. Nếu kẻ địch đến được căn cứ của bạn,");
 	Controller::gotoXY(left + 17, top + 5);
 	Screen::printVietnamese(L" bạn sẽ mất máu hoặc điểm. Khi hết máu, game kết thúc.");
@@ -1297,6 +1425,30 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"Dev 4: Bùi Nam Việt (23127516)");
 	Controller::gotoXY(left + 31, top + 20);
 	Screen::printVietnamese(L"Dev 5: Trương Quang Huy (23127530)");
+=======
+	Screen::printVietnamese(L" là ngăn chặn kẻ địch tiến vào căn cứ của mình.");
+
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_RED);
+	Controller::gotoXY(left + 3, top + 8);
+	Screen::printVietnamese(L"Luật chơi:");
+	Controller::gotoXY(left + 17, top + 11);
+	int left1 = left + 17;
+	putchar(249);
+	Screen::printVietnamese(L" Bàn cờ caro có kích thước 14x14.");
+	Controller::gotoXY(left1, top + 12);
+	putchar(249);
+	
+
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::gotoXY(left + 3, top + 19);
+	cout << "Developers:";
+	Controller::gotoXY(left + 31, top + 18);
+	Screen::printVietnamese(L"Dev 1: Bùi Nam Việt (23127516)");
+	Controller::gotoXY(left + 31, top + 19);
+	Screen::printVietnamese(L"Dev 2: Trương Hoàng Lâm (23127402)");
+	Controller::gotoXY(left + 31, top + 20);
+	Screen::printVietnamese(L"Dev 3: Trương Quang Huy (23127530)");
+>>>>>>> b01b3caeff146e6081a68994ffb016936a1097e1
 
 	Controller::SetColor(BRIGHT_WHITE, BLUE);
 	Controller::gotoXY(left + 3, top + 22);
