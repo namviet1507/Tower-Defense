@@ -4,13 +4,13 @@
 
 int main() {
 	Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
-	//Screen::printMainScreen();
-	Sleep(1000);
-	Map test;
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
+	Screen::printMainScreen();
+	//Sleep(2000);
+	//Map test;
 
-	test.createMap();
+	////test.createMap();
 
 	//test.setMap("./Map/level1.txt");
 	//test.printMap();

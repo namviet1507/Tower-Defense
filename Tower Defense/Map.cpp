@@ -167,6 +167,4 @@ void Map::createMap() {
 	}
 
 	fout.close();
-
-
 }

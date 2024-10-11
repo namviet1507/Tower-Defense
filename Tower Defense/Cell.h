@@ -51,11 +51,14 @@ public:
 
 	int getRow();
 	int getCol();
+
 	int getPosX();
 	int getPosY();
+
 	int getColor();
 	int getHeight();
 	int getWidth();
+
 	void printCell();
 	void hoverCell();
 };
