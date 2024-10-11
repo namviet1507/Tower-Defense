@@ -39,6 +39,13 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="Tower.h">
+=======
+    <ClInclude Include="Monster.h">
+>>>>>>> b1867a32114c66dc69cf8846082478d93faf16ae
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -63,6 +70,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Map.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="Tower.cpp">
+=======
+    <ClCompile Include="Monster.cpp">
+>>>>>>> b1867a32114c66dc69cf8846082478d93faf16ae
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
