@@ -80,6 +80,9 @@ void Map::createMap() {
 	}
 	Cell* pointer = &map[0][0];
 
+	int color = 0;
+	bool flag_build = false, flag_tower = false, flag_road = false;
+
 	system("cls");
 	printMap();
 	pointer->hoverCell();
@@ -120,27 +123,27 @@ void Map::createMap() {
 				}
 				break;
 			case 6:
+				pointer->setColor(color);
+				pointer->setFlagBuild(flag_build);
+				pointer->setFlagTower(flag_tower);
+				pointer->setFlagRoad(flag_road);
+
+				pointer->setColorHover();
+				break;
+			case 15:
 				Controller::gotoXY(120, 2);
 				Controller::SetColor(BLACK, WHITE);
 				cout << "input color: ";
-				int color;
 				cin >> color;
-				pointer->setColor(color);
 				Controller::gotoXY(120, 3);
 				cout << "can build: ";
-				bool flag;
-				cin >> flag;
-				pointer->setFlagBuild(flag);
+				cin >> flag_build;
 				Controller::gotoXY(120, 4);
 				cout << "is tower: ";
-				cin >> flag;
-				pointer->setFlagTower(flag);
+				cin >> flag_tower;
 				Controller::gotoXY(120, 5);
 				cout << "is road: ";
-				cin >> flag;
-				pointer->setFlagRoad(flag);
-
-				pointer->setColorHover();
+				cin >> flag_road;
 
 				for (int i = 0; i < 4; i++) {
 					Controller::gotoXY(120, 2 + i);
@@ -161,7 +164,7 @@ void Map::createMap() {
 	fout << h << ' ' << w << ' ' << height << ' ' << width << '\n';
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << ' ';
+			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << '\n';
 		}
 		cout << '\n';
 	}
