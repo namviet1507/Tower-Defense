@@ -17,8 +17,10 @@ int main() {
 	//test.printMap();
 	Controller::showCursor(false);
 	Enemy t;
-	t.move1(20);
-
+	t.move_x(1,0,1,24);
+	t.move_p(1, 24, 48, 24);
+	t.move_l(48, 24, 48, 0);
+	t.move_t(48, 0, 1, 0);
 	system("PAUSE");
 
 	return 0;
