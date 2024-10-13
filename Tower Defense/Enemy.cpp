@@ -1,9 +1,9 @@
 ﻿#include "Enemy.h"
 #include "Controller.h"
-
+mutex mu_e;
 void Enemy::showl_x(int x,int y,int bcolor, int color)
 {
-
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░█");
@@ -23,11 +23,12 @@ void Enemy::showl_x(int x,int y,int bcolor, int color)
 	Screen::printVietnamese(L"██");
 	Controller::gotoXY(x + 5, y + 6);
 	cout << char(254)<<char(254);
+	mu_e.unlock();
 	//Screen::printVietnamese(L"▓▓");
 }
 void Enemy::showr_x(int x, int y, int bcolor, int color)
 {
-
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░█");
@@ -48,10 +49,12 @@ void Enemy::showr_x(int x, int y, int bcolor, int color)
 	//Screen::printVietnamese(L"██");
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"▓▓");
+	mu_e.unlock();
 }
 
 void Enemy::dele_x(int x, int y)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"   ");
 	Controller::gotoXY(x + 5, y);
@@ -70,11 +73,13 @@ void Enemy::dele_x(int x, int y)
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"  ");
+	mu_e.unlock();
 }
 
 
 void Enemy::showl_l(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░▒▒");
@@ -94,10 +99,12 @@ void Enemy::showl_l(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"▓▓");
 	Controller::gotoXY(x + 5, y + 6);
 	cout << char(254) << char(254);
+	mu_e.unlock();
 }
 
 void Enemy::showr_l(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░▒▒");
@@ -117,10 +124,12 @@ void Enemy::showr_l(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"██");
 	Controller::gotoXY(x + 1, y + 6);
 	cout << char(254) << char(254);
+	mu_e.unlock();
 }
 
 void Enemy::dele_l(int x, int y)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"   ");
 	Controller::gotoXY(x + 5, y);
@@ -139,10 +148,12 @@ void Enemy::dele_l(int x, int y)
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"  ");
+	mu_e.unlock();
 }
 
 void Enemy::showl_p(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
@@ -160,6 +171,7 @@ void Enemy::showl_p(int x, int y, int bcolor, int color)
 	cout << char(254);
 	Controller::gotoXY(x , y + 6);
 	Screen::printVietnamese(L"██");
+	mu_e.unlock();
 	//Controller::gotoXY(x+2, y + 6);
 	//Screen::printVietnamese(L" ");
 
@@ -167,6 +179,7 @@ void Enemy::showl_p(int x, int y, int bcolor, int color)
 
 void Enemy::showr_p(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
@@ -184,10 +197,12 @@ void Enemy::showr_p(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"██");
 	Controller::gotoXY(x , y + 6);
 	cout << char(254);
+	mu_e.unlock();
 }
 
 void Enemy::dele_p(int x, int y)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x, y + 1);
@@ -204,10 +219,12 @@ void Enemy::dele_p(int x, int y)
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x + 2, y + 6);
 	Screen::printVietnamese(L"  ");
+	mu_e.unlock();
 }
 
 void Enemy::showl_t(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
@@ -227,10 +244,12 @@ void Enemy::showl_t(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"▓▓");
 	Controller::gotoXY(x + 2, y + 6);
 	Screen::printVietnamese(L" ");
+	mu_e.unlock();
 }
 
 void Enemy::showr_t(int x, int y, int bcolor, int color)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
@@ -248,10 +267,12 @@ void Enemy::showr_t(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"▓▓");
 	Controller::gotoXY(x, y + 6);
 	cout << char(254);
+	mu_e.unlock();
 }
 
 void Enemy::dele_t(int x, int y)
 {
+	mu_e.lock();
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x, y + 1);
@@ -268,6 +289,7 @@ void Enemy::dele_t(int x, int y)
 	Screen::printVietnamese(L"  ");
 	Controller::gotoXY(x + 2, y + 6);
 	Screen::printVietnamese(L"  ");
+	mu_e.unlock();
 }
 
 
@@ -334,4 +356,36 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 		Sleep(400);
 		dele_t(x_start - 2 * i - 1, y_start);
 	}
+}
+
+void Enemy::move_map1()
+{
+	move_x(1, 0, 1, 24);
+	move_p(17, 24, 48, 24);
+	move_l(48, 24, 48, 0);
+	move_t(35, 0, 1, 0);
+}
+
+void enemy_map1(int num)
+{
+	vector<Enemy> e(num);
+	vector<thread> threads;
+
+	for (int i = 0; i < num; i++)
+	{
+		threads.push_back(thread(&Enemy::move_map1, &e[i]));
+		Sleep(5000);
+	}
+	
+	for (auto &th : threads)
+	{
+		if (th.joinable()) th.join();
+	}
+
+	//Enemy e1, e2;
+	//thread th1(&Enemy::move_x, &e1, 10 , 0, 10, 24);
+	//Sleep(3800);
+	//thread th2(&Enemy::move_x, &e2, 10, 0 , 10, 24);
+	//th1.join();
+	//th2.join();
 }

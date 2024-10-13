@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
+
 using namespace std;
 class Enemy
 {
@@ -28,4 +29,8 @@ public:
 	void move_l(int x_start, int y_start, int x_end, int y_end);
 	void move_p(int x_start, int y_start, int x_end, int y_end);
 	void move_t(int x_start, int y_start, int x_end, int y_end);
+
+	void move_map1();
 };
+
+void enemy_map1(int num);
