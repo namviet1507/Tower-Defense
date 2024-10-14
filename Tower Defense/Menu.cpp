@@ -2,6 +2,8 @@
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
+Game _game;
+
 bool Menu::music_is_open;
 bool Menu::sound_is_open;
 char Menu::FILENAME[100];
@@ -35,7 +37,8 @@ void Screen::printRectangle(int left, int top, int width, int height)
 void Screen::printMainScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
-	Game::isPlaying = false;
+	//Game::isPlaying = false;
+	_game.setFlagPlaying(false);
 	if (Menu::sound_is_open)
 		Controller::playSound(BACKGROUND_SOUND);
 	Screen::printLogo();
@@ -205,9 +208,14 @@ void Screen::printMainScreen() {
 						Controller::playSound(ENTER_SOUND);
 					system("cls");
 					if (curChoice == 0) {
-						Game::mode = Screen::printLevel();
-						Menu::signup();
-						Game::setupGame();
+						int mode = Screen::printLevel();
+						_game.setMode(mode);
+						//Menu::signup();
+						_game.setupGame();
+
+						//Game::mode = Screen::printLevel();
+						//Menu::signup();
+						//Game::setupGame();
 					}
 					else if (curChoice == 1) {
 						Menu::readLoadGame();
@@ -1055,7 +1063,7 @@ void Menu::Setting() {
 					else if (curChoice == 2)
 						Screen::isVie = !Screen::isVie;
 					else
-						if (Game::isPlaying) {
+						if (/*Game::isPlaying*/ _game.getFlagPlaying()) {
 							
 						}
 						else Menu::goBack();
@@ -1321,7 +1329,7 @@ void Menu::helpScreen() {
 	}
 	if (Menu::sound_is_open)
 		Controller::playSound(ENTER_SOUND);
-	if (Game::isPlaying) {
+	if (/*Game::isPlaying*/ _game.getFlagPlaying()) {
 		
 	}
 	else Menu::goBack();
