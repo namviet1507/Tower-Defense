@@ -20,6 +20,7 @@
 #include <locale>
 #include <conio.h>
 #include <chrono>
+#include <thread>
 
 using namespace std;
 
