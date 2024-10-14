@@ -5,9 +5,9 @@
 
 
 int main() {
-	//Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
+	Controller::setUpConsole();
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
 	//Screen::printMainScreen();
 	//Sleep(2000);
 	//Map test;
@@ -16,7 +16,6 @@ int main() {
 
 	//test.setMap("./Map/level1.txt");
 	//test.printMap();
-	Controller::showCursor(false);
 	//Enemy t;
 	//t.move_x(1,0,1,24);
 	//t.move_p(1, 24, 48, 24);
