@@ -1,17 +1,39 @@
 #include "Game.h"
 
-int Game::mode = 1;
-bool Game::isPlaying = false;
+void Game::setMode(int mode) {
+	this->mode = mode;
+}
+
+void Game::setFlagPlaying(bool isPlaying) {
+	this->isPlaying = isPlaying;
+}
+
+void Game::setFileMap(string file_map) {
+	this->file_map = file_map;
+}
+
+int Game::getMode() {
+	return mode;
+}
+
+bool Game::getFlagPlaying() {
+	return isPlaying;
+}
+
+string Game::getFileMap() {
+	return file_map;
+}
 
 void Game::setupGame() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 
 	mode = Screen::printLevel();
-	string filemap = "./Map/level" + to_string(mode) + ".txt";
+	string filemap = "./Map/level" + to_string(mode + 1) + ".txt";
 	
 	m.setMap(filemap);
 	m.printMap();
+	buildTower();
 }
 
 void Game::buildTower() {

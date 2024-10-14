@@ -7,9 +7,18 @@
 
 class Game : public Player {
 	Map m;
+	int mode;				// Chế độ Game
+	string file_map;		// file để lấy data map
+	bool isPlaying;			// check còn đang chơi không
+
 	public:
-		static int mode;				// Chế độ Game
-		static bool isPlaying;			// check còn đang chơi không
+		void setMode(int);
+		void setFlagPlaying(bool);
+		void setFileMap(string);
+
+		int getMode();
+		bool getFlagPlaying();
+		string getFileMap();
 
 		void setupGame();		// Cài đặt game
 		void buildTower();

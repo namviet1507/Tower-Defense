@@ -28,10 +28,10 @@ void Map::setMap(string fileMap) {
 			fin >> color >> flag_build >> flag_tower >> flag_road;
 			// color 
 			map[i][j].setColor(color);
-			map[i][j].setColorHover();
 			map[i][j].setFlagBuild(flag_build);
 			map[i][j].setFlagTower(flag_tower);
 			map[i][j].setFlagRoad(flag_road);
+			map[i][j].setColorHover();
 			map[i][j].setArea(cell_height, cell_width);
 			map[i][j].setRowCol(i, j);
 			map[i][j].setPos(x, y);
@@ -45,6 +45,8 @@ void Map::setMap(string fileMap) {
 }
 
 void Map::printMap() {
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	system("cls");
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			map[i][j].printCell();
