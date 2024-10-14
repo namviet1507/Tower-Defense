@@ -3,12 +3,25 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
+#include "Library.h"
+#include <vector>
 
 using namespace std;
+
+extern mutex mu;
+
 class Enemy
 {
 	int hp;
+	int x_e;
+	int y_e;
 public:
+	Enemy() { hp = 10; x_e = 0; y_e = 0; }
+
+	int get_x() { return x_e; }
+	int get_y() { return y_e; }
+	void sub_hp() { hp--; }
+
 	void showl_x(int x,int y,int bcolor,int color);
 	void showr_x(int x, int y, int bcolor, int color);
 	void dele_x(int x, int y);
@@ -32,5 +45,8 @@ public:
 
 	void move_map1();
 };
+
+extern vector<Enemy> e_global;
+double get_distance(int x, int y, int a, int b);
 
 void enemy_map1(int num);
