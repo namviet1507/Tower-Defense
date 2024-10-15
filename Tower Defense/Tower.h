@@ -12,12 +12,15 @@ private:
     int indexOfBulletFollowX;
     int indexOfBulletFollowY;
 public:
-    void wayBulletOfLevel1(int x, int y);
-    void wayBulletOfLevel2(int x, int y);
-    void wayBulletOfLevel3(int x, int y);
+    void wayBulletOfLevel1_Up(int x, int y);
+    void wayBulletOfLevel2_Up(int x, int y);
+    void wayBulletOfLevel3_Up(int x, int y);
     int getIndexOfBulletFollowX();
     int getIndexOfBulletFollowY();
 
+    void wayBulletOfLevel2_Left(int x, int y);
+    void wayBulletOfLevel2_Right(int x, int y);
+    void wayBulletOfLevel2_Down(int x, int y);
 };
 
 class Tower : public Bullet
@@ -28,14 +31,21 @@ private:
     int indexOfTowerFollowX;
     int indexOfTowerFollowY;
 public:
-    void drawTowerLevel1(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level1(int x, int y);
-    void drawTowerLevel2(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level2(int x, int y);
-    void drawTowerLevel3(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level3(int x, int y);
+    void drawTowerLevel1_Up(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level1_Up(int x, int y);
+    void drawTowerLevel2_Up(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level2_Up(int x, int y);
+    void drawTowerLevel3_Up(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level3_Up(int x, int y);
 
     int getIndexOfTowerFollowX();
     int getIndexOfTowerFollowY();
+
+    void drawTowerLevel2_Left(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level2_Left(int x, int y);
+    void drawTowerLevel2_Right(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level2_Right(int x, int y);
+    void drawTowerLevel2_Down(int x, int y, int colorFirst, int colorSecond);
+    void tower_bullet_level2_Down(int x, int y);
 
 };

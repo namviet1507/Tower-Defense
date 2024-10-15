@@ -20,7 +20,8 @@ public:
 
 	int get_x() { return x_e; }
 	int get_y() { return y_e; }
-	void sub_hp() { hp--; }
+	void sub_hp(int sub) { hp -= sub; }
+	int get_hp() { return hp; }
 
 	void showl_x(int x,int y,int bcolor,int color);
 	void showr_x(int x, int y, int bcolor, int color);
