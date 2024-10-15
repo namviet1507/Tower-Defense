@@ -11,7 +11,7 @@ void play_map1()
 
 
 	vector<Enemy> e12;
-	thread te(enemy_map1, 1);
+	thread te(enemy_map1, 5);
 
 	tow.join();
 	te.join();

@@ -9,7 +9,8 @@ void Enemy::showl_x(int x,int y,int bcolor, int color)
 	Controller::gotoXY(x-1, y - 2);
 	Controller::SetColor(bcolor, 12);
 	for (int i = 0; i < hp; i++)
-		Screen::printVietnamese(L"█");
+		cout << char(254);
+	//cout << hp << "," << x_e << "," << y_e;
 
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
@@ -42,7 +43,8 @@ void Enemy::showr_x(int x, int y, int bcolor, int color)
 	Controller::gotoXY(x - 1, y - 2);
 	Controller::SetColor(bcolor, 12);
 	for (int i = 0; i < hp; i++)
-		Screen::printVietnamese(L"█");
+		cout << char(254);
+	//cout <<hp <<"," << x_e << "," << y_e;
 
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
@@ -503,12 +505,10 @@ void enemy_map1(int num)
 
 	for (int i = 0; i < num; i++)
 	{
-		threads.push_back(thread([i]() {
-			mu_global.lock();  
-			Enemy& e = e_global[i];
-			mu_global.unlock(); 
-			e.move_map1();      
-			}));
+		mu_global.lock();
+		Enemy& e = e_global[i];
+		mu_global.unlock();
+		threads.push_back(thread(&Enemy::move_map1, &e) );
 		Sleep(5000);
 	}
 

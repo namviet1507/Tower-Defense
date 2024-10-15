@@ -13,12 +13,13 @@ void Bullet::wayBulletOfLevel1(int x, int y)
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"^");
+        //cout <<" " << indexOfBulletFollowX << "," << indexOfBulletFollowY;
         mu.unlock();
 
         indexOfBulletFollowX = x + 2;      //To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  // To process conlision with enemy
 
-        Sleep(40);
+        Sleep(50);
 
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
@@ -31,7 +32,7 @@ void Bullet::wayBulletOfLevel1(int x, int y)
         mu_global2.lock();
         for (auto& enemy : e_global)  // Duyệt qua danh sách các enemy
         {
-            if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 3)
+            if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
             {
                 enemy.sub_hp();
                 flag = true;
@@ -62,12 +63,11 @@ void Tower::drawTowerLevel1(int x, int y, int colorFirst, int colorSecond)
 }
 void Tower::tower_bullet_level1(int x, int y)
 {
-    int a = 20;
-    while (a--)
+    while (true)
     {
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1, &bullet, x, y);
-        Sleep(40);
+        Sleep(50);
         bullet_firt.join();
     }
 }
