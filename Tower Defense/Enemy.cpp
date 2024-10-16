@@ -542,10 +542,12 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 
 void Enemy::move_map1()
 {
-	move_x(27, 3, 27, 14);
-	move_p(44, 14, 88, 14);
-	//move_l(58, 14, 58, 0);
-	//move_t(35, 3, 1, 3);
+	move_x(12, 3, 12, 30);
+	move_p(28, 29, 55, 29);
+	move_l(45, 19, 45, 9);
+	move_p(61, 8, 109, 8);
+	move_x(101, 18, 109, 30);
+	move_t(92, 29, 66, 29);
 }
 
 vector<Enemy> e_global(0);

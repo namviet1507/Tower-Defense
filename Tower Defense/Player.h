@@ -5,8 +5,9 @@ class Player {
 	private:
 		wstring playerName;
 		int score;
+		int hp;
 	public:
-		Player();
+		Player() {;
 		void setPlayerName(wstring);
 		void setScore(int);
 		wstring getPlayerName();
