@@ -108,6 +108,8 @@ int Controller::getConsoleInput() {
 			return 12;
 		else if (c == 85 || c == 117) // U, u
 			return 14;
+		else if (c == 32) // space
+			return 15;
 		else
 			return 0;                 //nút khác
 	}

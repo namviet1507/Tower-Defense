@@ -1,5 +1,12 @@
 #include "Map.h"
 
+int Map::getHeight() {
+	return height;
+}
+
+int Map::getWidth() {
+	return width;
+}
 
 void Map::setSize(int height, int width) {
 	this->width = width;
@@ -11,6 +18,13 @@ void Map::setSize(int height, int width) {
 void Map::setMap(string fileMap) {
 	fstream fin;
 	fin.open(fileMap.c_str(), ios::in);
+
+	if (fin.is_open() == false) {
+		Controller::SetColor(BLACK, BLACK);
+		system("cls");
+		exit(0);
+		return;
+	}
 
 	int cell_width;
 	int cell_height;
@@ -52,6 +66,10 @@ void Map::printMap() {
 	}
 }
 
+vector<Cell>& Map::operator [] (int index) {
+	return map[index];
+}
+
 void Map::createMap() {
 	cout << "Input size map: ";
 	int h, w;
@@ -78,11 +96,36 @@ void Map::createMap() {
 		x = left;
 		y += h;
 	}
-	Cell* pointer = &map[0][0];
 
 	system("cls");
 	printMap();
+
+	Cell* pointer = &map[0][0];
 	pointer->hoverCell();
+
+	int color;
+	bool flag_build, flag_tower, flag_road;
+
+	Controller::gotoXY(132, 2);
+	Controller::SetColor(BLACK, WHITE);
+	cout << "input color: ";
+	cin >> color;
+	Controller::gotoXY(132, 3);
+	cout << "can build: ";
+	cin >> flag_build;
+	Controller::gotoXY(132, 4);
+	cout << "is tower: ";
+	cin >> flag_tower;
+	Controller::gotoXY(132, 5);
+	cout << "is road: ";
+	cin >> flag_road;
+
+
+	for (int i = 0; i < 4; i++) {
+		Controller::gotoXY(132, 2 + i);
+		Controller::SetColor(BLACK, BLACK);
+		cout << "                         ";
+	}
 
 	bool stop = false;
 	while (stop == false) {
@@ -120,30 +163,31 @@ void Map::createMap() {
 				}
 				break;
 			case 6:
-				Controller::gotoXY(120, 2);
-				Controller::SetColor(BLACK, WHITE);
-				cout << "input color: ";
-				int color;
-				cin >> color;
 				pointer->setColor(color);
-				Controller::gotoXY(120, 3);
-				cout << "can build: ";
-				bool flag;
-				cin >> flag;
-				pointer->setFlagBuild(flag);
-				Controller::gotoXY(120, 4);
-				cout << "is tower: ";
-				cin >> flag;
-				pointer->setFlagTower(flag);
-				Controller::gotoXY(120, 5);
-				cout << "is road: ";
-				cin >> flag;
-				pointer->setFlagRoad(flag);
+				pointer->setFlagBuild(flag_build);
+				pointer->setFlagTower(flag_tower);
+				pointer->setFlagRoad(flag_road);
 
 				pointer->setColorHover();
+				break;
+			case 15:
+				Controller::gotoXY(132, 2);
+				Controller::SetColor(BLACK, WHITE);
+				cout << "input color: ";
+				cin >> color;
+				Controller::gotoXY(132, 3);
+				cout << "can build: ";
+				cin >> flag_build;
+				Controller::gotoXY(132, 4);
+				cout << "is tower: ";
+				cin >> flag_tower;
+				Controller::gotoXY(132, 5);
+				cout << "is road: ";
+				cin >> flag_road;
+
 
 				for (int i = 0; i < 4; i++) {
-					Controller::gotoXY(120, 2 + i);
+					Controller::gotoXY(132, 2 + i);
 					Controller::SetColor(BLACK, BLACK);
 					cout << "                         ";
 				}
