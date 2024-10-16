@@ -6,7 +6,6 @@
 mutex mu_global2;
 void Bullet::wayBulletOfLevel1_Up(int x, int y)
 {
-    Controller::showCursor(false);
     int i = 0;
     while (y - 1 - i > 0)
     {
@@ -76,7 +75,6 @@ void Tower::tower_bullet_level1_Up(int x, int y)
 
 void Bullet::wayBulletOfLevel2_Up(int x, int y)
 {
-    Controller::showCursor(false);
     mu.lock();
     int i = 0;
     mu.unlock();
@@ -234,7 +232,6 @@ void Tower::tower_bullet_level3_Up(int x, int y)
 
 void Bullet::wayBulletOfLevel2_Left(int x, int y)
 {
-    Controller::showCursor(false);
     int newX = x, i = 0;
     //while (true)
     //{
@@ -327,7 +324,6 @@ void Tower::tower_bullet_level2_Left(int x, int y)
 
 void Bullet::wayBulletOfLevel2_Right(int x, int y)
 {
-    Controller::showCursor(false);
     int i = 0, a = 81;
     while (a--)
     {
