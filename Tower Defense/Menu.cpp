@@ -1086,7 +1086,9 @@ void Menu::Setting() {
 	}
 }
 
-void Menu::signup() {}
+void Menu::signup() {
+
+}
 
 void Screen::printVietnamese(wstring text) {
 	int mode = _setmode(_fileno(stdout), _O_U16TEXT);

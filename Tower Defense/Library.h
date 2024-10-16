@@ -13,6 +13,7 @@
 #include <vector>
 #include <stack>
 #include <set>
+#include <cmath>
 
 #include <io.h>
 #include <fcntl.h>
