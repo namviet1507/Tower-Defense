@@ -1,5 +1,12 @@
 #include "Map.h"
 
+int Map::getHeight() {
+	return height;
+}
+
+int Map::getWidth() {
+	return width;
+}
 
 void Map::setSize(int height, int width) {
 	this->width = width;
@@ -11,6 +18,13 @@ void Map::setSize(int height, int width) {
 void Map::setMap(string fileMap) {
 	fstream fin;
 	fin.open(fileMap.c_str(), ios::in);
+
+	if (fin.is_open() == false) {
+		Controller::SetColor(BLACK, BLACK);
+		system("cls");
+		exit(0);
+		return;
+	}
 
 	int cell_width;
 	int cell_height;
@@ -54,12 +68,17 @@ void Map::printMap() {
 	}
 }
 
+<<<<<<< HEAD
 int Map::getWidth() {
 	return width;
 }
 
 int Map::getHeight() {
 	return height;
+=======
+vector<Cell>& Map::operator [] (int index) {
+	return map[index];
+>>>>>>> bkhoa
 }
 
 void Map::createMap() {
@@ -88,14 +107,39 @@ void Map::createMap() {
 		x = left;
 		y += h;
 	}
-	Cell* pointer = &map[0][0];
 
 	int color = 0;
 	bool flag_build = false, flag_tower = false, flag_road = false;
 
 	system("cls");
 	printMap();
+
+	Cell* pointer = &map[0][0];
 	pointer->hoverCell();
+
+	int color;
+	bool flag_build, flag_tower, flag_road;
+
+	Controller::gotoXY(132, 2);
+	Controller::SetColor(BLACK, WHITE);
+	cout << "input color: ";
+	cin >> color;
+	Controller::gotoXY(132, 3);
+	cout << "can build: ";
+	cin >> flag_build;
+	Controller::gotoXY(132, 4);
+	cout << "is tower: ";
+	cin >> flag_tower;
+	Controller::gotoXY(132, 5);
+	cout << "is road: ";
+	cin >> flag_road;
+
+
+	for (int i = 0; i < 4; i++) {
+		Controller::gotoXY(132, 2 + i);
+		Controller::SetColor(BLACK, BLACK);
+		cout << "                         ";
+	}
 
 	bool stop = false;
 	while (stop == false) {
@@ -141,6 +185,7 @@ void Map::createMap() {
 				pointer->setColorHover();
 				break;
 			case 15:
+<<<<<<< HEAD
 				Controller::gotoXY(120, 2);
 				Controller::SetColor(BLACK, WHITE);
 				cout << "input color: ";
@@ -152,11 +197,24 @@ void Map::createMap() {
 				cout << "is tower: ";
 				cin >> flag_tower;
 				Controller::gotoXY(120, 5);
+=======
+				Controller::gotoXY(132, 2);
+				Controller::SetColor(BLACK, WHITE);
+				cout << "input color: ";
+				cin >> color;
+				Controller::gotoXY(132, 3);
+				cout << "can build: ";
+				cin >> flag_build;
+				Controller::gotoXY(132, 4);
+				cout << "is tower: ";
+				cin >> flag_tower;
+				Controller::gotoXY(132, 5);
+>>>>>>> bkhoa
 				cout << "is road: ";
 				cin >> flag_road;
 
 				for (int i = 0; i < 4; i++) {
-					Controller::gotoXY(120, 2 + i);
+					Controller::gotoXY(132, 2 + i);
 					Controller::SetColor(BLACK, BLACK);
 					cout << "                         ";
 				}
