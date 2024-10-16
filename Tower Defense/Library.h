@@ -61,3 +61,7 @@ using namespace std;
 #define WIN_SOUND 4
 #define BACKGROUND_SOUND 5
 #define LOSE_SOUND 6
+
+#define FileListMapEasy "./Map/Easy/ListFileMapEasy.bin"
+#define FileListMapNormal "./Map/Normal/ListFileMapNormal.bin"
+#define FileListMapDificult "./Map/Dificult/ListFileMapDificult.bin"

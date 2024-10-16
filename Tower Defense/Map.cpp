@@ -92,6 +92,10 @@ void Map::createMap() {
 	string filename;
 	cin >> filename;
 
+	cout << "Input mode: ";
+	string mode;
+	cin >> mode;
+
 	int x = left, y = top;
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
@@ -207,8 +211,25 @@ void Map::createMap() {
 		}
 	}
 
-	fstream fout;
-	filename = "./Map/" + filename;
+	fstream fout, file_list_map;
+
+	if (fout.is_open() == false) {
+		return;
+	}
+
+	string path;
+	if (mode == "Easy") path = FileListMapEasy;
+	else if (mode == "Dificult") path = FileListMapDificult;
+	else path = FileListMapNormal;
+
+	file_list_map.open(path, ios::app | ios::binary);
+	if (file_list_map.is_open() == false) return;
+	char c_filename[100];
+	strcpy_s(c_filename, filename.c_str());
+	file_list_map.write((char*)&c_filename, 100);
+	file_list_map.close();
+
+	filename = "./Map/" + mode + '/' + filename;
 	fout.open(filename.c_str(), ios::out | ios::binary);
 
 	fout.write((char*)&h, sizeof(int));
@@ -228,7 +249,6 @@ void Map::createMap() {
 			fout.write((char*)&flag_tower, sizeof(bool));
 			fout.write((char*)&flag_road, sizeof(bool));
 		}
-		cout << '\n';
 	}
 
 	fout.close();

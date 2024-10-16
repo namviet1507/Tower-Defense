@@ -14,9 +14,6 @@ class Menu : public Player {
 		
 		static void helpScreen();								//Màn hình hướng dẫn
 		static void signup();									// Đăng ký
-
-		static vector<string> list_map;
-		static void getListFileMap();
 };
 
 struct Screen {
@@ -33,9 +30,14 @@ struct Screen {
 };
 
 struct ListFile {
-
+	// load game
 	static void printListFile(int start, int end, vector<string> arrFilename);
 	static string getFile();
 	static void processSaveFile(char);		// Lưu file
 	static void processLoadFile(string filename);	// Tải file
+
+	// get file of map
+	static vector<string> list_map;
+	static void getListFileMap();
+	static string getFileMap();
 };

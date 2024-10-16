@@ -6,7 +6,7 @@
 bool Menu::music_is_open = false;
 bool Menu::sound_is_open = false;
 
-vector<string> Menu::list_map;
+vector<string> ListFile::list_map;
 
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
@@ -31,6 +31,13 @@ void Screen::printRectangle(int left, int top, int width, int height)
 	for (i = 0; i < width; i++)
 		putchar(196);
 	putchar(217);
+
+	for (int i = top + 1; i < height + top; i++) {
+		for (int j = left + 1; j < width + 1 + left; j++) {
+			Controller::gotoXY(j, i);
+			putchar(32);
+		}
+	}
 }
 
 void Screen::printMainScreen() {
@@ -207,6 +214,8 @@ void Screen::printMainScreen() {
 					system("cls");
 					if (curChoice == 0) {
 						_game.setMode(Screen::printLevel());
+						ListFile::getListFileMap();
+						_game.setFileMap(ListFile::getFileMap());
 						Menu::signup();
 						_game.setupGame();
 					}
@@ -648,6 +657,219 @@ void Menu::goBack() {
 	Screen::printMainScreen();
 }
 
-void Menu::getListFileMap() {
+void ListFile::getListFileMap() {
+	fstream file_list_map;
 
+	string path;
+	if (_game.getMode() == 0) path = FileListMapEasy;
+	else if (_game.getMode() == 1) path = FileListMapNormal;
+	else if (_game.getMode() == 2) path = FileListMapDificult;
+
+	file_list_map.open(path.c_str(), ios::in | ios::binary);
+	if (file_list_map.is_open() == false)
+		return;
+
+	char filename[100];
+	while (file_list_map.read((char*)&filename, 100)) {
+		list_map.push_back(filename);
+	}
+
+	file_list_map.close();
+}
+
+string ListFile::getFileMap() {
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	system("cls");
+	Screen::printLogoStandard();
+
+
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	int x = 44, y = 14;
+	for (int i = 0; i < list_map.size(); i++) {
+		Screen::printRectangle(x, y, 12, 4);
+		Controller::gotoXY(x + 4, y + 2);
+		cout << list_map[i];
+
+		if ((i + 1) % 3 == 0) {
+			y += 6;
+			x = 44;
+		}
+		else x += 24;
+	}
+	Screen::printRectangle(x, y, 12, 4);
+	if (Screen::isVie) {
+		Controller::gotoXY(x + 4, y + 2);
+		cout << L"TRỞ LẠI";
+	}
+	else {
+		Controller::gotoXY(x + 5, y + 2);	
+		cout << "BACK";
+	}
+
+	string* pointer = &list_map[0];
+	x = 44; y = 14;
+	Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+	Screen::printRectangle(x, y, 12, 4);
+	Controller::gotoXY(x + 4, y + 2);
+	cout << *pointer;
+	int row = 0;
+	int col = 0;
+	while (true) {
+		switch (Controller::getConsoleInput()) {
+		case 1:
+			return "";
+			break;
+		case 2: // up
+			if (pointer == nullptr && row > 0) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				if (Screen::isVie) {
+					Controller::gotoXY(x + 4, y + 2);
+					cout << L"TRỞ LẠI";
+				}
+				else {
+					Controller::gotoXY(x + 5, y + 2);
+					cout << "BACK";
+				}
+				y -= 6;
+				row--;
+				pointer = &list_map.back() - 2;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			if (pointer == nullptr) break;
+			if (row > 0) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer -= 3;
+				y -= 6;
+				row--;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			break;
+		case 3: // left
+			if (pointer == nullptr && col > 0) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				if (Screen::isVie) {
+					Controller::gotoXY(x + 4, y + 2);
+					cout << L"TRỞ LẠI";
+				}
+				else {
+					Controller::gotoXY(x + 5, y + 2);
+					cout << "BACK";
+				}
+				x -= 24;
+				col--;
+				pointer = &list_map.back();
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			if (pointer == nullptr) break;
+			if (col > 0) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer -= 1;
+				x -= 24;
+				col--;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			break;
+		case 4: // right
+			if (pointer == nullptr)  break;
+			if (pointer - &list_map[0] == list_map.size() - 1 && col < 2) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer = nullptr;
+				x += 24;
+				col++;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				if (Screen::isVie) {
+					Controller::gotoXY(x + 4, y + 2);
+					cout << L"TRỞ LẠI";
+				}
+				else {
+					Controller::gotoXY(x + 5, y + 2);
+					cout << "BACK";
+				}
+			}
+			else if (col < 2) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer += 1;
+				col++;
+				x += 24;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			break;
+		case 5: // down
+			if (pointer == nullptr)  break;
+			if (pointer - &list_map[0] + 3 == list_map.size()) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer = nullptr;
+				y += 6;
+				row++;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				if (Screen::isVie) {
+					Controller::gotoXY(x + 4, y + 2);
+					cout << L"TRỞ LẠI";
+				}
+				else {
+					Controller::gotoXY(x + 5, y + 2);
+					cout << "BACK";
+				}
+			}
+			else if (&list_map.back() - pointer > 2) {
+				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+				pointer += 3;
+				y += 6;
+				row++;
+				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
+				Screen::printRectangle(x, y, 12, 4);
+				Controller::gotoXY(x + 4, y + 2);
+				cout << *pointer;
+			}
+			break;
+		case 6: // enter
+			if (pointer == nullptr) {
+				Menu::goBack();
+				break;
+			}
+			return *pointer;
+			break;
+		default:
+			break;
+		}
+	}
+
+	return "";
 }
