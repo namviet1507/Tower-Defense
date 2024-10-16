@@ -6,20 +6,21 @@
 #include "Map.h"
 
 class Game : public Player {
-	Map m;
-	int mode;				// Chế độ Game
-	string file_map;		// file để lấy data map
-	bool isPlaying;			// check còn đang chơi không
+	int mode;
+	bool is_playing;
+	string file_map;
+	Map _map;
+public:
+	int getMode();
+	bool getFlagPlaying();
+	string getFileMap();
 
-	public:
-		void setMode(int);
-		void setFlagPlaying(bool);
-		void setFileMap(string);
+	void setMode(int);
+	void setFlagPlaying(bool);
+	void setFileMap(string);
 
-		int getMode();
-		bool getFlagPlaying();
-		string getFileMap();
-
-		void setupGame();		// Cài đặt game
-		void buildTower();
+	void setupGame();
+	void buildTower();
 };
+
+extern Game _game;

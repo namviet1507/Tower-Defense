@@ -10,16 +10,11 @@ int main() {
 	//Menu::music_is_open = true;
 	//Menu::sound_is_open = true;
 	//Screen::printMainScreen();
-	
-
-	//Sleep(2000);
 	//Map test;
-	////test.createMap();
-	//test.setMap("./Map/level1.txt");
-	//test.printMap();
 
 	//test.setMap("./Map/level1.txt");
 	//test.printMap();
+<<<<<<< HEAD
 	//Controller::showCursor(false);
 	//Enemy t;
 	//t.move_x(1,0,1,24);
@@ -46,6 +41,12 @@ int main() {
 	//a.drawTowerLevel1(0, 26, 0, 15);
 	//a.tower_bullet_level1(0, 26);
 
+=======
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
 	play_map1();
+	 
+	//Map test;
+	//test.createMap();
+	//system("PAUSE");
 	return 0;
 }

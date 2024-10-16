@@ -141,10 +141,16 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="Monster.h" />
 =======
     <ClInclude Include="Play.h" />
 >>>>>>> bkhoa
+=======
+
+    <ClInclude Include="Play.h" />
+
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="Tower.h" />
@@ -158,10 +164,16 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="Monster.cpp" />
 =======
     <ClCompile Include="Play.cpp" />
 >>>>>>> bkhoa
+=======
+
+    <ClCompile Include="Play.cpp" />
+    
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Tower.cpp" />

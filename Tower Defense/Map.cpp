@@ -69,6 +69,7 @@ void Map::printMap() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 int Map::getWidth() {
 	return width;
 }
@@ -79,6 +80,10 @@ int Map::getHeight() {
 vector<Cell>& Map::operator [] (int index) {
 	return map[index];
 >>>>>>> bkhoa
+=======
+vector<Cell>& Map::operator [] (int index) {
+	return map[index];
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
 }
 
 void Map::createMap() {
@@ -107,9 +112,12 @@ void Map::createMap() {
 		x = left;
 		y += h;
 	}
+<<<<<<< HEAD
 
 	int color = 0;
 	bool flag_build = false, flag_tower = false, flag_road = false;
+=======
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
 
 	system("cls");
 	printMap();
@@ -186,16 +194,21 @@ void Map::createMap() {
 				break;
 			case 15:
 <<<<<<< HEAD
+<<<<<<< HEAD
 				Controller::gotoXY(120, 2);
+=======
+				Controller::gotoXY(132, 2);
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
 				Controller::SetColor(BLACK, WHITE);
 				cout << "input color: ";
 				cin >> color;
-				Controller::gotoXY(120, 3);
+				Controller::gotoXY(132, 3);
 				cout << "can build: ";
 				cin >> flag_build;
-				Controller::gotoXY(120, 4);
+				Controller::gotoXY(132, 4);
 				cout << "is tower: ";
 				cin >> flag_tower;
+<<<<<<< HEAD
 				Controller::gotoXY(120, 5);
 =======
 				Controller::gotoXY(132, 2);
@@ -210,6 +223,9 @@ void Map::createMap() {
 				cin >> flag_tower;
 				Controller::gotoXY(132, 5);
 >>>>>>> bkhoa
+=======
+				Controller::gotoXY(132, 5);
+>>>>>>> 402ceb1c2157c4dd679b17212af1c6f47cf24a0d
 				cout << "is road: ";
 				cin >> flag_road;
 
