@@ -15,8 +15,8 @@ class Menu : public Player {
 		static void helpScreen();								//Màn hình hướng dẫn
 		static void signup();									// Đăng ký
 
-		//static vector<string> list_map;
-		//static void getListFileMap();
+		static vector<string> list_map;
+		static void getListFileMap();
 };
 
 struct Screen {

@@ -3,9 +3,10 @@
 #pragma comment(lib, "winmm.lib")
 
 
-
 bool Menu::music_is_open = false;
 bool Menu::sound_is_open = false;
+
+vector<string> Menu::list_map;
 
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
@@ -645,4 +646,8 @@ void Menu::helpScreen() {
 
 void Menu::goBack() {
 	Screen::printMainScreen();
+}
+
+void Menu::getListFileMap() {
+
 }

@@ -17,7 +17,7 @@ void Map::setSize(int height, int width) {
 
 void Map::setMap(string fileMap) {
 	fstream fin;
-	fin.open(fileMap.c_str(), ios::in);
+	fin.open(fileMap.c_str(), ios::in | ios::binary);
 
 	if (fin.is_open() == false) {
 		Controller::SetColor(BLACK, BLACK);
@@ -29,7 +29,11 @@ void Map::setMap(string fileMap) {
 	int cell_width;
 	int cell_height;
 
-	fin >> cell_height >> cell_width >> height >> width;
+	fin.read((char*)&cell_width, sizeof(int));
+	fin.read((char*)&cell_height, sizeof(int));
+	fin.read((char*)&height, sizeof(int));
+	fin.read((char*)&width, sizeof(int));
+
 	setSize(height, width);
 
 	int x = left;
@@ -39,7 +43,12 @@ void Map::setMap(string fileMap) {
 		for (int j = 0; j < width; ++j) {
 			int color;
 			bool flag_build, flag_tower, flag_road;
-			fin >> color >> flag_build >> flag_tower >> flag_road;
+
+			fin.read((char*)&color, sizeof(int));
+			fin.read((char*)&flag_build, sizeof(int));
+			fin.read((char*)&flag_tower, sizeof(int));
+			fin.read((char*)&flag_road, sizeof(int));
+
 			// color 
 			map[i][j].setColor(color);
 			map[i][j].setColorHover();
@@ -200,12 +209,24 @@ void Map::createMap() {
 
 	fstream fout;
 	filename = "./Map/" + filename;
-	fout.open(filename.c_str(), ios::out);
+	fout.open(filename.c_str(), ios::out | ios::binary);
 
-	fout << h << ' ' << w << ' ' << height << ' ' << width << '\n';
+	fout.write((char*)&h, sizeof(int));
+	fout.write((char*)&w, sizeof(int));
+	fout.write((char*)&height, sizeof(int));
+	fout.write((char*)&width, sizeof(int));
+
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << ' ';
+			color = map[i][j].getColor();
+			flag_build = map[i][j].getFlagBuild();
+			flag_tower = map[i][j].getFlagTower();
+			flag_road = map[i][j].getFlagRoad();
+
+			fout.write((char*)&color, sizeof(int));
+			fout.write((char*)&flag_build, sizeof(bool));
+			fout.write((char*)&flag_tower, sizeof(bool));
+			fout.write((char*)&flag_road, sizeof(bool));
 		}
 		cout << '\n';
 	}
