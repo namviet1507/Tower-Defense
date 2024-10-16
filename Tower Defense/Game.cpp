@@ -1,46 +1,42 @@
 #include "Game.h"
 
+Game _game;
+
+int Game::getMode() {
+	return mode;
+}
+bool Game::getFlagPlaying() {
+	return is_playing;
+}
+string Game::getFileMap() {
+	return file_map;
+}
+
 void Game::setMode(int mode) {
 	this->mode = mode;
 }
 
-void Game::setFlagPlaying(bool isPlaying) {
-	this->isPlaying = isPlaying;
+void Game::setFlagPlaying(bool is_playing) {
+	this->is_playing = is_playing;
 }
 
 void Game::setFileMap(string file_map) {
 	this->file_map = file_map;
 }
 
-int Game::getMode() {
-	return mode;
-}
-
-bool Game::getFlagPlaying() {
-	return isPlaying;
-}
-
-string Game::getFileMap() {
-	return file_map;
-}
-
 void Game::setupGame() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 
-	mode = Screen::printLevel();
-	string filemap = "./Map/level" + to_string(mode + 1) + ".txt";
-	
-	m.setMap(filemap);
-	m.printMap();
+	_map.setMap(file_map);
+	_map.printMap();
+
 	buildTower();
 }
 
 void Game::buildTower() {
-	Cell* pointer = &m.map[0][0];
-	
-	system("cls");
-	m.printMap();
+	Cell* pointer = &_map[0][0];
+
 	pointer->hoverCell();
 
 	bool stop = false;
@@ -53,30 +49,36 @@ void Game::buildTower() {
 			case 2: // up
 				if (pointer->getRow() > 0) {
 					pointer->printCell();
-					pointer = &m.map[pointer->getRow() - 1][pointer->getCol()];
+					pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
 					pointer->hoverCell();
 				}
 				break;
 			case 3: // left
 				if (pointer->getCol() > 0) {
 					pointer->printCell();
-					pointer = &m.map[pointer->getRow()][pointer->getCol() - 1];
+					pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
 					pointer->hoverCell();
 				}
 				break;
 			case 4: // right
-				if (pointer->getCol() < m.getWidth() - 1) {
+				if (pointer->getCol() < _map.getWidth() - 1) {
 					pointer->printCell();
-					pointer = &m.map[pointer->getRow()][pointer->getCol() + 1];
+					pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
 					pointer->hoverCell();
 				}
 				break;
 			case 5:  // down
-				if (pointer->getRow() < m.getHeight() - 1) {
+				if (pointer->getRow() < _map.getHeight() - 1) {
 					pointer->printCell();
-					pointer = &m.map[pointer->getRow() + 1][pointer->getCol()];
+					pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
 					pointer->hoverCell();
 				}
+				break;
+			case 6:
+				
+				break;
+			case 15:
+				
 				break;
 			default:
 				break;
