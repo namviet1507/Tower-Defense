@@ -13,6 +13,7 @@
 #include <vector>
 #include <stack>
 #include <set>
+#include <cmath>
 
 #include <io.h>
 #include <fcntl.h>
@@ -20,6 +21,9 @@
 #include <locale>
 #include <conio.h>
 #include <chrono>
+#include <thread>
+#include <mutex>
+#include <filesystem>
 
 using namespace std;
 

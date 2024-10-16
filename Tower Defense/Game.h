@@ -2,11 +2,25 @@
 #include "Library.h"
 #include "Menu.h"
 #include "Player.h"
+#include "Controller.h"
+#include "Map.h"
 
 class Game : public Player {
-	public:
-		static int mode;				// Chế độ Game
-		static bool isPlaying;			// check còn đang chơi không
+	int mode;
+	bool is_playing;
+	string file_map;
+	Map _map;
+public:
+	int getMode();
+	bool getFlagPlaying();
+	string getFileMap();
 
-		static void setupGame();		// Cài đặt game
+	void setMode(int);
+	void setFlagPlaying(bool);
+	void setFileMap(string);
+
+	void setupGame();
+	void buildTower();
 };
+
+extern Game _game;
