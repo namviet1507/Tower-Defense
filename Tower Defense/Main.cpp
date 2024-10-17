@@ -42,5 +42,9 @@ int main() {
 	play_map1();
 	//Map test;
 	//test.createMap();
+
+	//colour_block(18, 18, 5, 8, 11);
+	//print_menu_Tower(18, 18);
+	//cin.get();
 	return 0;
 }

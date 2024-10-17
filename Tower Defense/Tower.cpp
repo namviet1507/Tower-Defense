@@ -19,11 +19,11 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y)
         indexOfBulletFollowX = x + 2;      //To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  // To process conlision with enemy
 
-        Sleep(50);
+        Sleep(150);
 
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
-        Screen::printVietnamese(L"    ");
+        Screen::printVietnamese(L" ");
         mu.unlock();
 
         i += 1;
@@ -69,7 +69,7 @@ void Tower::tower_bullet_level1_Up(int x, int y)
     {
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y);
-        Sleep(50);
+        Sleep(150);
         bullet_firt.join();
     }
 }
@@ -93,7 +93,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  //To process conlision with enemy
 
-        Sleep(90);
+        Sleep(150);
 
         mu.lock();
         Controller::SetColor(0, 4);
@@ -114,7 +114,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
-                    enemy.sub_hp(2);
+                    enemy.sub_hp(1);
                     flag = true;
                     break;
                 }
@@ -153,7 +153,7 @@ void Tower::tower_bullet_level2_Up(int x, int y)
     {
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y);
-        Sleep(90);
+        Sleep(150);
         bullet_firt.join();
     }
 }
@@ -179,9 +179,11 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y)
 
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
-        Screen::printVietnamese(L"    ");
+        Screen::printVietnamese(L" ");
         Controller::gotoXY(x + 4, y - 1 - i);
-        Screen::printVietnamese(L"    ");
+        Screen::printVietnamese(L" ");
+        Controller::gotoXY(x + 6, y - 1 - i);
+        Screen::printVietnamese(L" ");
         mu.unlock();
         i += 1;
 
