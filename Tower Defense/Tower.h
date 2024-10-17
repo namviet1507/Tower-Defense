@@ -18,9 +18,9 @@ public:
     int getIndexOfBulletFollowX();
     int getIndexOfBulletFollowY();
 
-    void wayBulletOfLevel2_Left(int x, int y);
-    void wayBulletOfLevel2_Right(int x, int y);
-    void wayBulletOfLevel2_Down(int x, int y);
+    void wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end);
+    void wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end);
+    void wayBulletOfLevel2_Down(int x, int y,int x_end,int y_end);
 };
 
 class Tower : public Bullet
@@ -42,10 +42,10 @@ public:
     int getIndexOfTowerFollowY();
 
     void drawTowerLevel2_Left(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level2_Left(int x, int y);
+    void tower_bullet_level2_Left(int x, int y, int x_end, int y_end);
     void drawTowerLevel2_Right(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level2_Right(int x, int y);
+    void tower_bullet_level2_Right(int x, int y, int x_end, int y_end);
     void drawTowerLevel2_Down(int x, int y, int colorFirst, int colorSecond);
-    void tower_bullet_level2_Down(int x, int y);
+    void tower_bullet_level2_Down(int x, int y,int x_end,int y_end);
 
 };

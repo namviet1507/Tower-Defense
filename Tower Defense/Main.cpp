@@ -6,7 +6,7 @@
 #include "Play.h"
 
 int main() {
-	//Controller::setUpConsole();
+	Controller::setUpConsole();
 	//Menu::music_is_open = true;
 	//Menu::sound_is_open = true;
 	//Screen::printMainScreen();
@@ -40,5 +40,7 @@ int main() {
 	//a.tower_bullet_level1(0, 26);
 
 	play_map1();
+	//Map test;
+	//test.createMap();
 	return 0;
 }

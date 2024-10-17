@@ -547,7 +547,7 @@ void Enemy::move_map1()
 	move_l(45, 19, 45, 9);
 	move_p(61, 8, 109, 8);
 	move_x(101, 18, 109, 30);
-	move_t(92, 29, 66, 29);
+	move_t(92, 29, 73, 29);
 }
 
 vector<Enemy> e_global(0);
