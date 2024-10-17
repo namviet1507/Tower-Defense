@@ -670,6 +670,7 @@ void ListFile::getListFileMap() {
 		return;
 
 	char filename[100];
+	list_map.clear();
 	while (file_list_map.read((char*)&filename, 100)) {
 		list_map.push_back(filename);
 	}
@@ -706,6 +707,7 @@ string ListFile::getFileMap() {
 		cout << "BACK";
 	}
 
+	string res;
 	string* pointer = &list_map[0];
 	x = 44; y = 14;
 	Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
@@ -864,7 +866,17 @@ string ListFile::getFileMap() {
 				Menu::goBack();
 				break;
 			}
-			return *pointer;
+
+			if (_game.getMode() == 0) {
+				res = "./Map/Easy/" + *pointer;
+			}
+			else if (_game.getMode() == 1) {
+				res = "./Map/Normal/" + *pointer;
+			}
+			else if (_game.getMode() == 2) {
+				res = "./Map/Difficult/" + *pointer;
+			}
+			return  res;
 			break;
 		default:
 			break;

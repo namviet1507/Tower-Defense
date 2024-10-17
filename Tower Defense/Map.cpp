@@ -29,8 +29,8 @@ void Map::setMap(string fileMap) {
 	int cell_width;
 	int cell_height;
 
-	fin.read((char*)&cell_width, sizeof(int));
 	fin.read((char*)&cell_height, sizeof(int));
+	fin.read((char*)&cell_width, sizeof(int));
 	fin.read((char*)&height, sizeof(int));
 	fin.read((char*)&width, sizeof(int));
 
@@ -45,9 +45,9 @@ void Map::setMap(string fileMap) {
 			bool flag_build, flag_tower, flag_road;
 
 			fin.read((char*)&color, sizeof(int));
-			fin.read((char*)&flag_build, sizeof(int));
-			fin.read((char*)&flag_tower, sizeof(int));
-			fin.read((char*)&flag_road, sizeof(int));
+			fin.read((char*)&flag_build, sizeof(bool));
+			fin.read((char*)&flag_tower, sizeof(bool));
+			fin.read((char*)&flag_road, sizeof(bool));
 
 			// color 
 			map[i][j].setColor(color);
@@ -81,11 +81,11 @@ vector<Cell>& Map::operator [] (int index) {
 
 void Map::createMap() {
 	cout << "Input size map: ";
-	int h, w;
 	cin >> height >> width;
 	setSize(height, width);
 
 	cout << "Input (h, w): ";
+	int h, w;
 	cin >> h >> w;
 
 	cout << "Input name file: ";
@@ -213,10 +213,6 @@ void Map::createMap() {
 
 	fstream fout, file_list_map;
 
-	if (fout.is_open() == false) {
-		return;
-	}
-
 	string path;
 	if (mode == "Easy") path = FileListMapEasy;
 	else if (mode == "Dificult") path = FileListMapDificult;
@@ -231,6 +227,10 @@ void Map::createMap() {
 
 	filename = "./Map/" + mode + '/' + filename;
 	fout.open(filename.c_str(), ios::out | ios::binary);
+
+	if (fout.is_open() == false) {
+		return;
+	}
 
 	fout.write((char*)&h, sizeof(int));
 	fout.write((char*)&w, sizeof(int));
