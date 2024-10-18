@@ -7,10 +7,10 @@
 
 int main() {
 	Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
-	//Screen::printMainScreen();
-	//Sleep(2000);
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
+	Screen::printMainScreen();
+	Sleep(2000);
 	//Map test;
 
 	////test.createMap();

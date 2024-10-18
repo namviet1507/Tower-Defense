@@ -247,6 +247,8 @@ void play_map1()
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 
+	ingame = true;
+
 	int old_pos;
 	int position = 0;
 
@@ -525,6 +527,9 @@ void play_map1()
 	{
 		bu.join();
 	}
+
+	Controller::gotoXY(125, 0);
+	cout << "you lose!";
 	//colour_block(125, 18, 5, 5, 2);
 	//colour_block(125, 8, 3, 2, 3);
 	//Tower t1,t2,t3,t4;

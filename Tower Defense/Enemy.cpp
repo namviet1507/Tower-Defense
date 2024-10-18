@@ -585,6 +585,14 @@ void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 	int step = (y_start - y_end) / 2;
 	for (int i = 0; i < step; i++)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+		{
+			break;
+		}
 		if (hp <= 0) break;
 		showl_l(x_start, y_start - 2 * i, 0, 11);
 		Sleep(200);
@@ -602,6 +610,15 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 	int step = (y_end - y_start) / 2;
 	for (int i = 0; i < step; i++)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+		{
+			break;
+		}
+
 		if (hp <= 0) break;
 		mu_e2.lock();
 		showl_x(x_start, y_start + 2 * i, 0, 11);
@@ -626,6 +643,15 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 	int step = (x_end - x_start) / 2;
 	for (int i = 0; i < step; i++)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+		{
+			break;
+		}
+
 		if (hp <= 0) break;
 		showl_p(x_start + 2 * i, y_start , 0, 11);
 		Sleep(200);
@@ -642,6 +668,15 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 	int step = (x_start - x_end) / 2;
 	for (int i = 0; i < step; i++)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+		{
+			break;
+		}
+
 		if (hp <= 0) break;
 		showl_t(x_start - 2 * i, y_start, 0, 11);
 		Sleep(200);
@@ -689,6 +724,15 @@ void enemy_map1(int num)
 
 	for (int i = 0; i < num; i++)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+		{
+			break;
+		}
+
 		mu_global.lock();
 		Enemy& e = e_global[i];
 		mu_global.unlock();

@@ -52,16 +52,11 @@ void print_hp_player(int x, int y, int bcolor, int color)
 			Sleep(20);
 		}
 	}
-
+	mu.lock();
+	ingame = false;
+	mu.unlock();
 }
-	//Controller::gotoXY(x, y);
-	////Controller::SetColor(bcolor, color);
-	////for (int i = 0; i < hp; i++)
-	////{
-	////	Screen::printVietnamese(L"█");
-	////}
-	//cout << hp;
 
 
-
+bool ingame;
 Player player;

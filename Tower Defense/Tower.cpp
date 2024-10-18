@@ -10,6 +10,15 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y)
     int i = 0;
     while (y - 1 - i > 0)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"^");
@@ -67,6 +76,15 @@ void Tower::tower_bullet_level1_Up(int x, int y)
 {
     while (true)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y);
         if (bullet_firt.joinable())
@@ -85,6 +103,16 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
     mu.unlock();
     while (y - 1 - i > 0)
     {
+
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::SetColor(0, 4);
         Controller::gotoXY(x + 2, y - 1 - i);
@@ -154,6 +182,15 @@ void Tower::tower_bullet_level2_Up(int x, int y)
 {
     while (true)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y);
         if (bullet_firt.joinable())
@@ -171,6 +208,15 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y)
     int i = 0;
     while (y - 1 - i > 0)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"^");
@@ -235,6 +281,15 @@ void Tower::tower_bullet_level3_Up(int x, int y)
 {
     while (true)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel3_Up, &bullet, x, y);
         if (bullet_firt.joinable())
@@ -253,6 +308,15 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y,int x_end,int y_end)
     //{
     while ((x - 5 - i ) >x_end)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::gotoXY(x - 5 - i, y + 3);
         Screen::printVietnamese(L"<");
@@ -330,6 +394,16 @@ void Tower::tower_bullet_level2_Left(int x, int y,int x_end,int y_end)
 {
     while (true)
     {
+
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Left, &bullet, x, y,x_end,y_end);
         if (bullet_firt.joinable())
@@ -347,6 +421,15 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y,int x_end,int y_end)
     int i = 0, a = 81;
     while ((x + 8 + i) < x_end)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
         Screen::printVietnamese(L">");
@@ -422,6 +505,15 @@ void Tower::tower_bullet_level2_Right(int x, int y,int x_end,int y_end)
 {
     while (true)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Right, &bullet, x, y,x_end,y_end);
 
@@ -446,6 +538,15 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y,int x_end,int y_end)
     Controller::showCursor(false);
     while (( y + 6 + i) < y_end)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
         Screen::printVietnamese(L"v");
@@ -508,6 +609,15 @@ void Tower::tower_bullet_level2_Down(int x, int y,int x_end,int y_end)
 {
     while (true)
     {
+        bool check;
+        mu.lock();
+        check = ingame;
+        mu.unlock();
+        if (check == false)
+        {
+            break;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Down, &bullet, x, y,x_end,y_end);
         if (bullet_firt.joinable())

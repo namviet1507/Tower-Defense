@@ -15,5 +15,6 @@ class Player {
 		void print_hp(int x, int y, int bcolor, int color);
 };
 extern Player player;
+extern bool ingame;
 
 void print_hp_player(int x,int y,int bcolor,int color);
