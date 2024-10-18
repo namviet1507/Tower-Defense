@@ -51,10 +51,10 @@ void Map::setMap(string fileMap) {
 
 			// color 
 			map[i][j].setColor(color);
-			map[i][j].setColorHover();
 			map[i][j].setFlagBuild(flag_build);
 			map[i][j].setFlagTower(flag_tower);
 			map[i][j].setFlagRoad(flag_road);
+			map[i][j].setColorHover();
 			map[i][j].setArea(cell_height, cell_width);
 			map[i][j].setRowCol(i, j);
 			map[i][j].setPos(x, y);
