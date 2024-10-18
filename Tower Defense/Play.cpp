@@ -1,4 +1,4 @@
-#include "Play.h"
+﻿#include "Play.h"
 
 void colour_block(int x, int y, int h, int w, int color)
 {
@@ -72,12 +72,43 @@ void print_tower_Level3(int x, int y, int bcolor, int color)
 	t.drawTowerLevel3_Up(x + 1, y + 1, bcolor, color);
 }
 
+void print_x(int x, int y, int bcolor, int color)
+{
+
+	Controller::SetColor(bcolor, color);
+	Controller::gotoXY(x, y);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+4, y);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+1, y+1);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+2, y+2);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+1, y+3);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+3, y+3);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+3, y+1);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x, y+4);
+	Screen::printVietnamese(L"█");
+	Controller::gotoXY(x+4, y+4);
+	Screen::printVietnamese(L"█");
+
+
+}
+void print_x_block(int x, int y, int bcolor, int color)
+{
+	print_rectangle(x, y, 7, 7, bcolor, color);
+	print_x(x + 1, y + 1, bcolor, color);
+}
 
 void print_menu_Tower(int x,int y)
 {
 	print_tower_Level1(x, y, 5, 6);
 	print_tower_Level2(x + 7, y, 5, 6);
 	print_tower_Level3(x + 7 + 9, y, 5, 6);
+	print_x_block(x + 7 + 9 + 11, y, 5, 6);
 }
 
 int get_lever_Tower(int x, int y,Map m)
@@ -96,7 +127,7 @@ int get_lever_Tower(int x, int y,Map m)
 				old_pos = pos;
 				pos--;
 				if (pos == 0)
-					pos = 3;
+					pos = 4;
 
 				if (old_pos == 1)
 				{
@@ -109,6 +140,10 @@ int get_lever_Tower(int x, int y,Map m)
 				else if (old_pos == 3)
 				{
 					print_tower_Level3(x + 7 + 9, y, 5, 6);
+				}
+				else if (old_pos == 4)
+				{
+					print_x_block(x + 7 + 9 + 11, y, 5, 6);
 				}
 
 				if (pos == 1)
@@ -123,13 +158,17 @@ int get_lever_Tower(int x, int y,Map m)
 				{
 					print_tower_Level3(x + 7 + 9, y, 4, 6);
 				}
+				else if (pos == 4)
+				{
+					print_x_block(x + 7 + 9 + 11, y, 4, 6);
+				}
 
 			}
 			else if (tmp == 4)
 			{
 				old_pos = pos;
 				pos++;
-				if (pos == 4)
+				if (pos == 5)
 					pos = 1;
 
 				if (old_pos == 1)
@@ -144,6 +183,10 @@ int get_lever_Tower(int x, int y,Map m)
 				{
 					print_tower_Level3(x + 7 + 9, y, 5, 6);
 				}
+				else if (old_pos == 4)
+				{
+					print_x_block(x + 7 + 9 + 11, y, 5, 6);
+				}
 
 				if (pos == 1)
 				{
@@ -156,6 +199,10 @@ int get_lever_Tower(int x, int y,Map m)
 				else if (pos == 3)
 				{
 					print_tower_Level3(x + 7 + 9, y, 4, 6);
+				}
+				else if (pos == 4)
+				{
+					print_x_block(x + 7 + 9 + 11, y, 4, 6);
 				}
 			}
 			else if (tmp == 6)
@@ -221,9 +268,7 @@ void play_map1()
 					position++;
 					if (position == 4)
 						position = 2;
-					i++;
-					Controller::gotoXY(125, 9);
-					cout << "check: " << position;
+
 				} while (choose[position] && i < cnt);
 
 				colour_block(pos_x[old_pos], pos_y[old_pos], w[old_pos], h[old_pos], 6);
@@ -281,12 +326,7 @@ void play_map1()
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
-				Controller::gotoXY(125, 18);
-				cout << "choose: ";
-				for (int j = 0; j < 4; j++) cout << choose[j] << " ";
-				Controller::gotoXY(125, 25);
-				cout << "res: ";
-				for (int j = 0; j < 4; j++) cout << res[j] << " ";
+
 				// push tower
 				if (choose[0] == true)
 				{
@@ -477,19 +517,10 @@ void play_map1()
 	}
 
 
-	//for (auto& i : draws)
-	//{
-	//	if (i.joinable()) i.join();
-	//}
-	//int tempppp = 0;
-	//for (auto& bu : bullets)
-	//{
-	//	tempppp++;
-	//	if (bu.joinable()) bu.join();
-	//	Controller::gotoXY(125, 18 + tempppp);
-	//	cout << tempppp;
-	//}
+	bullets.push_back(thread(print_hp_player, 125, 18, 0, 4));
 	bullets.push_back(thread(enemy_map1, 20));
+
+
 	for (auto& bu : bullets)
 	{
 		bu.join();

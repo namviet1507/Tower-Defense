@@ -45,6 +45,7 @@ int main() {
 
 	//colour_block(18, 18, 5, 8, 11);
 	//print_menu_Tower(18, 18);
+	//print_x_block(18, 18, 5, 6);
 	//cin.get();
 	return 0;
 }
