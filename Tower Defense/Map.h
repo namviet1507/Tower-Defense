@@ -7,8 +7,13 @@ class Map {
 
 	static const int top = 1;
 	static const int left = 2;
+
 	vector<vector<Cell>> map;
 public:
+	Map() {
+		width = 0;
+		height = 0;
+	}
 	int getHeight();
 	int getWidth();
 

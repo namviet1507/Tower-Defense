@@ -11,5 +11,7 @@ int main() {
 	Menu::sound_is_open = true;
 	Screen::printMainScreen();
 
+
+	//play_map1();
 	return 0;
 }

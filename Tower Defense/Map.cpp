@@ -26,6 +26,13 @@ void Map::setMap(string fileMap) {
 		return;
 	}
 
+	if (fin.is_open() == false) {
+		Controller::SetColor(BLACK, BLACK);
+		system("cls");
+		exit(0);
+		return;
+	}
+
 	int cell_width;
 	int cell_height;
 
@@ -68,6 +75,8 @@ void Map::setMap(string fileMap) {
 }
 
 void Map::printMap() {
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	system("cls");
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			map[i][j].printCell();
@@ -198,7 +207,6 @@ void Map::createMap() {
 				cout << "is road: ";
 				cin >> flag_road;
 
-
 				for (int i = 0; i < 4; i++) {
 					Controller::gotoXY(132, 2 + i);
 					Controller::SetColor(BLACK, BLACK);
@@ -248,6 +256,7 @@ void Map::createMap() {
 			fout.write((char*)&flag_build, sizeof(bool));
 			fout.write((char*)&flag_tower, sizeof(bool));
 			fout.write((char*)&flag_road, sizeof(bool));
+
 		}
 	}
 
