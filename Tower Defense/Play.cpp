@@ -207,7 +207,6 @@ void play_map1()
 
 	int cnt = 0;
 	bool stop = false;
-	int i;
 	while (cnt < 4)
 	{
 		if (_kbhit())
@@ -216,13 +215,15 @@ void play_map1()
 			if (temp == 2) // up
 			{
 				old_pos = position;
-				i = 0;
+				int i = 0;
 				do
 				{
 					position++;
 					if (position == 4)
 						position = 2;
 					i++;
+					Controller::gotoXY(125, 9);
+					cout << "check: " << position;
 				} while (choose[position] && i < cnt);
 
 				colour_block(pos_x[old_pos], pos_y[old_pos], w[old_pos], h[old_pos], 6);
@@ -231,7 +232,7 @@ void play_map1()
 			else if (temp == 3) // left
 			{
 				old_pos = position;
-				i = 0;
+				int i = 0;
 				do
 				{
 					position--;
@@ -245,7 +246,7 @@ void play_map1()
 			{
 				old_pos = position;
 
-				i = 0;
+				int i = 0;
 				do
 				{
 					position++;
@@ -260,7 +261,7 @@ void play_map1()
 			{
 				old_pos = position;
 
-				i = 0;
+				int i = 0;
 				do
 				{
 					position--;
@@ -276,30 +277,99 @@ void play_map1()
 
 			else if (temp == 6)
 			{
-				i = get_lever_Tower(pos_x[position], pos_y[position], test);
+				int i = get_lever_Tower(pos_x[position], pos_y[position], test);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
+				Controller::gotoXY(125, 18);
+				cout << "choose: ";
+				for (int j = 0; j < 4; j++) cout << choose[j] << " ";
+				Controller::gotoXY(125, 25);
+				cout << "res: ";
+				for (int j = 0; j < 4; j++) cout << res[j] << " ";
 				// push tower
-
-				i = 0;
-				do
+				if (choose[0] == true)
 				{
-					position++;
-					if (position == 4)
-						position = 2;
-					i++;
-				} while (choose[position] && i < cnt);
+					if (res[0] == 1)
+					{
+						towers[0].drawTowerLevel1_Up(14, 36, 6, 4);
+					}
+					else if (res[0] == 2)
+					{
+						towers[0].drawTowerLevel2_Up(14, 36, 6, 4);
+					}
+					else if (res[0] == 3)
+					{
+						towers[0].drawTowerLevel3_Up(14, 36, 6, 4);
+					}
+				}
+				if (choose[1] == true)
+				{
+					if (res[1] == 1)
+					{
+						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+					}
+					else if (res[1] == 2)
+					{
+						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+					}
+					else if (res[1] == 3)
+					{
+						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+					}
+				}
+				if (choose[2] == true)
+				{
+					if (res[2] == 1)
+					{
+						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+					}
+					else if (res[2] == 2)
+					{
+						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+					}
+					else if (res[2] == 3)
+					{
+						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+					}
+				}
+
+				if (choose[3] == true)
+				{
+					if (res[3] == 1)
+					{
+						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+					}
+					else if (res[3] == 2)
+					{
+						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+					}
+					else if (res[3] == 3)
+					{
+						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+					}
+				}
+
+
+				//
+				for (int j = 0; j < 4; j++)
+				{
+					if (choose[j] == false)
+					{
+						position = j;
+						break;
+					}
+				}
 				colour_block(pos_x[position], pos_y[position], w[position], h[position], 4);
 			}
 			
 		}
 	}
 	colour_block(pos_x[position], pos_y[position], w[position], h[position], 6);
-
+	///
 	if (res[0] == 1)
 	{
-		towers[0].drawTowerLevel1_Up(14, 36,6,4);
+		towers[0].drawTowerLevel1_Up(14, 36, 6, 4);
 	}
 	else if (res[0] == 2)
 	{
@@ -310,7 +380,7 @@ void play_map1()
 		towers[0].drawTowerLevel3_Up(14, 36, 6, 4);
 	}
 
-	//
+
 	if (res[1] == 1)
 	{
 		towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
@@ -337,20 +407,18 @@ void play_map1()
 		towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
 	}
 
-	//
 	if (res[3] == 1)
 	{
-		towers[3].drawTowerLevel2_Left(117, 31,6,4);
+		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
 	}
-	else if (res[2] == 2)
+	else if (res[3] == 2)
 	{
 		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
 	}
-	else if (res[2] == 3)
+	else if (res[3] == 3)
 	{
 		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
 	}
-
 	////////
 	if (res[0] == 1)
 	{
@@ -399,11 +467,11 @@ void play_map1()
 	{
 		bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[3], 117, 31, 73, 31));
 	}
-	else if (res[2] == 2)
+	else if (res[3] == 2)
 	{
 		bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[3], 117, 31, 73, 31));
 	}
-	else if (res[2] == 3)
+	else if (res[3] == 3)
 	{
 		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[3], 117, 31, 73, 31));
 	}
