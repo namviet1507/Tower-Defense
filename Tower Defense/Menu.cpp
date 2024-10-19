@@ -30,7 +30,7 @@ void Screen::printRectangle(int left, int top, int width, int height)
 	putchar(217);
 }
 
-void Screen::printMainScreen() {
+int Screen::printMainScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 	Game::isPlaying = false;
@@ -38,6 +38,7 @@ void Screen::printMainScreen() {
 		Controller::playSound(BACKGROUND_SOUND);
 	Screen::printLogo();
 	int choice[5] = { 0,0,0,0,0 }, temp, key, curChoice = 0;
+	int mode;
 	while (true) {
 		choice[curChoice] = 1;
 		if (choice[0]) {
@@ -203,9 +204,13 @@ void Screen::printMainScreen() {
 						Controller::playSound(ENTER_SOUND);
 					system("cls");
 					if (curChoice == 0) {
-						Game::mode = Screen::printLevel();
-						Menu::signup();
-						Game::setupGame();
+						mode = Screen::printLevel();
+
+						return mode;
+						//if (mode == 1)
+						//{
+						//	play_map1();
+						//}
 					}
 					else if (curChoice == 1) {
 						Menu::readLoadGame();
@@ -246,6 +251,7 @@ void Screen::printMainScreen() {
 			}
 		}
 	}
+	return 10;
 }
 
 int Screen::printLevel() {

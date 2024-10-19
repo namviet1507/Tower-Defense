@@ -9,8 +9,14 @@ int main() {
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	Screen::printMainScreen();
-	Sleep(2000);
+	int mode = Screen::printMainScreen();
+	if (mode == 0)
+		play_map1();
+	else
+	{
+		system("cls");
+		cout << "shitttttttttttttttttttttttttttttttttt";
+	}
 	//Map test;
 
 	////test.createMap();
@@ -39,7 +45,7 @@ int main() {
 	//a.drawTowerLevel1(0, 26, 0, 15);
 	//a.tower_bullet_level1(0, 26);
 
-	play_map1();
+	//play_map1();
 	//Map test;
 	//test.createMap();
 

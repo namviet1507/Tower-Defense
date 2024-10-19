@@ -521,15 +521,22 @@ void play_map1()
 
 	bullets.push_back(thread(print_hp_player, 125, 18, 0, 4));
 	bullets.push_back(thread(enemy_map1, 20));
-
+	bullets.push_back(thread(check_win, 20));
 
 	for (auto& bu : bullets)
 	{
 		bu.join();
 	}
-
-	Controller::gotoXY(125, 0);
-	cout << "you lose!";
+	if (losegame)
+	{
+		Controller::gotoXY(125, 0);
+		cout << "you lose!";
+	}
+	if (wingame)
+	{
+		Controller::gotoXY(125, 10);
+		cout << "you win!";
+	}
 	//colour_block(125, 18, 5, 5, 2);
 	//colour_block(125, 8, 3, 2, 3);
 	//Tower t1,t2,t3,t4;

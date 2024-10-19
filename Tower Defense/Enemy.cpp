@@ -702,6 +702,7 @@ void Enemy::move_map1()
 		player.de_hp(1);
 		mu.unlock();
 	}
+	hp = 0;
 }
 
 vector<Enemy> e_global(0);

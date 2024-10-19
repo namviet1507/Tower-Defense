@@ -45,6 +45,12 @@ void print_hp_player(int x, int y, int bcolor, int color)
 {
 	while (player.get_hp() > 0)
 	{
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+			return;
 		thread p(&Player::print_hp, &player, x, y, bcolor, color);
 		if (p.joinable())
 		{
@@ -54,9 +60,39 @@ void print_hp_player(int x, int y, int bcolor, int color)
 	}
 	mu.lock();
 	ingame = false;
+	losegame = true;
 	mu.unlock();
 }
 
 
 bool ingame;
 Player player;
+bool wingame;
+bool losegame;
+
+void check_win(int num_enemy)
+{
+	int count = 0;
+	while (count < num_enemy)
+	{
+		count = 0;
+		bool check;
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		if (check == false)
+			return;
+
+		mu.lock();
+		for (auto i : e_global)
+		{
+			if (i.get_hp() <= 0)
+				count++;
+		}
+		mu.unlock();
+	}
+	mu.lock();
+	wingame = true;
+	ingame = false;
+	mu.unlock();
+}

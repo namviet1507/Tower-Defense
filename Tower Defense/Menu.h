@@ -21,7 +21,7 @@ class Menu
 struct Screen {
 
 	static bool isVie;
-	static void printMainScreen();							//In ra màn hình chính
+	static int printMainScreen();							//In ra màn hình chính
 	static void printLogo();
 	static void printLogoEffect();
 	static void printLogoStandard();

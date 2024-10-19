@@ -16,5 +16,8 @@ class Player {
 };
 extern Player player;
 extern bool ingame;
+extern bool wingame;
+extern bool losegame;
 
 void print_hp_player(int x,int y,int bcolor,int color);
+void check_win(int num_enemy);
