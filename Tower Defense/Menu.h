@@ -2,9 +2,10 @@
 #include "Library.h"
 #include "Player.h"
 
-#define LIST_FILE "listFile.bin"
+#define LIST_FILE "listFile.txt"
 
-class Menu : public Player {
+class Menu 
+{
 	private:
 		
 	public:
@@ -27,7 +28,7 @@ class Menu : public Player {
 struct Screen {
 
 	static bool isVie;
-	static void printMainScreen();							//In ra màn hình chính
+	static int printMainScreen();							//In ra màn hình chính
 	static void printLogo();
 	static void printLogoEffect();
 	static void printLogoStandard();
