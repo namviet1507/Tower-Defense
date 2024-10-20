@@ -349,7 +349,7 @@ void play_map1()
 				{
 					if (res[1] == 1)
 					{
-						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+						towers[1].drawTowerLevel1_Right(34, 11, 6, 4);
 					}
 					else if (res[1] == 2)
 					{
@@ -357,14 +357,14 @@ void play_map1()
 					}
 					else if (res[1] == 3)
 					{
-						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+						towers[1].drawTowerLevel3_Right(34, 11, 6, 4);
 					}
 				}
 				if (choose[2] == true)
 				{
 					if (res[2] == 1)
 					{
-						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+						towers[2].drawTowerLevel1_Down(46, 0, 6, 4);
 					}
 					else if (res[2] == 2)
 					{
@@ -372,7 +372,7 @@ void play_map1()
 					}
 					else if (res[2] == 3)
 					{
-						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+						towers[2].drawTowerLevel3_Down(46, 0, 6, 4);
 					}
 				}
 
@@ -380,7 +380,7 @@ void play_map1()
 				{
 					if (res[3] == 1)
 					{
-						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+						towers[3].drawTowerLevel1_Left(117, 31, 6, 4);
 					}
 					else if (res[3] == 2)
 					{
@@ -388,9 +388,10 @@ void play_map1()
 					}
 					else if (res[3] == 3)
 					{
-						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+						towers[3].drawTowerLevel3_Left(117, 31, 6, 4);
 					}
 				}
+
 
 
 				//
@@ -425,7 +426,7 @@ void play_map1()
 
 	if (res[1] == 1)
 	{
-		towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+		towers[1].drawTowerLevel1_Right(34, 11, 6, 4);
 	}
 	else if (res[1] == 2)
 	{
@@ -433,12 +434,12 @@ void play_map1()
 	}
 	else if (res[1] == 3)
 	{
-		towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+		towers[1].drawTowerLevel3_Right(34, 11, 6, 4);
 	}
 
 	if (res[2] == 1)
 	{
-		towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+		towers[2].drawTowerLevel1_Down(46, 0, 6, 4);
 	}
 	else if (res[2] == 2)
 	{
@@ -446,12 +447,12 @@ void play_map1()
 	}
 	else if (res[2] == 3)
 	{
-		towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+		towers[2].drawTowerLevel3_Down(46, 0, 6, 4);
 	}
 
 	if (res[3] == 1)
 	{
-		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+		towers[3].drawTowerLevel1_Left(117, 31, 6, 4);
 	}
 	else if (res[3] == 2)
 	{
@@ -459,7 +460,7 @@ void play_map1()
 	}
 	else if (res[3] == 3)
 	{
-		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+		towers[3].drawTowerLevel3_Left(117, 31, 6, 4);
 	}
 	////////
 	if (res[0] == 1)
@@ -479,7 +480,7 @@ void play_map1()
 	if (res[1] == 1)
 	{
 
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[1], 34, 11, 114, 11));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Right, &towers[1], 34, 11, 114, 11));
 	}
 	else if (res[1] == 2)
 	{
@@ -488,13 +489,13 @@ void play_map1()
 	}
 	else if (res[1] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[1], 34, 11, 114, 11));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Right, &towers[1], 34, 11, 114, 11));
 	}
 	////
 	//colour_block(125, 18, 5, 5, 2);
 	if (res[2] == 1)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[2], 46, 0, 46, 35));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Down, &towers[2], 46, 0, 46, 35));
 	}
 	else if (res[2] == 2)
 	{
@@ -502,12 +503,12 @@ void play_map1()
 	}
 	else if (res[2] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[2], 46, 0, 46, 35));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Down, &towers[2], 46, 0, 46, 35));
 	}
 	////
 	if (res[3] == 1)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[3], 117, 31, 73, 31));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Left, &towers[3], 117, 31, 73, 31));
 	}
 	else if (res[3] == 2)
 	{
@@ -515,7 +516,7 @@ void play_map1()
 	}
 	else if (res[3] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[3], 117, 31, 73, 31));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Left, &towers[3], 117, 31, 73, 31));
 	}
 
 
