@@ -214,17 +214,68 @@ int get_lever_Tower(int x, int y,Map m)
 	}
 }
 
+void check_continue_play() {
+	int x = 50; 
+	int y = 10; 
+	int option = 1; 
+	int bcolor = 5; 
+	int color = 6; 
 
+	print_rectangle(x, y, 35, 10, bcolor, color);
+	Controller::gotoXY(x + 2, y + 2);
+	cout << "Do you want to continue playing?";
 
+	
+	print_rectangle(x + 5, y + 5, 10, 3, bcolor, color);
+	print_rectangle(x + 15, y + 5, 10, 3, bcolor, color); 
 
+	
+	Controller::gotoXY(x + 8, y + 6);
+	cout << "Yes";
+	Controller::gotoXY(x + 18, y + 6); 
+	cout << "No";
 
+	while (true) {
+		
+		if (option == 1) {
+		
+			print_rectangle(x + 5, y + 5, 10, 3, 4, color); 
+			
+			print_rectangle(x + 15, y + 5, 10, 3, bcolor, color);
+		}
+		else {
+			
+			print_rectangle(x + 5, y + 5, 10, 3, bcolor, color);
+			
+			print_rectangle(x + 15, y + 5, 10, 3, 4, color); 
+		}
 
+	
+		Controller::gotoXY(x + 8, y + 6);
+		cout << "Yes";
+		Controller::gotoXY(x + 18, y + 6);
+		cout << "No";
 
-
-
-
-
-
+		if (_kbhit()) {
+			int input = Controller::getConsoleInput();
+			if (input == 3) { 
+				option = 1; 
+			}
+			else if (input == 4) { 
+				option = 2; 
+			}
+			else if (input == 6) { 
+				if (option == 1) {
+				
+					play_map1();
+				}
+				else {
+					Screen::printMainScreen();
+				}
+			}
+		}
+	}
+}
 
 
 
@@ -527,16 +578,8 @@ void play_map1()
 	{
 		bu.join();
 	}
-	if (losegame)
-	{
-		Controller::gotoXY(125, 0);
-		cout << "you lose!";
-	}
-	if (wingame)
-	{
-		Controller::gotoXY(125, 10);
-		cout << "you win!";
-	}
+	check_continue_play();
+	
 	//colour_block(125, 18, 5, 5, 2);
 	//colour_block(125, 8, 3, 2, 3);
 	//Tower t1,t2,t3,t4;
