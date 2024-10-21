@@ -583,7 +583,7 @@ void Enemy::dele_t(int x, int y)
 void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (y_start - y_end) / 2;
-	if (hp > 0)
+	if (true)
 	{
 		for (int i = 0; i < step; i++)
 		{
@@ -597,15 +597,12 @@ void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 			}
 			if (hp <= 0)
 			{
-				mu.lock();
-				player.in_cost(1);
-				mu.unlock();
 				break;
 			}
 			showl_l(x_start, y_start - 2 * i, 0, 11);
 			Sleep(200);
 			dele_l(x_start, y_start - 2 * i);
-			Sleep(25);
+			//Sleep(25);
 			showr_l(x_start, y_start - 2 * i - 1, 0, 11);
 			Sleep(200);
 			dele_l(x_start, y_start - 2 * i - 1);
@@ -617,7 +614,7 @@ mutex mu_e2;
 void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (y_end - y_start) / 2;
-	if (hp > 0)
+	if (true)
 	{
 		for (int i = 0; i < step; i++)
 		{
@@ -632,9 +629,6 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 
 			if (hp <= 0)
 			{
-				mu.lock();
-				player.in_cost(1);
-				mu.unlock();
 				break;
 			}
 			mu_e2.lock();
@@ -644,7 +638,7 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 			mu_e2.lock();
 			dele_x(x_start, y_start + 2 * i);
 			mu_e2.unlock();
-			Sleep(25);
+			//Sleep(25);
 			mu_e2.lock();
 			showr_x(x_start, y_start + 2 * i + 1, 0, 11);
 			mu_e2.unlock();
@@ -660,7 +654,7 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (x_end - x_start) / 2;
-	if (hp > 0)
+	if (true)
 	{
 		for (int i = 0; i < step; i++)
 		{
@@ -675,15 +669,12 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 
 			if (hp <= 0)
 			{
-				mu.lock();
-				player.in_cost(1);
-				mu.unlock();
 				break;
 			}
 			showl_p(x_start + 2 * i, y_start, 0, 11);
 			Sleep(200);
 			dele_p(x_start + 2 * i, y_start);
-			Sleep(25);
+			//Sleep(25);
 			showr_p(x_start + 2 * i + 1, y_start, 0, 11);
 			Sleep(200);
 			dele_p(x_start + 2 * i + 1, y_start);
@@ -695,7 +686,7 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (x_start - x_end) / 2;
-	if (hp > 0)
+	if (true)
 	{
 		for (int i = 0; i < step; i++)
 		{
@@ -710,15 +701,12 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 
 			if (hp <= 0)
 			{
-				mu.lock();
-				player.in_cost(1);
-				mu.unlock();
 				break;
 			}
 			showl_t(x_start - 2 * i, y_start, 0, 11);
 			Sleep(200);
 			dele_t(x_start - 2 * i, y_start);
-			Sleep(25);
+			//Sleep(25);
 			showr_t(x_start - 2 * i - 1, y_start, 0, 11);
 			Sleep(200);
 			dele_t(x_start - 2 * i - 1, y_start);
@@ -735,6 +723,12 @@ void Enemy::move_map1()
 	move_p(61, 8, 109, 8);
 	move_x(101, 18, 109, 30);
 	move_t(92, 29, 73, 29);
+	if (hp <= 0)
+	{
+		mu.lock();
+		player.in_cost(1);
+		mu.unlock();
+	}
 	if (hp > 0)
 	{
 		mu.lock();
@@ -778,7 +772,7 @@ void enemy_map1(int num)
 		Enemy& e = e_global[i];
 		mu_global.unlock();
 		threads.push_back(thread(&Enemy::move_map1, &e) );
-		Sleep(3000);
+		Sleep(3500);
 	}
 
 	for (auto& th : threads)

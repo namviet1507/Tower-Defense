@@ -111,7 +111,7 @@ void print_box_no(int x, int y, int bcolor, int color)
 	Controller::gotoXY(x, y);
 	Controller::SetColor(8, color);
 	putchar(203);
-	for (int i = 1; i < 42 - 1; i++) {
+	for (int i = 1; i < 42 ; i++) {
 		putchar(205);
 	}
 	putchar(185);
@@ -120,7 +120,7 @@ void print_box_no(int x, int y, int bcolor, int color)
 	for (int i = 1; i < 7 - 1; i++)
 	{
 		cout << char(186);
-		for (int j = 1; j < 42 - 1; j++)
+		for (int j = 1; j < 42; j++)
 		{
 			cout << " ";
 		}
@@ -130,7 +130,7 @@ void print_box_no(int x, int y, int bcolor, int color)
 
 	Controller::gotoXY(x, y + 7 - 1);
 	putchar(202);
-	for (int i = 1; i < 42 - 1; i++)
+	for (int i = 1; i < 42 ; i++)
 		putchar(205);
 	putchar(188);
 }
@@ -169,7 +169,7 @@ void print_yes(int x, int y, int bcolor, int color)
 void print_no(int x, int y, int bcolor, int color)
 {
 	//print_rectangle(x - 1, y - 1, 42, 7, bcolor, color);
-	print_box_no(x-1, y-1, bcolor, color);
+	print_box_no(x-2, y-1, bcolor, color);
 	Controller::gotoXY(x + 12, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"███    ██  ██████  ");
@@ -866,13 +866,17 @@ void play_map1()
 	if (losegame)
 	{
 		print_win(30, 18, 8, 13);
-		Sleep(1000);
+		Sleep(3000);
 	}
-	if (wingame)
+	else
 	{
-		print_lose(30, 18, 8, 13);
-		Sleep(1000);
+		if (wingame)
+		{
+			print_lose(30, 18, 8, 13);
+			Sleep(3000);
+		}
 	}
+
 
 	int value = print_continue_board(30, 18, test);
 

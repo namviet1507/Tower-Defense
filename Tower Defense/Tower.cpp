@@ -45,7 +45,7 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
-                    enemy.sub_hp(2);
+                    enemy.sub_hp(1);
                     flag = true;
                     break;
                 }
@@ -115,7 +115,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
-        Sleep(100);
+        Sleep(150);
         mu.lock();
         Controller::gotoXY(x - 5 - i, y + 3);
         Screen::printVietnamese(L" ");
@@ -131,7 +131,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
-                    enemy.sub_hp(2);
+                    enemy.sub_hp(1);
                     flag = true;
                     break;
                 }
@@ -203,7 +203,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(70);
+        Sleep(150);
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
@@ -220,7 +220,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
-                    enemy.sub_hp(3);
+                    enemy.sub_hp(1);
                     flag = true;
                     break;
                 }
@@ -292,7 +292,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(50);
+        Sleep(150);
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
@@ -309,7 +309,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
-                    enemy.sub_hp(3);
+                    enemy.sub_hp(1);
                     flag = true;
                     break;
                 }
@@ -386,7 +386,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  //To process conlision with enemy
 
-        Sleep(150);
+        Sleep(120);
 
         mu.lock();
         Controller::SetColor(0, 4);
@@ -407,7 +407,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
-                    enemy.sub_hp(1);
+                    enemy.sub_hp(2);
                     flag = true;
                     break;
                 }
@@ -458,7 +458,7 @@ void Tower::tower_bullet_level2_Up(int x, int y)
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
-            Sleep(150);
+            Sleep(120);
         }
     }
 }
@@ -490,7 +490,7 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
-        Sleep(100);
+        Sleep(120);
         mu.lock();
         Controller::gotoXY(x - 5 - i, y + 3);
         Screen::printVietnamese(L" ");
@@ -572,7 +572,7 @@ void Tower::tower_bullet_level2_Left(int x, int y, int x_end, int y_end)
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
-            Sleep(70);
+            Sleep(120);
         }
     }
 }
@@ -604,7 +604,7 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(70);
+        Sleep(120);
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
@@ -625,7 +625,7 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
-                    enemy.sub_hp(3);
+                    enemy.sub_hp(2);
                     flag = true;
                     break;
                 }
@@ -682,7 +682,7 @@ void Tower::tower_bullet_level2_Right(int x, int y, int x_end, int y_end)
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
-            Sleep(100);
+            Sleep(120);
         }
 
         //if(bullet_firt.joinable())
@@ -719,7 +719,7 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(50);
+        Sleep(120);
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
@@ -738,7 +738,7 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
-                    enemy.sub_hp(3);
+                    enemy.sub_hp(2);
                     flag = true;
                     break;
                 }
@@ -785,7 +785,7 @@ void Tower::tower_bullet_level2_Down(int x, int y, int x_end, int y_end)
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
-            Sleep(50);
+            Sleep(120);
         }
     }
 }
@@ -941,7 +941,7 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
             {
                 if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
-                    enemy.sub_hp(2);
+                    enemy.sub_hp(3);
                     flag = true;
                     break;
                 }
@@ -1024,7 +1024,7 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(70);
+        Sleep(100);
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
@@ -1133,7 +1133,7 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(50);
+        Sleep(100);
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
