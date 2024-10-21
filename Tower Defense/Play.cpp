@@ -188,7 +188,7 @@ void play_map1()
 
 	Controller::setUpConsole();
 	Map test;
-	test.setMap("./Map/level1.txt");
+	test.setMap("./Map/Easy/level1.bin");
 	test.printMap();
 	int pos_x[4] = { 10,34,42,114 };
 	int pos_y[4] = {36,11,1,31};

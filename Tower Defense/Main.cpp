@@ -11,7 +11,12 @@ int main() {
 	Menu::sound_is_open = true;
 	Screen::printMainScreen();
 
+	//Sleep(3000);
+	//Map test;
+	//test.setMap("./Map/Easy/level1.bin");
+	//test.printMap();
 
+	//cin.get();
 	//play_map1();
 	return 0;
 }

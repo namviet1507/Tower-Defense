@@ -24,7 +24,7 @@ struct Screen {
 	static void printLogoEffect();
 	static void printLogoStandard();
 	static int printLevel();								//In ra mức độ chơi
-	static void printRectangle(int, int, int, int);			//Vẽ hình chữ nhật
+	static void printRectangle(int left, int top, int width, int height);			//Vẽ hình chữ nhật
 	static void printVietnamese(wstring);
 	
 };

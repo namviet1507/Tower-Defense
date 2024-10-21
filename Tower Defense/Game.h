@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "Controller.h"
 #include "Map.h"
+#include "Tower.h"
 
 class Game : public Player {
 	int mode;
@@ -18,6 +19,9 @@ public:
 	void setMode(int);
 	void setFlagPlaying(bool);
 	void setFileMap(string);
+
+	void printControlPanel();
+	void selectTower();
 
 	void setupGame();
 	void buildTower();
