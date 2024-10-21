@@ -112,7 +112,7 @@ void Game::buildTower() {
 			case 2: // up
 				if (pointer->getRow() > 0) {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(MOVE_SOUND);
 					}
 					pointer->printCell();
 					pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
@@ -120,14 +120,14 @@ void Game::buildTower() {
 				}
 				else {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(ERROR_SOUND);
 					}
 				}
 				break;
 			case 3: // left
 				if (pointer->getCol() > 0) {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(MOVE_SOUND);
 					}
 					pointer->printCell();
 					pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
@@ -135,14 +135,14 @@ void Game::buildTower() {
 				}
 				else {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(ERROR_SOUND);
 					}
 				}
 				break;
 			case 4: // right
 				if (pointer->getCol() < _map.getWidth() - 1) {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(MOVE_SOUND);
 					}
 					pointer->printCell();
 					pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
@@ -150,14 +150,14 @@ void Game::buildTower() {
 				}
 				else {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(ERROR_SOUND);
 					}
 				}
 				break;
 			case 5:  // down
 				if (pointer->getRow() < _map.getHeight() - 1) {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(MOVE_SOUND);
 					}
 					pointer->printCell();
 					pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
@@ -165,7 +165,7 @@ void Game::buildTower() {
 				}
 				else {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(ERROR_SOUND);
 					}
 				}
 				break;
@@ -178,7 +178,7 @@ void Game::buildTower() {
 				}
 				else {
 					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
+						Controller::playSound(ERROR_SOUND);
 					}
 				}
 				break;
@@ -187,7 +187,7 @@ void Game::buildTower() {
 				break;
 			default:
 				if (Menu::sound_is_open) {
-					Controller::playSound(ENTER_SOUND);
+					Controller::playSound(ERROR_SOUND);
 				}
 				break;
 			}
