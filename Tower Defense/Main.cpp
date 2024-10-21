@@ -11,15 +11,41 @@ int main() {
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	int mode = Screen::printMainScreen();
-	if (mode == 0)
-		play_map1();
-	else
+	while (true)
 	{
-		system("cls");
-		cout << "shitttttttttttttttttttttttttttttttttt";
+		int mode = Screen::printMainScreen();
+		if (mode == 0)
+		{
+			isbreakmap1 = false;
+			while (!isbreakmap1)
+			{
+				play_map1();
+			}
+
+		}
+		else
+		{
+			system("cls");
+			cout << "shitttttttttttttttttttttttttttttttttt";
+		}
 	}
 
+
+	//Map t;
+	//t.setMap("./Map/level1.txt");
+
+	//int x =print_continue_board(30,18,t);
+	//if (x == 0)
+	//{
+	//	Controller::gotoXY(125, 0);
+	//	cout << 0;
+	//}
+	//else
+	//{
+	//	Controller::gotoXY(125, 0);
+	//	cout << 1;
+	//}
+	//cin.get();
 	/*Tower t1, t2, t3, t4;
 	t1.drawTowerLevel2_Up(14, 36, 6, 4);
 	t2.drawTowerLevel2_Down(46, 0, 6, 4);

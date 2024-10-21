@@ -1,18 +1,21 @@
 ﻿#include "Player.h"
 
-
+bool ingame;
+Player player;
+bool wingame;
+bool losegame;
+bool showcost;
+bool isbreakmap1;
 void Player::print_hp(int x, int y, int bcolor, int color)
 {
 
 	mu.lock();
-	int end = hp;
+	int end = player.get_hp();
 	mu.unlock();
 
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-
-
 	for (int i = 0; i < end; i++)
 	{
 		Screen::printVietnamese(L"█");
@@ -41,6 +44,40 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	//mu.unlock();
 }
 
+void Player::print_cost(int x, int y, int bcolor, int color)
+{
+	mu.lock();
+	int h = player.get_cost();
+	mu.unlock();
+
+	mu.lock();
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	cout << h;
+	Screen::printVietnamese(L" $");
+	mu.unlock();
+	Sleep(1000);
+	mu.lock();
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"    ");
+	mu.unlock();
+}
+
+void print_cost_first(int x, int y, int bcolor, int color)
+{
+	mu.lock();
+	int h = player.get_cost();
+	mu.unlock();
+
+	mu.lock();
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	cout << h;
+	Screen::printVietnamese(L" $");
+	mu.unlock();
+}
+
 void print_hp_player(int x, int y, int bcolor, int color)
 {
 	while (player.get_hp() > 0)
@@ -55,20 +92,34 @@ void print_hp_player(int x, int y, int bcolor, int color)
 		if (p.joinable())
 		{
 			p.join();
-			Sleep(20);
+			Sleep(50);
 		}
 	}
 	mu.lock();
 	ingame = false;
 	losegame = true;
+	showcost = false;
 	mu.unlock();
 }
 
-
-bool ingame;
-Player player;
-bool wingame;
-bool losegame;
+void print_cost_player(int x, int y, int bcolor, int color)
+{
+	mu.lock();
+	bool check = showcost;
+	mu.unlock();
+	while (check)
+	{
+		thread p(&Player::print_cost, &player, x, y, bcolor, color);
+		if (p.joinable())
+		{
+			p.join();
+			Sleep(50);
+		}
+		mu.lock();
+		check = showcost;
+		mu.unlock();
+	}
+}
 
 void check_win(int num_enemy)
 {
@@ -94,5 +145,6 @@ void check_win(int num_enemy)
 	mu.lock();
 	wingame = true;
 	ingame = false;
+	showcost = false;
 	mu.unlock();
 }
