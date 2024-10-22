@@ -111,7 +111,7 @@ void Enemy::dele_x(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x-1, y - 2);
-	Controller::SetColor(BRIGHT_WHITE, 12);
+	Controller::SetColor(0, 12);
 	for (int i = 0; i < 10; i++)
 		Screen::printVietnamese(L" ");
 	mu.unlock();
@@ -273,7 +273,7 @@ void Enemy::dele_l(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x-1, y - 2);
-	Controller::SetColor(BRIGHT_WHITE, 12);
+	Controller::SetColor(0, 12);
 	for (int i = 0; i < hp; i++)
 		Screen::printVietnamese(L" ");
 	mu.unlock();
@@ -429,7 +429,7 @@ void Enemy::dele_p(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x-1, y - 2);
-	Controller::SetColor(BRIGHT_WHITE, 12);
+	Controller::SetColor(0, 12);
 	if (hp == 1)
 		cout << " ";
 	for (int i = 0; i < 5; i++)
@@ -547,7 +547,7 @@ void Enemy::dele_t(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x-1, y - 2);
-	Controller::SetColor(BRIGHT_WHITE, 12);
+	Controller::SetColor(0, 12);
 	if (hp == 1)
 		cout << " ";
 	for (int i = 0; i < 5; i++)
