@@ -10,6 +10,7 @@ class Cell {
 
 	int width;
 	int height;
+
 	int color;
 	int color_hover;
 

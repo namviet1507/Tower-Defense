@@ -11,6 +11,9 @@ class Game : public Player {
 	bool is_playing;
 	string file_map;
 	Map _map;
+
+	vector<Cell*> places;
+
 public:
 	int getMode();
 	bool getFlagPlaying();
@@ -22,6 +25,8 @@ public:
 
 	void printControlPanel();
 	void selectTower();
+
+	void setPlaceBuild();
 
 	void setupGame();
 	void buildTower();

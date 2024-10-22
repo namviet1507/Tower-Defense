@@ -30,7 +30,12 @@ private:
     int numberOfBullet;
     int indexOfTowerFollowX;
     int indexOfTowerFollowY;
+
+    int level;
 public:
+    int getLevel();
+    void setLevel(int level);
+
     void drawTowerLevel1_Up(int x, int y, int colorFirst, int colorSecond);
     void tower_bullet_level1_Up(int x, int y);
     void drawTowerLevel2_Up(int x, int y, int colorFirst, int colorSecond);
@@ -47,5 +52,7 @@ public:
     void tower_bullet_level2_Right(int x, int y, int x_end, int y_end);
     void drawTowerLevel2_Down(int x, int y, int colorFirst, int colorSecond);
     void tower_bullet_level2_Down(int x, int y,int x_end,int y_end);
+
+    void draw_tower(int x, int y, int x_end, int y_end);
 
 };

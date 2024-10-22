@@ -190,12 +190,16 @@ void play_map1()
 	Map test;
 	test.setMap("./Map/Easy/level1.bin");
 	test.printMap();
+
 	int pos_x[4] = { 10,34,42,114 };
 	int pos_y[4] = {36,11,1,31};
+
 	int w[4] = {5,5,5,5};
 	int h[4] = {16,8,16,8};
+
 	bool choose[4] = { false,false,false,false };
 	int res[4] = { -1,-1,-1,-1 };
+
 	vector<thread> draws;
 	vector<thread> bullets;
 	vector<Tower> towers(4);
@@ -208,6 +212,7 @@ void play_map1()
 	int cnt = 0;
 	bool stop = false;
 	int i;
+
 	while (cnt < 4)
 	{
 		if (_kbhit())

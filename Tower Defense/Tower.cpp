@@ -4,6 +4,15 @@
 #include <mutex>
 
 mutex mu_global2;
+
+int Tower::getLevel() {
+    return level;
+}
+
+void Tower::setLevel(int level) {
+    this->level = level;
+}
+
 void Bullet::wayBulletOfLevel1_Up(int x, int y)
 {
     Controller::showCursor(false);

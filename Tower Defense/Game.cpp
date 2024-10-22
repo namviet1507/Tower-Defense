@@ -99,98 +99,102 @@ void Game::selectTower() {
 }
 
 void Game::buildTower() {
-	Cell* pointer = &_map[0][0];
-	pointer->hoverCell();
 
-	bool stop = false;
-	while (stop == false) {
-		if (_kbhit()) {
-			switch (Controller::getConsoleInput()) {
-			case 1:
-				stop = true;
-				break;
-			case 2: // up
-				if (pointer->getRow() > 0) {
-					if (Menu::sound_is_open) {
-						Controller::playSound(MOVE_SOUND);
-					}
-					pointer->printCell();
-					pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
-					pointer->hoverCell();
-				}
-				else {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ERROR_SOUND);
-					}
-				}
-				break;
-			case 3: // left
-				if (pointer->getCol() > 0) {
-					if (Menu::sound_is_open) {
-						Controller::playSound(MOVE_SOUND);
-					}
-					pointer->printCell();
-					pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
-					pointer->hoverCell();
-				}
-				else {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ERROR_SOUND);
-					}
-				}
-				break;
-			case 4: // right
-				if (pointer->getCol() < _map.getWidth() - 1) {
-					if (Menu::sound_is_open) {
-						Controller::playSound(MOVE_SOUND);
-					}
-					pointer->printCell();
-					pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
-					pointer->hoverCell();
-				}
-				else {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ERROR_SOUND);
-					}
-				}
-				break;
-			case 5:  // down
-				if (pointer->getRow() < _map.getHeight() - 1) {
-					if (Menu::sound_is_open) {
-						Controller::playSound(MOVE_SOUND);
-					}
-					pointer->printCell();
-					pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
-					pointer->hoverCell();
-				}
-				else {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ERROR_SOUND);
-					}
-				}
-				break;
-			case 6:
-				if (pointer->getFlagBuild()) {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ENTER_SOUND);
-					}
-					
-				}
-				else {
-					if (Menu::sound_is_open) {
-						Controller::playSound(ERROR_SOUND);
-					}
-				}
-				break;
-			case 15:
-				
-				break;
-			default:
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
-				break;
-			}
-		}
-	}
+
+
+
+	//Cell* pointer = &_map[0][0];
+	//pointer->hoverCell();
+
+	//bool stop = false;
+	//while (stop == false) {
+	//	if (_kbhit()) {
+	//		switch (Controller::getConsoleInput()) {
+	//		case 1:
+	//			stop = true;
+	//			break;
+	//		case 2: // up
+	//			if (pointer->getRow() > 0) {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(MOVE_SOUND);
+	//				}
+	//				pointer->printCell();
+	//				pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
+	//				pointer->hoverCell();
+	//			}
+	//			else {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ERROR_SOUND);
+	//				}
+	//			}
+	//			break;
+	//		case 3: // left
+	//			if (pointer->getCol() > 0) {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(MOVE_SOUND);
+	//				}
+	//				pointer->printCell();
+	//				pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
+	//				pointer->hoverCell();
+	//			}
+	//			else {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ERROR_SOUND);
+	//				}
+	//			}
+	//			break;
+	//		case 4: // right
+	//			if (pointer->getCol() < _map.getWidth() - 1) {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(MOVE_SOUND);
+	//				}
+	//				pointer->printCell();
+	//				pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
+	//				pointer->hoverCell();
+	//			}
+	//			else {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ERROR_SOUND);
+	//				}
+	//			}
+	//			break;
+	//		case 5:  // down
+	//			if (pointer->getRow() < _map.getHeight() - 1) {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(MOVE_SOUND);
+	//				}
+	//				pointer->printCell();
+	//				pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
+	//				pointer->hoverCell();
+	//			}
+	//			else {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ERROR_SOUND);
+	//				}
+	//			}
+	//			break;
+	//		case 6:
+	//			if (pointer->getFlagBuild()) {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ENTER_SOUND);
+	//				}
+	//				
+	//			}
+	//			else {
+	//				if (Menu::sound_is_open) {
+	//					Controller::playSound(ERROR_SOUND);
+	//				}
+	//			}
+	//			break;
+	//		case 15:
+	//			
+	//			break;
+	//		default:
+	//			if (Menu::sound_is_open) {
+	//				Controller::playSound(ERROR_SOUND);
+	//			}
+	//			break;
+	//		}
+	//	}
+	//}
 }
