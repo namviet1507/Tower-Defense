@@ -40,6 +40,23 @@ void Game::printControlPanel() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printRectangle(124, 1, 28, 38);
 
+	Controller::gotoXY(126, 3);
+	Screen::printVietnamese(L"  _ | ~_  ");
+	Controller::gotoXY(126, 4);
+	Screen::printVietnamese(L"[_]--'--[_]");
+	Controller::gotoXY(126, 5);
+	Screen::printVietnamese(L"|'|\"\"`\"\"|'|");
+	Controller::gotoXY(126, 6);
+	Screen::printVietnamese(L"| | /^\\ | |");
+	Controller::gotoXY(126, 7);
+	Screen::printVietnamese(L"|_|_|I|_|_|");
+
+	player.print_hp(138, 4, BRIGHT_WHITE, RED);
+	print_cost_first(138, 5, BRIGHT_WHITE, YELLOW);
+
+
+
+
 	//Screen::printRectangle(136, 29, 3, 2);
 	//Controller::gotoXY(138, 30);
 	//Screen::printVietnamese(L"^");
@@ -56,25 +73,6 @@ void Game::printControlPanel() {
 	Screen::printRectangle(131, 36, 14, 2);
 	Controller::gotoXY(134, 37);
 	cout << "ESC: PAUSE";
-
-	/*Tower tower;
-	tower.drawTowerLevel1_Up(126, 3, BRIGHT_WHITE, GRAY);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(136, 3);
-	cout << "Tower level 1";
-	Controller::gotoXY(136, 4);
-	cout << "Dame: 1";
-	Controller::gotoXY(136, 5);
-	cout << "speed: x";
-
-	tower.drawTowerLevel2_Up(126, 10, BRIGHT_WHITE, GRAY);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(136, 10);
-	cout << "Tower level 2";
-	Controller::gotoXY(136, 11);
-	cout << "Dame: 2";
-	Controller::gotoXY(136, 12);
-	cout << "speed: x";*/
 }
 
 void Game::selectTower() {
@@ -99,8 +97,101 @@ void Game::selectTower() {
 }
 
 void Game::buildTower() {
+	vector<Cell*> place_build;
+	for (int i = 0; i < _map.getHeight(); i++) {
+		for (int j = 0; j < _map.getWidth(); j++) {
+			if (_map[i][j].getFlagBuild()) {
+				place_build.push_back(&_map[i][j]);
+			}
+		}
+	}
 
+	vector<thread> draws;
+	vector<thread> bullets;
+	vector<Tower> towers(4);
 
+	Cell* pointer = place_build[0];
+	pointer->hoverCell();
+
+	while (true) {
+		switch (Controller::getConsoleInput()) {
+		case 2: // up
+			if (pointer->getRow() > 0) {
+				if (Menu::sound_is_open) {
+					Controller::playSound(MOVE_SOUND);
+				}
+				pointer->printCell();
+				pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
+				pointer->hoverCell();
+			}
+			else {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ERROR_SOUND);
+				}
+			}
+			break;
+		case 3: // left
+			if (pointer->getCol() > 0) {
+				if (Menu::sound_is_open) {
+					Controller::playSound(MOVE_SOUND);
+				}
+				pointer->printCell();
+				pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
+				pointer->hoverCell();
+			}
+			else {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ERROR_SOUND);
+				}
+			}
+			break;
+		case 4: // right
+			if (pointer->getCol() < _map.getWidth() - 1) {
+				if (Menu::sound_is_open) {
+					Controller::playSound(MOVE_SOUND);
+				}
+				pointer->printCell();
+				pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
+				pointer->hoverCell();
+			}
+			else {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ERROR_SOUND);
+				}
+			}
+			break;
+		case 5:  // down
+			if (pointer->getRow() < _map.getHeight() - 1) {
+				if (Menu::sound_is_open) {
+					Controller::playSound(MOVE_SOUND);
+				}
+				pointer->printCell();
+				pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
+				pointer->hoverCell();
+			}
+			else {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ERROR_SOUND);
+				}
+			}
+			break;
+		case 6:
+			if (pointer->getFlagBuild()) {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ENTER_SOUND);
+				}
+							
+			}
+			else {
+				if (Menu::sound_is_open) {
+					Controller::playSound(ERROR_SOUND);
+				}
+			}
+			break;
+		default:
+			break;
+		}
+	}
 
 
 	//Cell* pointer = &_map[0][0];

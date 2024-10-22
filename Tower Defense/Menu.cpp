@@ -48,6 +48,7 @@ void Screen::printMainScreen() {
 		Controller::playSound(BACKGROUND_SOUND);
 	Screen::printLogo();
 	int choice[5] = { 0,0,0,0,0 }, temp, key, curChoice = 0;
+	int mode;
 	while (true) {
 		choice[curChoice] = 1;
 		if (choice[0]) {

@@ -6,17 +6,31 @@
 #include "Play.h"
 
 int main() {
-	Controller::setUpConsole();
-	Menu::music_is_open = true;
-	Menu::sound_is_open = true;
-	Screen::printMainScreen();
+	Sleep(3000);
+	_game.printControlPanel();
+	// remember below.
 
-	//Sleep(3000);
-	//Map test;
-	//test.setMap("./Map/Easy/level1.bin");
-	//test.printMap();
+	//Controller::setUpConsole();
+	//Menu::music_is_open = true;
+	//Menu::sound_is_open = true;
 
-	//cin.get();
-	//play_map1();
+	//while (true)
+	//{
+	//	int mode/* = Screen::printMainScreen()*/;
+	//	if (mode == 0)
+	//	{
+	//		isbreakmap1 = false;
+	//		while (!isbreakmap1)
+	//		{
+	//			play_map1();
+	//		}
+
+	//	}
+	//	else
+	//	{
+	//		system("cls");
+	//		cout << "shitttttttttttttttttttttttttttttttttt";
+	//	}
+	//}
 	return 0;
 }

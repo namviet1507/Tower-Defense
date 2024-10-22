@@ -2,7 +2,8 @@
 #include "Library.h"
 #include "Player.h"
 
-class Menu : public Player {
+class Menu 
+{
 	private:
 		
 	public:
