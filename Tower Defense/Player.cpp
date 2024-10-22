@@ -20,9 +20,9 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	{
 		Screen::printVietnamese(L"█");
 	}
-	mu.unlock();
+	//mu.unlock();
 	Sleep(1000);
-	mu.lock();
+	//mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	for (int i = 0; i < player.get_hp(); i++)

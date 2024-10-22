@@ -55,45 +55,17 @@ void Game::printControlPanel() {
 	print_cost_first(138, 5, BRIGHT_WHITE, YELLOW);
 
 
-
-
-	//Screen::printRectangle(136, 29, 3, 2);
-	//Controller::gotoXY(138, 30);
-	//Screen::printVietnamese(L"^");
-	//Screen::printRectangle(131, 32, 3, 2);
-	//Controller::gotoXY(133, 33);
-	//Screen::printVietnamese(L"<");
-	//Screen::printRectangle(136, 32, 3, 2);
-	//Controller::gotoXY(138, 33);
-	//Screen::printVietnamese(L"v");
-	//Screen::printRectangle(141, 32, 3, 2);
-	//Controller::gotoXY(143, 33);
-	//Screen::printVietnamese(L">");
-
 	Screen::printRectangle(131, 36, 14, 2);
 	Controller::gotoXY(134, 37);
 	cout << "ESC: PAUSE";
 }
 
-void Game::selectTower() {
-	Tower tower;
-	tower.drawTowerLevel1_Up(126, 3, BRIGHT_WHITE, GRAY);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(136, 3);
-	cout << "Tower level 1";
-	Controller::gotoXY(136, 4);
-	cout << "Dame: 1";
-	Controller::gotoXY(136, 5);
-	cout << "speed: x";
-
-	tower.drawTowerLevel2_Up(126, 10, BRIGHT_WHITE, GRAY);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(136, 10);
-	cout << "Tower level 2";
-	Controller::gotoXY(136, 11);
-	cout << "Dame: 2";
-	Controller::gotoXY(136, 12);
-	cout << "speed: x";
+Tower Game::selectTower(int x, int y) {
+	Tower temp;
+	for (int i = 0; i < list_tower.size(); i++) {
+		Screen::printRectangle(x + (i * 7), y, 7, 9);
+	}
+	return temp;
 }
 
 void Game::buildTower() {
@@ -106,186 +78,121 @@ void Game::buildTower() {
 		}
 	}
 
-	vector<thread> draws;
-	vector<thread> bullets;
-	vector<Tower> towers(4);
+	vector<thread> fires;
+	vector<Tower> towers;
 
 	Cell* pointer = place_build[0];
 	pointer->hoverCell();
 
 	while (true) {
+		int i_min = -1;
+		int min_dis = 100;
 		switch (Controller::getConsoleInput()) {
 		case 2: // up
-			if (pointer->getRow() > 0) {
-				if (Menu::sound_is_open) {
-					Controller::playSound(MOVE_SOUND);
+			i_min = -1;
+			min_dis = 100;
+			for (int i = pointer->getRow() - 1; i >= 0; i--) {
+				for (int j = 0; j < place_build.size(); j++) {
+					if (place_build[j]->getRow() == i &&
+						min_dis * min_dis > pow(abs(place_build[j]->getRow() - pointer->getRow()), 2) + pow(abs(place_build[j]->getCol() - pointer->getCol()), 2)) {
+						min_dis = abs(place_build[j]->getRow() - pointer->getRow());
+						i_min = j;
+					}
 				}
-				pointer->printCell();
-				pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
-				pointer->hoverCell();
+			}
+			if (i_min == -1 && Menu::sound_is_open) {
+				Controller::playSound(ERROR_SOUND);
 			}
 			else {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
+				if(Menu::sound_is_open) Controller::playSound(MOVE_SOUND);
+				pointer->printCell();
+				pointer = place_build[i_min];
+				pointer->hoverCell();
 			}
+
 			break;
 		case 3: // left
-			if (pointer->getCol() > 0) {
-				if (Menu::sound_is_open) {
-					Controller::playSound(MOVE_SOUND);
+			i_min = -1;
+			min_dis = 100;
+			for (int i = pointer->getCol() - 1; i >= 0; i--) {
+				for (int j = 0; j < place_build.size(); j++) {
+					if (place_build[j]->getCol() == i &&
+						min_dis * min_dis > pow(abs(place_build[j]->getRow() - pointer->getRow()), 2) + pow(abs(place_build[j]->getCol() - pointer->getCol()), 2)) {
+						min_dis = abs(place_build[j]->getRow() - pointer->getRow());
+						i_min = j;
+					}
 				}
-				pointer->printCell();
-				pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
-				pointer->hoverCell();
+			}
+			if (i_min == -1 && Menu::sound_is_open) {
+				Controller::playSound(ERROR_SOUND);
 			}
 			else {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
+				if (Menu::sound_is_open) Controller::playSound(MOVE_SOUND);
+				pointer->printCell();
+				pointer = place_build[i_min];
+				pointer->hoverCell();
 			}
 			break;
 		case 4: // right
-			if (pointer->getCol() < _map.getWidth() - 1) {
-				if (Menu::sound_is_open) {
-					Controller::playSound(MOVE_SOUND);
+			i_min = -1;
+			min_dis = 100;
+			for (int i = pointer->getCol() + 1; i < _map.getWidth(); i++) {
+				for (int j = 0; j < place_build.size(); j++) {
+					if (place_build[j]->getCol() == i &&
+					min_dis * min_dis > pow(abs(place_build[j]->getRow() - pointer->getRow()), 2) + pow(abs(place_build[j]->getCol() - pointer->getCol()), 2)) {
+						min_dis = abs(place_build[j]->getRow() - pointer->getRow());
+						i_min = j;
+					}
 				}
-				pointer->printCell();
-				pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
-				pointer->hoverCell();
+			}
+			if (i_min == -1 && Menu::sound_is_open) {
+				Controller::playSound(ERROR_SOUND);
 			}
 			else {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
+				if (Menu::sound_is_open) Controller::playSound(MOVE_SOUND);
+				pointer->printCell();
+				pointer = place_build[i_min];
+				pointer->hoverCell();
 			}
+			
 			break;
 		case 5:  // down
-			if (pointer->getRow() < _map.getHeight() - 1) {
-				if (Menu::sound_is_open) {
-					Controller::playSound(MOVE_SOUND);
+			i_min = -1;
+			min_dis = 100;
+			for (int i = pointer->getRow() + 1; i < _map.getHeight(); i++) {
+				for (int j = 0; j < place_build.size(); j++) {
+					if (place_build[j]->getRow() == i &&
+						min_dis * min_dis > pow(abs(place_build[j]->getRow() - pointer->getRow()), 2) + pow(abs(place_build[j]->getCol() - pointer->getCol()), 2)) {
+						min_dis = abs(place_build[j]->getRow() - pointer->getRow());
+						i_min = j;
+					}
 				}
+			}
+			if (i_min == -1 && Menu::sound_is_open) {
+				Controller::playSound(ERROR_SOUND);
+			}
+			else {
+				if (Menu::sound_is_open) Controller::playSound(MOVE_SOUND);
 				pointer->printCell();
-				pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
+				pointer = place_build[i_min];
 				pointer->hoverCell();
 			}
-			else {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
-			}
 			break;
-		case 6:
-			if (pointer->getFlagBuild()) {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ENTER_SOUND);
-				}
-							
-			}
-			else {
-				if (Menu::sound_is_open) {
-					Controller::playSound(ERROR_SOUND);
-				}
-			}
+		case 6: {
+			Tower tower;
+			int level = 0;
+			if(pointer->getPosY() == 0) 
+				level = get_lever_Tower(pointer->getPosX(), pointer->getPosY() - 4, _map);
+			else 
+				level = get_lever_Tower(pointer->getPosX(), pointer->getPosY(), _map);
+			tower.setLevel(level);
+
+
+			
 			break;
+		}
 		default:
 			break;
 		}
 	}
-
-
-	//Cell* pointer = &_map[0][0];
-	//pointer->hoverCell();
-
-	//bool stop = false;
-	//while (stop == false) {
-	//	if (_kbhit()) {
-	//		switch (Controller::getConsoleInput()) {
-	//		case 1:
-	//			stop = true;
-	//			break;
-	//		case 2: // up
-	//			if (pointer->getRow() > 0) {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(MOVE_SOUND);
-	//				}
-	//				pointer->printCell();
-	//				pointer = &_map[pointer->getRow() - 1][pointer->getCol()];
-	//				pointer->hoverCell();
-	//			}
-	//			else {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ERROR_SOUND);
-	//				}
-	//			}
-	//			break;
-	//		case 3: // left
-	//			if (pointer->getCol() > 0) {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(MOVE_SOUND);
-	//				}
-	//				pointer->printCell();
-	//				pointer = &_map[pointer->getRow()][pointer->getCol() - 1];
-	//				pointer->hoverCell();
-	//			}
-	//			else {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ERROR_SOUND);
-	//				}
-	//			}
-	//			break;
-	//		case 4: // right
-	//			if (pointer->getCol() < _map.getWidth() - 1) {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(MOVE_SOUND);
-	//				}
-	//				pointer->printCell();
-	//				pointer = &_map[pointer->getRow()][pointer->getCol() + 1];
-	//				pointer->hoverCell();
-	//			}
-	//			else {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ERROR_SOUND);
-	//				}
-	//			}
-	//			break;
-	//		case 5:  // down
-	//			if (pointer->getRow() < _map.getHeight() - 1) {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(MOVE_SOUND);
-	//				}
-	//				pointer->printCell();
-	//				pointer = &_map[pointer->getRow() + 1][pointer->getCol()];
-	//				pointer->hoverCell();
-	//			}
-	//			else {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ERROR_SOUND);
-	//				}
-	//			}
-	//			break;
-	//		case 6:
-	//			if (pointer->getFlagBuild()) {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ENTER_SOUND);
-	//				}
-	//				
-	//			}
-	//			else {
-	//				if (Menu::sound_is_open) {
-	//					Controller::playSound(ERROR_SOUND);
-	//				}
-	//			}
-	//			break;
-	//		case 15:
-	//			
-	//			break;
-	//		default:
-	//			if (Menu::sound_is_open) {
-	//				Controller::playSound(ERROR_SOUND);
-	//			}
-	//			break;
-	//		}
-	//	}
-	//}
 }
