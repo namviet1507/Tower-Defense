@@ -6,52 +6,62 @@
 #include "Play.h"
 
 int main() {
+	// remember below.
+
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	int mode = Screen::printMainScreen();
-	if (mode == 0)
-		play_map1();
-	else
+	while (true)
 	{
-		system("cls");
-		cout << "shitttttttttttttttttttttttttttttttttt";
+		int mode = Screen::printMainScreen();
+		if (mode == 0)
+		{
+			isbreakmap1 = false;
+			while (!isbreakmap1)
+			{
+				play_map1();
+			}
+
+		}
+		else
+		{
+			system("cls");
+			cout << "shitttttttttttttttttttttttttttttttttt";
+		}
 	}
-	//Map test;
 
-	////test.createMap();
 
-	//test.setMap("./Map/level1.txt");
-	//test.printMap();
-	//Controller::showCursor(false);
-	//Enemy t;
-	//t.move_x(1,0,1,24);
-	//t.move_p(1, 24, 48, 24);
-	//t.move_l(48, 24, 48, 0);
-	//t.move_t(48, 0, 1, 0);
+	//Map t;
+	//t.setMap("./Map/level1.txt");
 
-	//thread e(enemy_map1, 5);
-	
-	//vector<Enemy> e(5);
-	//vector<thread> threads;
-	//Enemy e1, e2;
-	//thread th1(&Enemy::move_x, &e1, 10 + 0 * 40, 0, 10 + 0 * 30, 6);
-	//thread th2(&Enemy::move_x, &e2, 10 + 1 * 40, 0, 10 + 1 * 30, 6);
-	//th1.join();
-	//th2.join();
+	//int x =print_continue_board(30,18,t);
+	//if (x == 0)
+	//{
+	//	Controller::gotoXY(125, 0);
+	//	cout << 0;
+	//}
+	//else
+	//{
+	//	Controller::gotoXY(125, 0);
+	//	cout << 1;
+	//}
 	//cin.get();
+	/*Tower t1, t2, t3, t4;
+	t1.drawTowerLevel2_Up(14, 36, 6, 4);
+	t2.drawTowerLevel2_Down(46, 0, 6, 4);
+	t3.drawTowerLevel2_Right(34, 11, 6, 4);
+	t4.drawTowerLevel2_Left(117, 31, 6, 4);
 
-	//Tower a;
-	//a.drawTowerLevel1(0, 26, 0, 15);
-	//a.tower_bullet_level1(0, 26);
+	thread tow(&Tower::tower_bullet_level2_Up, &t1, 14, 36);
+	thread tow1(&Tower::tower_bullet_level2_Down, &t2, 46, 0, 46, 35);
+	thread tow2(&Tower::tower_bullet_level2_Right, &t2, 34, 11, 114, 11);
+	thread tow3(&Tower::tower_bullet_level2_Left, &t2, 117, 31, 73, 31);
 
-	//play_map1();
-	//Map test;
-	//test.createMap();
+	tow.join();
+	tow1.join();
+	tow2.join();
+	tow3.join();*/
 
-	//colour_block(18, 18, 5, 8, 11);
-	//print_menu_Tower(18, 18);
-	//print_x_block(18, 18, 5, 6);
-	//cin.get();
+
 	return 0;
 }

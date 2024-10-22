@@ -583,24 +583,30 @@ void Enemy::dele_t(int x, int y)
 void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (y_start - y_end) / 2;
-	for (int i = 0; i < step; i++)
+	if (true)
 	{
-		bool check;
-		mu.lock();
-		check = ingame;
-		mu.unlock();
-		if (check == false)
+		for (int i = 0; i < step; i++)
 		{
-			break;
+			bool check;
+			mu.lock();
+			check = ingame;
+			mu.unlock();
+			if (check == false)
+			{
+				break;
+			}
+			if (hp <= 0)
+			{
+				break;
+			}
+			showl_l(x_start, y_start - 2 * i, 0, 11);
+			Sleep(200);
+			dele_l(x_start, y_start - 2 * i);
+			//Sleep(25);
+			showr_l(x_start, y_start - 2 * i - 1, 0, 11);
+			Sleep(200);
+			dele_l(x_start, y_start - 2 * i - 1);
 		}
-		if (hp <= 0) break;
-		showl_l(x_start, y_start - 2 * i, 0, 11);
-		Sleep(200);
-		dele_l(x_start, y_start - 2 * i);
-		Sleep(25);
-		showr_l(x_start, y_start - 2 * i - 1, 0, 11);
-		Sleep(200);
-		dele_l(x_start, y_start - 2 * i - 1);
 	}
 }
 
@@ -608,84 +614,105 @@ mutex mu_e2;
 void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (y_end - y_start) / 2;
-	for (int i = 0; i < step; i++)
+	if (true)
 	{
-		bool check;
-		mu.lock();
-		check = ingame;
-		mu.unlock();
-		if (check == false)
+		for (int i = 0; i < step; i++)
 		{
-			break;
-		}
+			bool check;
+			mu.lock();
+			check = ingame;
+			mu.unlock();
+			if (check == false)
+			{
+				break;
+			}
 
-		if (hp <= 0) break;
-		mu_e2.lock();
-		showl_x(x_start, y_start + 2 * i, 0, 11);
-		mu_e2.unlock();
-		Sleep(200);
-		mu_e2.lock();
-		dele_x(x_start, y_start + 2 * i);
-		mu_e2.unlock();
-		Sleep(25);
-		mu_e2.lock();
-		showr_x(x_start, y_start + 2 * i + 1, 0, 11);
-		mu_e2.unlock();
-		Sleep(200);
-		mu_e2.lock();
-		dele_x(x_start, y_start + 2 * i + 1);
-		mu_e2.unlock();
+			if (hp <= 0)
+			{
+				break;
+			}
+			mu_e2.lock();
+			showl_x(x_start, y_start + 2 * i, 0, 11);
+			mu_e2.unlock();
+			Sleep(200);
+			mu_e2.lock();
+			dele_x(x_start, y_start + 2 * i);
+			mu_e2.unlock();
+			//Sleep(25);
+			mu_e2.lock();
+			showr_x(x_start, y_start + 2 * i + 1, 0, 11);
+			mu_e2.unlock();
+			Sleep(200);
+			mu_e2.lock();
+			dele_x(x_start, y_start + 2 * i + 1);
+			mu_e2.unlock();
+		}
 	}
+
 }
 
 void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (x_end - x_start) / 2;
-	for (int i = 0; i < step; i++)
+	if (true)
 	{
-		bool check;
-		mu.lock();
-		check = ingame;
-		mu.unlock();
-		if (check == false)
+		for (int i = 0; i < step; i++)
 		{
-			break;
-		}
+			bool check;
+			mu.lock();
+			check = ingame;
+			mu.unlock();
+			if (check == false)
+			{
+				break;
+			}
 
-		if (hp <= 0) break;
-		showl_p(x_start + 2 * i, y_start , 0, 11);
-		Sleep(200);
-		dele_p(x_start + 2 * i, y_start);
-		Sleep(25);
-		showr_p(x_start + 2 * i + 1, y_start, 0, 11);
-		Sleep(200);
-		dele_p(x_start + 2 * i + 1, y_start);
+			if (hp <= 0)
+			{
+				break;
+			}
+			showl_p(x_start + 2 * i, y_start, 0, 11);
+			Sleep(200);
+			dele_p(x_start + 2 * i, y_start);
+			//Sleep(25);
+			showr_p(x_start + 2 * i + 1, y_start, 0, 11);
+			Sleep(200);
+			dele_p(x_start + 2 * i + 1, y_start);
+		}
 	}
+
 }
 
 void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 {
 	int step = (x_start - x_end) / 2;
-	for (int i = 0; i < step; i++)
+	if (true)
 	{
-		bool check;
-		mu.lock();
-		check = ingame;
-		mu.unlock();
-		if (check == false)
+		for (int i = 0; i < step; i++)
 		{
-			break;
-		}
+			bool check;
+			mu.lock();
+			check = ingame;
+			mu.unlock();
+			if (check == false)
+			{
+				break;
+			}
 
-		if (hp <= 0) break;
-		showl_t(x_start - 2 * i, y_start, 0, 11);
-		Sleep(200);
-		dele_t(x_start - 2 * i, y_start);
-		Sleep(25);
-		showr_t(x_start - 2 * i - 1, y_start, 0, 11);
-		Sleep(200);
-		dele_t(x_start - 2 * i - 1, y_start);
+			if (hp <= 0)
+			{
+				break;
+			}
+			showl_t(x_start - 2 * i, y_start, 0, 11);
+			Sleep(200);
+			dele_t(x_start - 2 * i, y_start);
+			//Sleep(25);
+			showr_t(x_start - 2 * i - 1, y_start, 0, 11);
+			Sleep(200);
+			dele_t(x_start - 2 * i - 1, y_start);
+		}
 	}
+
 }
 
 void Enemy::move_map1()
@@ -696,6 +723,12 @@ void Enemy::move_map1()
 	move_p(61, 8, 109, 8);
 	move_x(101, 18, 109, 30);
 	move_t(92, 29, 73, 29);
+	if (hp <= 0)
+	{
+		mu.lock();
+		player.in_cost(1);
+		mu.unlock();
+	}
 	if (hp > 0)
 	{
 		mu.lock();
@@ -720,6 +753,7 @@ mutex mu_global;
 
 void enemy_map1(int num)
 {
+	e_global.clear();
 	e_global.resize(num);
 	vector<thread> threads;
 
@@ -738,7 +772,7 @@ void enemy_map1(int num)
 		Enemy& e = e_global[i];
 		mu_global.unlock();
 		threads.push_back(thread(&Enemy::move_map1, &e) );
-		Sleep(3000);
+		Sleep(3500);
 	}
 
 	for (auto& th : threads)

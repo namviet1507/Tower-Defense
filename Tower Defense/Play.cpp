@@ -1,5 +1,7 @@
 ﻿#include "Play.h"
 
+
+
 void colour_block(int x, int y, int h, int w, int color)
 {
 	Cell t;
@@ -52,24 +54,213 @@ void print_rectangle(int x, int y, int w, int h, int bcolor, int color)
 	putchar(188);
 }
 
+void print_box_continue(int x, int y, int bcolor, int color)
+{
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	putchar(201);
+	for (int i = 1; i < 84 - 1; i++) {
+		putchar(205);
+	}
+	putchar(187);
+	Controller::gotoXY(x, y + 1);
+
+	for (int i = 1; i < 7 ; i++)
+	{
+		cout << char(186);
+		for (int j = 1; j < 84 - 1; j++)
+		{
+			cout << " ";
+		}
+		cout << char(186);
+		Controller::gotoXY(x, y + i + 1);
+	}
+
+}
+
+void print_box_yes(int x, int y,int bcolor, int color)
+{
+	Controller::gotoXY(x, y);
+	Controller::SetColor(8, color);
+	putchar(204);
+	for (int i = 1; i < 42 - 1; i++) {
+		putchar(205);
+	}
+	putchar(203);
+	Controller::gotoXY(x, y + 1);
+
+	for (int i = 1; i < 7 - 1; i++)
+	{
+		cout << char(186);
+		for (int j = 1; j < 42 - 1; j++)
+		{
+			cout << " ";
+		}
+		cout << char(186);
+		Controller::gotoXY(x, y + i + 1);
+	}
+
+	Controller::gotoXY(x, y + 7 - 1);
+	putchar(200);
+	for (int i = 1; i < 42 - 1; i++)
+		putchar(205);
+	putchar(202);
+}
+void print_box_no(int x, int y, int bcolor, int color)
+{
+	Controller::gotoXY(x, y);
+	Controller::SetColor(8, color);
+	putchar(203);
+	for (int i = 1; i < 42 ; i++) {
+		putchar(205);
+	}
+	putchar(185);
+	Controller::gotoXY(x, y + 1);
+
+	for (int i = 1; i < 7 - 1; i++)
+	{
+		cout << char(186);
+		for (int j = 1; j < 42; j++)
+		{
+			cout << " ";
+		}
+		cout << char(186);
+		Controller::gotoXY(x, y + i + 1);
+	}
+
+	Controller::gotoXY(x, y + 7 - 1);
+	putchar(202);
+	for (int i = 1; i < 42 ; i++)
+		putchar(205);
+	putchar(188);
+}
+
+void print_continue(int x, int y, int bcolor, int color)
+{
+	//print_rectangle(x - 1, y - 1, 84, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L" ██████  ██████  ███    ██ ████████ ██ ███    ██ ██    ██ ███████         ██████  ");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"██      ██    ██ ████   ██    ██    ██ ████   ██ ██    ██ ██                   ██ ");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██      ██    ██ ██ ██  ██    ██    ██ ██ ██  ██ ██    ██ █████             ▄███  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██      ██    ██ ██  ██ ██    ██    ██ ██  ██ ██ ██    ██ ██                ▀▀    ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L" ██████  ██████  ██   ████    ██    ██ ██   ████  ██████  ███████           ██    ");
+}
+void print_yes(int x, int y, int bcolor, int color)
+{
+	//print_rectangle(x - 1, y - 1, 42, 7, bcolor, color);
+	print_box_yes(x-1, y-1, bcolor, color);
+	Controller::gotoXY(x + 8, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"██    ██ ███████ ███████ ");
+	Controller::gotoXY(x + 8, y + 1);
+	Screen::printVietnamese(L" ██  ██  ██      ██      ");
+	Controller::gotoXY(x + 8, y + 2);
+	Screen::printVietnamese(L"  ████   █████   ███████ ");
+	Controller::gotoXY(x + 8, y + 3);
+	Screen::printVietnamese(L"   ██    ██           ██ ");
+	Controller::gotoXY(x + 8, y + 4);
+	Screen::printVietnamese(L"   ██    ███████ ███████ ");
+}
+void print_no(int x, int y, int bcolor, int color)
+{
+	//print_rectangle(x - 1, y - 1, 42, 7, bcolor, color);
+	print_box_no(x-2, y-1, bcolor, color);
+	Controller::gotoXY(x + 12, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"███    ██  ██████  ");
+	Controller::gotoXY(x + 12, y + 1);
+	Screen::printVietnamese(L"████   ██ ██    ██ ");
+	Controller::gotoXY(x + 12, y + 2);
+	Screen::printVietnamese(L"██ ██  ██ ██    ██ ");
+	Controller::gotoXY(x + 12, y + 3);
+	Screen::printVietnamese(L"██  ██ ██ ██    ██ ");
+	Controller::gotoXY(x + 12, y + 4);
+	Screen::printVietnamese(L"██   ████  ██████  ");
+}
+
+void print_no_money(int x, int y, int bcolor, int color)
+{
+	print_rectangle(x-1, y-1, 73, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"██████╗ ███████╗███╗   ██╗███╗   ██╗██╗██╗     ███████╗███████╗███████╗");
+	Controller::gotoXY(x, y+1);
+	Screen::printVietnamese(L"██╔══██╗██╔════╝████╗  ██║████╗  ██║██║██║     ██╔════╝██╔════╝██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██████╔╝█████╗  ██╔██╗ ██║██╔██╗ ██║██║██║     █████╗  ███████╗███████╗");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██╔═══╝ ██╔══╝  ██║╚██╗██║██║╚██╗██║██║██║     ██╔══╝  ╚════██║╚════██║");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"██║     ███████╗██║ ╚████║██║ ╚████║██║███████╗███████╗███████║███████║");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L"╚═╝     ╚══════╝╚═╝  ╚═══╝╚═╝  ╚═══╝╚═╝╚══════╝╚══════╝╚══════╝╚══════╝");
+}
+void print_lose(int x, int y, int bcolor, int color)
+{
+	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+}
+void print_win(int x, int y, int bcolor, int color)
+{
+	print_rectangle(x - 1, y - 1,76, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"██╗      ██████╗ ███████╗███████╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"██║     ██╔═══██╗██╔════╝██╔════╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██║     ██║   ██║███████╗█████╗      ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██║     ██║   ██║╚════██║██╔══╝      ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"███████╗╚██████╔╝███████║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L"╚══════╝ ╚═════╝ ╚══════╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+}
 
 void print_tower_Level1(int x, int y,int bcolor,int color)
 {
 	Tower t;
-	print_rectangle(x, y, 7, 7, bcolor, color);
+	print_rectangle(x, y, 7, 9, bcolor, color);
 	t.drawTowerLevel1_Up(x + 1, y +2, bcolor, color);
+	Controller::gotoXY(x + 2, y + 7);
+	Controller::SetColor(bcolor, color);
+	cout << "10 $";
 }
 void print_tower_Level2(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 9, 7, bcolor, color);
+	print_rectangle(x, y, 9, 9, bcolor, color);
 	t.drawTowerLevel2_Up(x + 1, y + 1, bcolor, color);
+	Controller::gotoXY(x + 2, y + 7);
+	Controller::SetColor(bcolor, color);
+	cout << "20 $";
 }
 void print_tower_Level3(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 11, 7, bcolor, color);
+	print_rectangle(x, y, 11, 9, bcolor, color);
 	t.drawTowerLevel3_Up(x + 1, y + 1, bcolor, color);
+	Controller::gotoXY(x + 2, y + 7);
+	Controller::SetColor(bcolor, color);
+	cout << "40 $";
 }
 
 void print_x(int x, int y, int bcolor, int color)
@@ -99,8 +290,90 @@ void print_x(int x, int y, int bcolor, int color)
 }
 void print_x_block(int x, int y, int bcolor, int color)
 {
-	print_rectangle(x, y, 7, 7, bcolor, color);
+	print_rectangle(x, y, 7, 9, bcolor, color);
 	print_x(x + 1, y + 1, bcolor, color);
+}
+
+void print_menu_continue(int x, int y)
+{
+	print_box_continue(x-1, y-1,8,13);
+	print_continue(x, y, 8, 13);
+	print_yes(x , y+7, 8, 13);
+	print_no(x + 42, y + 7, 8, 13);
+}
+int print_continue_board(int x, int y,Map m)
+{
+	print_menu_continue(30, 18);
+	int old_pos;
+	int pos = 0;
+	print_yes(x, y + 7, 6, 13);
+
+	while (true)
+	{
+		if (_kbhit())
+		{
+			int tmp = Controller::getConsoleInput();
+			if (tmp == 3) // left
+			{
+				old_pos = pos;
+				pos--;
+				if (pos == -1)
+					pos = 1;
+
+				if (old_pos == 0)
+				{
+					print_yes(x, y + 7, 8, 13);
+				}
+				else if (old_pos == 1)
+				{
+					print_no(x + 42, y + 7, 8, 13);
+				}
+
+				if (pos == 0)
+				{
+					print_yes(x, y+7, 6, 13);
+				}
+				else if (pos == 1)
+				{
+					print_no(x + 42, y + 7, 6, 13);
+				}
+
+			}
+			else if (tmp == 4) // right
+			{
+				old_pos = pos;
+				pos++;
+				if (pos == 2)
+					pos = 0;
+
+				if (old_pos == 0)
+				{
+					print_yes(x, y + 7, 8, 13);
+				}
+				else if (old_pos == 1)
+				{
+					print_no(x + 42, y + 7, 8, 13);
+				}
+
+				if (pos == 0)
+				{
+					print_yes(x, y + 7, 6, 13);
+				}
+				else if (pos == 1)
+				{
+					print_no(x + 42, y + 7, 6, 13);
+				}
+			}
+			else if (tmp == 6) // enter
+			{
+
+				m.printMap();
+				return pos;
+			}
+		}
+	}
+
+	return 0;
 }
 
 void print_menu_Tower(int x,int y)
@@ -208,6 +481,59 @@ int get_lever_Tower(int x, int y,Map m)
 			else if (tmp == 6)
 			{
 				m.printMap();
+				int c;
+				mu.lock();
+				c = player.get_cost();
+				mu.unlock();
+				if (pos == 1)
+				{
+					if (c < 10)
+					{
+						print_no_money(30, 18, 8, 13);
+						Sleep(400);
+						m.printMap();
+						return 4;
+					}
+					else
+					{
+						mu.lock();
+						player.de_cost(10);
+						mu.unlock();
+					}
+				}
+				if (pos == 2)
+				{
+					if (c < 20)
+					{
+						print_no_money(30, 18, 8, 13);
+						Sleep(400);
+						m.printMap();
+						return 4;
+					}
+					else
+					{
+						mu.lock();
+						player.de_cost(20);
+						mu.unlock();
+					}
+				}
+				if (pos == 3)
+				{
+					if (c < 40)
+					{
+						print_no_money(30, 18, 8, 13);
+						Sleep(400);
+						m.printMap();
+						return 4;
+					}
+					else
+					{
+						mu.lock();
+						player.de_cost(40);
+						mu.unlock();
+					}
+				}
+
 				return pos;
 			}
 		}
@@ -233,6 +559,7 @@ void play_map1()
 {
 	//Controller::showCursor(false);
 
+	player.new_hp(10);
 	Controller::setUpConsole();
 	Map test;
 	test.setMap("./Map/level1.txt");
@@ -246,7 +573,8 @@ void play_map1()
 	vector<thread> draws;
 	vector<thread> bullets;
 	vector<Tower> towers(4);
-
+	showcost = true;
+	print_cost_first(125, 0, 7, 4);
 	ingame = true;
 
 	int old_pos;
@@ -324,7 +652,14 @@ void play_map1()
 
 			else if (temp == 6)
 			{
-				int i = get_lever_Tower(pos_x[position], pos_y[position], test);
+				int i;
+				if(position == 0)
+					i = get_lever_Tower(pos_x[position], pos_y[position]-4, test);
+				else
+					i = get_lever_Tower(pos_x[position], pos_y[position], test);
+
+				//test.printMap();
+				print_cost_first(125, 0, 7, 4);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
@@ -349,7 +684,7 @@ void play_map1()
 				{
 					if (res[1] == 1)
 					{
-						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+						towers[1].drawTowerLevel1_Right(34, 10, 6, 4);
 					}
 					else if (res[1] == 2)
 					{
@@ -357,14 +692,14 @@ void play_map1()
 					}
 					else if (res[1] == 3)
 					{
-						towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+						towers[1].drawTowerLevel3_Right(34, 11, 6, 4);
 					}
 				}
 				if (choose[2] == true)
 				{
 					if (res[2] == 1)
 					{
-						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+						towers[2].drawTowerLevel1_Down(46, 0, 6, 4);
 					}
 					else if (res[2] == 2)
 					{
@@ -372,7 +707,7 @@ void play_map1()
 					}
 					else if (res[2] == 3)
 					{
-						towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+						towers[2].drawTowerLevel3_Down(46, 0, 6, 4);
 					}
 				}
 
@@ -380,7 +715,7 @@ void play_map1()
 				{
 					if (res[3] == 1)
 					{
-						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+						towers[3].drawTowerLevel1_Left(117, 30, 6, 4);
 					}
 					else if (res[3] == 2)
 					{
@@ -388,9 +723,10 @@ void play_map1()
 					}
 					else if (res[3] == 3)
 					{
-						towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+						towers[3].drawTowerLevel3_Left(117, 31, 6, 4);
 					}
 				}
+
 
 
 				//
@@ -425,7 +761,7 @@ void play_map1()
 
 	if (res[1] == 1)
 	{
-		towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+		towers[1].drawTowerLevel1_Right(34, 10, 6, 4);
 	}
 	else if (res[1] == 2)
 	{
@@ -433,12 +769,12 @@ void play_map1()
 	}
 	else if (res[1] == 3)
 	{
-		towers[1].drawTowerLevel2_Right(34, 11, 6, 4);
+		towers[1].drawTowerLevel3_Right(34, 11, 6, 4);
 	}
 
 	if (res[2] == 1)
 	{
-		towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+		towers[2].drawTowerLevel1_Down(46, 0, 6, 4);
 	}
 	else if (res[2] == 2)
 	{
@@ -446,12 +782,12 @@ void play_map1()
 	}
 	else if (res[2] == 3)
 	{
-		towers[2].drawTowerLevel2_Down(46, 0, 6, 4);
+		towers[2].drawTowerLevel3_Down(46, 0, 6, 4);
 	}
 
 	if (res[3] == 1)
 	{
-		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+		towers[3].drawTowerLevel1_Left(117, 30, 6, 4);
 	}
 	else if (res[3] == 2)
 	{
@@ -459,7 +795,7 @@ void play_map1()
 	}
 	else if (res[3] == 3)
 	{
-		towers[3].drawTowerLevel2_Left(117, 31, 6, 4);
+		towers[3].drawTowerLevel3_Left(117, 31, 6, 4);
 	}
 	////////
 	if (res[0] == 1)
@@ -479,7 +815,7 @@ void play_map1()
 	if (res[1] == 1)
 	{
 
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[1], 34, 11, 114, 11));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Right, &towers[1], 34, 11, 114, 11));
 	}
 	else if (res[1] == 2)
 	{
@@ -488,13 +824,13 @@ void play_map1()
 	}
 	else if (res[1] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[1], 34, 11, 114, 11));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Right, &towers[1], 34, 11, 114, 11));
 	}
 	////
 	//colour_block(125, 18, 5, 5, 2);
 	if (res[2] == 1)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[2], 46, 0, 46, 35));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Down, &towers[2], 46, 0, 46, 35));
 	}
 	else if (res[2] == 2)
 	{
@@ -502,12 +838,12 @@ void play_map1()
 	}
 	else if (res[2] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[2], 46, 0, 46, 35));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Down, &towers[2], 46, 0, 46, 35));
 	}
 	////
 	if (res[3] == 1)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[3], 117, 31, 73, 31));
+		bullets.push_back(thread(&Tower::tower_bullet_level1_Left, &towers[3], 117, 30, 73, 31));
 	}
 	else if (res[3] == 2)
 	{
@@ -515,11 +851,11 @@ void play_map1()
 	}
 	else if (res[3] == 3)
 	{
-		bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[3], 117, 31, 73, 31));
+		bullets.push_back(thread(&Tower::tower_bullet_level3_Left, &towers[3], 117, 31, 73, 31));
 	}
 
-
-	bullets.push_back(thread(print_hp_player, 125, 18, 0, 4));
+	bullets.push_back(thread(print_cost_player, 125, 0, 0, 4));
+	bullets.push_back(thread(print_hp_player, 125, 1, 0, 4));
 	bullets.push_back(thread(enemy_map1, 20));
 	bullets.push_back(thread(check_win, 20));
 
@@ -529,35 +865,24 @@ void play_map1()
 	}
 	if (losegame)
 	{
-		Controller::gotoXY(125, 0);
-		cout << "you lose!";
+		print_win(30, 18, 8, 13);
+		Sleep(3000);
 	}
-	if (wingame)
+	else
 	{
-		Controller::gotoXY(125, 10);
-		cout << "you win!";
+		if (wingame)
+		{
+			print_lose(30, 18, 8, 13);
+			Sleep(3000);
+		}
 	}
-	//colour_block(125, 18, 5, 5, 2);
-	//colour_block(125, 8, 3, 2, 3);
-	//Tower t1,t2,t3,t4;
-	//t1.drawTowerLevel2_Up(14, 36, 6, 4);
-	//t2.drawTowerLevel2_Down(46, 0, 6, 4);
-	//t3.drawTowerLevel2_Right(34, 11, 6, 4);
-	//t4.drawTowerLevel2_Left(117, 31, 6, 4);
-
-	//thread tow(&Tower::tower_bullet_level2_Up, &t1, 14, 36);
-	//thread tow1(&Tower::tower_bullet_level2_Down, &t2, 46, 0, 46, 35);
-	//thread tow2(&Tower::tower_bullet_level2_Right, &t2, 34, 11, 114, 11);
-	//thread tow3(&Tower::tower_bullet_level2_Left, &t2, 117, 31, 73, 31);
-
-	//thread te(enemy_map1, 30);
-
-	//tow.join();
-	//tow1.join();
-	//tow2.join();
-	//tow3.join();
-	//te.join();
 
 
-	cin.get();
+	int value = print_continue_board(30, 18, test);
+
+	if (value == 1)
+	{
+		isbreakmap1 = true;
+	}
+
 }
