@@ -40,10 +40,10 @@ public:
 	void showr_t(int x, int y, int bcolor, int color);
 	void dele_t(int x, int y);
 
-	void move_x(int x_start, int y_start, int x_end, int y_end);
-	void move_l(int x_start, int y_start, int x_end, int y_end);
-	void move_p(int x_start, int y_start, int x_end, int y_end);
-	void move_t(int x_start, int y_start, int x_end, int y_end);
+	void move_x(int x_start, int y_start, int x_end, int y_end); // down
+	void move_l(int x_start, int y_start, int x_end, int y_end); // up
+	void move_p(int x_start, int y_start, int x_end, int y_end); // right
+	void move_t(int x_start, int y_start, int x_end, int y_end); // left
 
 	void move_map1();
 };

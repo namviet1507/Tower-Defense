@@ -46,6 +46,7 @@ private:
     /*Point pos;*/
     int x;
     int y;
+    int price;
 public:
     Tower() {
 
@@ -66,7 +67,7 @@ public:
     int getY();
     int getLevel();
     int getDir();
-
+    int getPrice();
     void setLevel(int level);
     void setDir(int dir);
 

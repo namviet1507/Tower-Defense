@@ -5,65 +5,30 @@
 #include "Tower.h"
 #include "Play.h"
 
-void print() {
-	cout << "Hello world";
-}
+//vector<vector<Cell>> findPath(Map _map) {
+//	for (int i = 0; i < _map.getHeight(); i++) {
+//		if (_map[i][0].getFlagRoad() || _map[i][_map.getWidth() - 1].getFlagBuild()) {
+//
+//		}
+//	}
+//	for (int j = 0; j < _map.getWidth(); j++) {
+//		if (_map[0][j].getFlagRoad() || _map[_map.getHeight() - 1][j].getFlagBuild()) {
+//
+//		}
+//	}
+//}
 
 int main() {
-	//Tower tower;
-	//tower.setDir(1);
-	//tower.setLevel(1);
-	//tower.draw_tower(1, 1, RED, GRAY);
-
 	Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
-	//Screen::printMainScreen();
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
+	Screen::printMainScreen();
 
+	Map map;
 
+	map.setMap("./Map/Easy/level1.bin");
 
-	Tower tower;
-	tower.setLevel(1);
-	tower.setDir(1);
-	tower.setPos(15, 10);
-	tower.draw_tower(BLACK, WHITE);
+	
 
-	thread t(&Tower::tower_bullet_level1_Up, &tower, 15, 30);
-	t.join();
-
-	//temp.join();
-	//cin.get();
-
-	/*Tower test;
-	test.setLevel(1);
-	test.setDir(3);
-	test.setPos(3, 0);
-
-	Controller::gotoXY(10, 1);
-	cout << "hello";
-	test.draw_tower(BLACK, WHITE);
-
-	test.drawTowerLevel2_Left(20, 1, BLACK, WHITE);
-
-	cin.get();*/
-
-	//while (true)
-	//{
-	//	int mode/* = Screen::printMainScreen()*/;
-	//	if (mode == 0)
-	//	{
-	//		isbreakmap1 = false;
-	//		while (!isbreakmap1)
-	//		{
-	//			play_map1();
-	//		}
-
-	//	}
-	//	else
-	//	{
-	//		system("cls");
-	//		cout << "shitttttttttttttttttttttttttttttttttt";
-	//	}
-	//}
 	return 0;
 }

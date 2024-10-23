@@ -21,8 +21,15 @@ int Tower::getLevel() {
     return level;
 }
 
+int Tower::getPrice() {
+    return price;
+}
+
 void Tower::setLevel(int level) {
     this->level = level;
+    if (level == 1) price = 10;
+    else if (level == 2) price = 20;
+    else if (level == 3) price = 30;
 }
 
 int Tower::getDir() {

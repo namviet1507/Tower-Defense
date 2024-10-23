@@ -28,6 +28,8 @@ void Game::setupGame() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 
+	player = { 10, 10, 40 };
+
 	_map.setMap(file_map);
 	_map.printMap();
 	printControlPanel();
@@ -90,6 +92,10 @@ void Game::printBlockSelectTower(int x, int y, int bcolor, int color,  int index
 		temp.setLevel(list_tower[index]);
 		temp.setDir(1);
 		temp.draw_tower(bcolor, color);
+
+		Controller::gotoXY(x + index * 10 + 4, y + 8);
+		cout << temp.getPrice() << " $";
+		
 		Controller::gotoXY(x + (index * 10) + 10, y);
 		putchar(194);
 		Controller::gotoXY(x + (index * 10) + 10, y + 9);
@@ -176,7 +182,7 @@ void Game::getPlace(vector<vector<bool>>& geted, vector<Cell*> &res, Cell* point
 		if (pointer->getRow() + 1 < _map.getHeight()) {
 			getPlace(geted, res, &_map[pointer->getRow() + 1][pointer->getCol()]);
 		}
-		if (pointer->getCol() + 1 < _map.getWidth()) {
+		if (pointer->getCol() + 1 < _map.getWidth()) {	
 			getPlace(geted, res, &_map[pointer->getRow()][pointer->getCol() + 1]);
 		}
 	}
@@ -332,6 +338,20 @@ void Game::buildTower() {
 			if (y >= 14) y = y - 5;
 
 			level = selectTower(x, y);
+			tower.setLevel(level);
+			if (player.get_cost() < tower.getPrice()) {
+				print_no_money(30, 18, 8, 13);
+				Sleep(400);
+				_map.printMap();
+				break;
+			}
+			else {
+				mu.lock();
+				player.de_cost(20);
+				mu.unlock();
+			}
+
+			print_cost_first(138, 5, BRIGHT_WHITE, YELLOW);
 
 			if (level == -1) {
 				for (int i = 0; i < place_build[index].size(); i++) {
@@ -345,6 +365,7 @@ void Game::buildTower() {
 						place_build[index][i]->hoverCell();
 					}
 				}
+				_map.printMap();
 				break;
 			}
 			
@@ -354,7 +375,6 @@ void Game::buildTower() {
 			else if (_map[pointer->getRow() + 1][pointer->getCol()].getFlagRoad()) dir = 3;
 			else if (_map[pointer->getRow()][pointer->getCol() + 1].getFlagRoad()) dir = 4;
 
-			tower.setLevel(level);
 			tower.setDir(dir);
 			if (dir == 2)
 				x = pointer->getPosX() + 3;
@@ -362,7 +382,6 @@ void Game::buildTower() {
 			y = pointer->getPosY();
 			tower.setPos(x, y);
 			towers.push_back(tower);
-
 
 			for (int i = 0; i < place_build[index].size(); i++) {
 				place_build[index][i]->setFlagBuild(false);
@@ -396,11 +415,12 @@ void Game::runGame() {
 		threads.push_back(thread(&Tower::tower_bullet, &towers[i]));
 	}
 
-	threads.push_back(thread(print_cost_player, 125, 0, 0, 4));
-	threads.push_back(thread(print_hp_player, 125, 1, 0, 4));
+	threads.push_back(thread(print_cost_player, 138, 5, BRIGHT_WHITE, YELLOW));
+	threads.push_back(thread(print_hp_player, 138, 4, BRIGHT_WHITE, RED));
 	threads.push_back(thread(enemy_map1, 20));
 	threads.push_back(thread(check_win, 20));
 
+	ingame = true;
 
 	for (auto& t : threads)
 	{
