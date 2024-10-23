@@ -16,15 +16,20 @@ int main() {
 	//tower.draw_tower(1, 1, RED, GRAY);
 
 	Controller::setUpConsole();
-	Menu::music_is_open = true;
-	Menu::sound_is_open = true;
-	Screen::printMainScreen();
+	//Menu::music_is_open = true;
+	//Menu::sound_is_open = true;
+	//Screen::printMainScreen();
 
-	//Tower tower;
-	//tower.setLevel(1);
-	//tower.setDir(1);
-	//tower.setPos(15, 10);
-	//thread temp(&Tower::draw_tower, &tower, BLACK, WHITE);
+
+
+	Tower tower;
+	tower.setLevel(1);
+	tower.setDir(1);
+	tower.setPos(15, 10);
+	tower.draw_tower(BLACK, WHITE);
+
+	thread t(&Tower::tower_bullet_level1_Up, &tower, 15, 30);
+	t.join();
 
 	//temp.join();
 	//cin.get();
