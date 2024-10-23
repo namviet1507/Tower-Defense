@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
+#include "Tower.h"
 
 class Cell {
 	int row;
@@ -19,7 +20,6 @@ class Cell {
 	bool is_road;
 
 	Point pos; // position (top left corner)
-
 public:
 	Cell() {
 		row = 0;

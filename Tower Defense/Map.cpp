@@ -75,8 +75,6 @@ void Map::setMap(string fileMap) {
 }
 
 void Map::printMap() {
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	system("cls");
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			map[i][j].printCell();

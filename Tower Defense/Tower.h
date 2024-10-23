@@ -4,6 +4,7 @@
 #include "Controller.h"
 #include  "Library.h"
 #include "Enemy.h"
+#include "Point.h"
 
 using namespace std;
 
@@ -42,11 +43,27 @@ private:
 
     int level;
     int dir; // dir: direction chiều, hướng, 1: up; 2: left; 3: down; 4: right
+    /*Point pos;*/
+    int x;
+    int y;
 public:
     Tower() {
 
     }
+    Tower(const Tower& t) {
+        dame = t.dame;
+        numberOfBullet = t.numberOfBullet;
+        indexOfTowerFollowX = t.indexOfTowerFollowX;
+        indexOfTowerFollowY = t.indexOfTowerFollowY;
+        level = t.level;
+        dir = t.dir;
+        x = t.x;
+        y = t.y;
+    }
     
+    void setPos(int x, int y);
+    int getX();
+    int getY();
     int getLevel();
     int getDir();
 
@@ -83,6 +100,6 @@ public:
     int getIndexOfTowerFollowX();
     int getIndexOfTowerFollowY();
 
-    void draw_tower(int x, int y, int bcolor, int color);
-    void tower_bullet(int x, int y, int x_end, int y_end);
+    void draw_tower(int bcolor, int color);
+    void tower_bullet();
 };

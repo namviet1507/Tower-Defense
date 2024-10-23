@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "Tower.h"
 #include "Play.h"
+#include "Enemy.h"
 
 class Game : public Player {
 	int mode;
@@ -13,6 +14,7 @@ class Game : public Player {
 	string file_map;
 	Map _map;
 	vector<int> list_tower;
+	vector<Tower> towers;
 public:
 	Game() {
 		mode = 0;
@@ -30,10 +32,16 @@ public:
 	void setFileMap(string);
 
 	void printControlPanel();
-	Tower selectTower(int x, int y);
+
+	int selectTower(int x, int y);
+	void printBlockSelectTower(int x, int y, int bcolor, int color, int index);
+
+	void getPlace(vector<vector<bool>>&, vector<Cell*>& , Cell*);
 
 	void setupGame();
 	void buildTower();
+
+	void runGame();
 };
 
 extern Game _game;

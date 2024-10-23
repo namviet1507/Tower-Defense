@@ -5,19 +5,42 @@
 #include "Tower.h"
 #include "Play.h"
 
+void print() {
+	cout << "Hello world";
+}
+
 int main() {
-	//_game.printControlPanel();
-	// remember below.
+	//Tower tower;
+	//tower.setDir(1);
+	//tower.setLevel(1);
+	//tower.draw_tower(1, 1, RED, GRAY);
 
-	Sleep(3000);
-	_game.selectTower(1, 2);
+	Controller::setUpConsole();
+	Menu::music_is_open = true;
+	Menu::sound_is_open = true;
+	Screen::printMainScreen();
 
-	//Controller::setUpConsole();
-	//Menu::music_is_open = true;
-	//Menu::sound_is_open = true;
-	
+	//Tower tower;
+	//tower.setLevel(1);
+	//tower.setDir(1);
+	//tower.setPos(15, 10);
+	//thread temp(&Tower::draw_tower, &tower, BLACK, WHITE);
 
-	//Screen::printMainScreen();
+	//temp.join();
+	//cin.get();
+
+	/*Tower test;
+	test.setLevel(1);
+	test.setDir(3);
+	test.setPos(3, 0);
+
+	Controller::gotoXY(10, 1);
+	cout << "hello";
+	test.draw_tower(BLACK, WHITE);
+
+	test.drawTowerLevel2_Left(20, 1, BLACK, WHITE);
+
+	cin.get();*/
 
 	//while (true)
 	//{

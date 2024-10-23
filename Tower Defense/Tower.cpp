@@ -5,6 +5,18 @@
 
 mutex mu_global2;
 
+void Tower::setPos(int x, int y) {
+    this->x = x;
+    this->y = y;
+}
+
+int Tower::getX() {
+    return x;
+}
+int Tower::getY() {
+    return y;
+}
+
 int Tower::getLevel() {
     return level;
 }
@@ -1244,7 +1256,7 @@ int Bullet::getIndexOfBulletFollowY()
     return indexOfBulletFollowY;
 }
 
-void Tower::draw_tower(int x, int y, int bcolor, int color) {
+void Tower::draw_tower(int bcolor, int color) {
     if (level == 1) {
         if (dir == 1) drawTowerLevel1_Up(x, y, bcolor, color);
         else if (dir == 2) drawTowerLevel1_Left(x, y, bcolor, color);
@@ -1265,23 +1277,25 @@ void Tower::draw_tower(int x, int y, int bcolor, int color) {
     }
 }
 
-void Tower::tower_bullet(int x, int y, int x_end, int y_end) {
+void Tower::tower_bullet() {
+    int denta_x = 40;
+    int denta_y = 15;
     if (level == 1) {
         if (dir == 1) tower_bullet_level1_Up(x, y);
-        else if (dir == 2) tower_bullet_level1_Left(x, y, x_end, y_end);
-        else if (dir == 3) tower_bullet_level1_Down(x, y, x_end, y_end);
-        else if (dir == 4) tower_bullet_level1_Right(x, y, x_end, y_end);
+        else if (dir == 2) tower_bullet_level1_Left(x, y, x - denta_x, y);
+        else if (dir == 3) tower_bullet_level1_Down(x, y, x, y + denta_y);
+        else if (dir == 4) tower_bullet_level1_Right(x, y, x + denta_x, y);
     }
     else if (level == 2) {
         if (dir == 1) tower_bullet_level2_Up(x, y);
-        else if (dir == 2) tower_bullet_level2_Left(x, y, x_end, y_end);
-        else if (dir == 3) tower_bullet_level2_Down(x, y, x_end, y_end);
-        else if (dir == 4) tower_bullet_level2_Right(x, y, x_end, y_end);
+        else if (dir == 2) tower_bullet_level2_Left(x, y, x - denta_x, y);
+        else if (dir == 3) tower_bullet_level2_Down(x, y, x, y + denta_y);
+        else if (dir == 4) tower_bullet_level2_Right(x, y, x + denta_x, y);
     }
     else if (level == 3) {
         if (dir == 1) tower_bullet_level3_Up(x, y);
-        else if (dir == 2) tower_bullet_level3_Left(x, y, x_end, y_end);
-        else if (dir == 3) tower_bullet_level3_Down(x, y, x_end, y_end);
-        else if (dir == 4) tower_bullet_level3_Right(x, y, x_end, y_end);
+        else if (dir == 2) tower_bullet_level3_Left(x, y, x - denta_x, y);
+        else if (dir == 3) tower_bullet_level3_Down(x, y, x, y + denta_y);
+        else if (dir == 4) tower_bullet_level3_Right(x, y, x + denta_x, y);
     }
 }
