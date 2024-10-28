@@ -8,7 +8,6 @@ bool showcost;
 bool isbreakmap1;
 void Player::print_hp(int x, int y, int bcolor, int color)
 {
-
 	mu.lock();
 	int end = player.get_hp();
 	mu.unlock();
@@ -18,6 +17,7 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	Controller::SetColor(bcolor, color);
 	for (int i = 0; i < end; i++)
 	{
+		Screen::printVietnamese(L"█");
 		Screen::printVietnamese(L"█");
 	}
 	mu.unlock();
@@ -31,17 +31,6 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	}
 	mu.unlock();
 
-	//mu.lock();
-	//Controller::gotoXY(x, y);
-	//Controller::SetColor(bcolor, color);
-	//cout << hp;
-	//mu.unlock();
-	//Sleep(400);
-	//mu.lock();
-	//Controller::gotoXY(x, y);
-	//Controller::SetColor(bcolor, color);
-	//cout << "  ";
-	//mu.unlock();
 }
 
 void Player::print_cost(int x, int y, int bcolor, int color)
