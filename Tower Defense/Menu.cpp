@@ -266,7 +266,7 @@ int Screen::printLevel() {
 				Controller::gotoXY(50, 14 + i);
 				cout << "              ";
 			}
-			
+
 			if (Screen::isVie) {
 				Controller::gotoXY(53, 15);
 				Screen::printVietnamese(L"DỄ");
@@ -591,7 +591,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"  Tower Defense là một thể loại game chiến thuật rất phổ biến, trong đó người chơi");
 	Controller::gotoXY(left + 17, top + 2);
 	Screen::printVietnamese(L" phải xây dựng các tháp (towers) để bảo vệ căn cứ khỏi các đợt tấn công của kẻ thù.");
-	
+
 	Controller::gotoXY(left + 17, top + 3);
 	putchar(249);
 	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
@@ -607,7 +607,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L" Bàn cờ caro có kích thước 14x14.");
 	Controller::gotoXY(left1, top + 12);
 	putchar(249);
-	
+
 
 	Controller::SetColor(BRIGHT_WHITE, AQUA);
 	Controller::gotoXY(left + 3, top + 19);
@@ -642,7 +642,7 @@ void Menu::helpScreen() {
 	if (Menu::sound_is_open)
 		Controller::playSound(ENTER_SOUND);
 	if (Game::isPlaying) {
-		
+
 	}
 	else Menu::goBack();
 }

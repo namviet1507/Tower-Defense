@@ -64,7 +64,7 @@ void Player::print_cost(int x, int y, int bcolor, int color)
 	mu.unlock();
 }
 
-void print_cost_first(int x, int y, int bcolor, int color)
+void Player::print_cost_first(int x, int y, int bcolor, int color)
 {
 	mu.lock();
 	int h = player.get_cost();
@@ -78,7 +78,7 @@ void print_cost_first(int x, int y, int bcolor, int color)
 	mu.unlock();
 }
 
-void print_hp_player(int x, int y, int bcolor, int color)
+void Player::print_hp_player(int x, int y, int bcolor, int color)
 {
 	while (player.get_hp() > 0)
 	{
@@ -102,7 +102,7 @@ void print_hp_player(int x, int y, int bcolor, int color)
 	mu.unlock();
 }
 
-void print_cost_player(int x, int y, int bcolor, int color)
+void Player::print_cost_player(int x, int y, int bcolor, int color)
 {
 	mu.lock();
 	bool check = showcost;
@@ -121,7 +121,7 @@ void print_cost_player(int x, int y, int bcolor, int color)
 	}
 }
 
-void check_win(int num_enemy)
+void Player::check_win(int num_enemy)
 {
 	int count = 0;
 	while (count < num_enemy)
