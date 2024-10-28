@@ -1,4 +1,5 @@
 ﻿#include "Game.h"
+#include "Play.h"
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
@@ -7,7 +8,7 @@ bool Menu::sound_is_open;
 char NAMEFILE[100];
 char FILENAME[100];
 
-bool Screen::isVie;
+bool Screen::isVie = true;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
 	Controller::gotoXY(left, top);
@@ -32,7 +33,7 @@ void Screen::printRectangle(int left, int top, int width, int height)
 	putchar(217);
 }
 
-int Screen::printMainScreen() {
+void Screen::printMainScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
 	Game::isPlaying = false;
@@ -40,7 +41,6 @@ int Screen::printMainScreen() {
 		Controller::playSound(BACKGROUND_SOUND);
 	Screen::printLogo();
 	int choice[5] = { 0,0,0,0,0 }, temp, key, curChoice = 0;
-	int mode;
 	while (true) {
 		choice[curChoice] = 1;
 		if (choice[0]) {
@@ -206,13 +206,8 @@ int Screen::printMainScreen() {
 						Controller::playSound(ENTER_SOUND);
 					system("cls");
 					if (curChoice == 0) {
-						mode = Screen::printLevel();
-
-						return mode;
-						//if (mode == 1)
-						//{
-						//	play_map1();
-						//}
+						Game::mode = Screen::printLevel();
+						Game::setupGame();
 					}
 					else if (curChoice == 1) {
 						Menu::readLoadGame();
@@ -253,7 +248,6 @@ int Screen::printMainScreen() {
 			}
 		}
 	}
-	return 10;
 }
 
 int Screen::printLevel() {

@@ -17,7 +17,6 @@ void Map::setSize(int height, int width) {
 
 void Map::setMap(string fileMap) {
 	fstream fin;
-	//cout << 1;
 	fin.open(fileMap.c_str(), ios::in);
 
 	if (fin.is_open() == false) {

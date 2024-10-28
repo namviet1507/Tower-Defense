@@ -17,7 +17,7 @@ private:
 	int hp;
 	int cost;
 public:
-	Player() { hp = 10; score = 10; cost = 10; }
+	Player() { hp = 10; score = 10; cost = 50; }
 	Player(int h, int s, int c) { hp = h; score = s; cost = c; }
 	Player(const Player& other) { hp = other.hp; score = other.score; cost = other.cost; }
 	void new_hp(int h) { hp = h; }

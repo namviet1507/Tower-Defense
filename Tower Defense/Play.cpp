@@ -542,24 +542,8 @@ int Play::get_lever_Tower(int x, int y, Map m)
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 void Play::play_map(string filename_enemy, string filename_map)
 {
-	//Controller::showCursor(false);
 	Map newMap;
 	newMap.setMap(filename_enemy);
 	vector< vector<int> > pickWay;
@@ -904,16 +888,6 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 
-
-
-
-
-
-
-
-
-
-	/////
 
 	bullets.push_back(thread(Player::print_cost_player, 125, 0, 0, 4));
 	bullets.push_back(thread(Player::print_hp_player, 125, 1, 0, 4));
