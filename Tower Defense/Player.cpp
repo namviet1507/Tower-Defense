@@ -18,7 +18,6 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	for (int i = 0; i < end; i++)
 	{
 		Screen::printVietnamese(L"█");
-		Screen::printVietnamese(L"█");
 	}
 	mu.unlock();
 	Sleep(1000);
