@@ -19,9 +19,24 @@ int main() {
 			isbreakmap1 = false;
 			while (!isbreakmap1)
 			{
-				play_map1();
+				Play::play_map(".\\Map\\level1_enemy.txt", ".\\Map\\level1_map.txt");
 			}
-
+		}
+		else if (mode == 1)
+		{
+			isbreakmap1 = false;
+			while (!isbreakmap1)
+			{
+				Play::play_map(".\\Map\\level2_enemy.txt", ".\\Map\\level2_map.txt");
+			}
+		}
+		else if (mode == 2)
+		{
+			isbreakmap1 = false;
+			while (!isbreakmap1)
+			{
+				Play::play_map(".\\Map\\level3_enemy.txt", ".\\Map\\level3_map.txt");
+			}
 		}
 		else
 		{
@@ -31,37 +46,46 @@ int main() {
 	}
 
 
-	//Map t;
-	//t.setMap("./Map/level1.txt");
 
-	//int x =print_continue_board(30,18,t);
-	//if (x == 0)
+	/*Map t;
+	t.createMap();*/
+	//t.setMap(".\\Map\\level1_map.txt");
+	////t.printMap();
+	//vector< vector<int> > temp;
+	//t.findPositionOfTower(temp);
+	//cout << temp.size() << "\n\n\n";
+	//for (int i = 0; i < temp.size(); i++)
 	//{
-	//	Controller::gotoXY(125, 0);
-	//	cout << 0;
+	//	for (int j = 0; j < temp[i].size(); j++)
+	//	{
+	//		cout << temp[i][j] << ' ';
+	//	}
+	//	cout << '\n';
 	//}
-	//else
-	//{
-	//	Controller::gotoXY(125, 0);
-	//	cout << 1;
-	//}
-	//cin.get();
-	/*Tower t1, t2, t3, t4;
-	t1.drawTowerLevel2_Up(14, 36, 6, 4);
-	t2.drawTowerLevel2_Down(46, 0, 6, 4);
-	t3.drawTowerLevel2_Right(34, 11, 6, 4);
-	t4.drawTowerLevel2_Left(117, 31, 6, 4);
 
-	thread tow(&Tower::tower_bullet_level2_Up, &t1, 14, 36);
-	thread tow1(&Tower::tower_bullet_level2_Down, &t2, 46, 0, 46, 35);
-	thread tow2(&Tower::tower_bullet_level2_Right, &t2, 34, 11, 114, 11);
-	thread tow3(&Tower::tower_bullet_level2_Left, &t2, 117, 31, 73, 31);
+	//t.printMap();
+	//Enemy my;
+	//MOVE(".\\Map\\tet.txt", my);
+	//enemy_move1(20, ".\\Map\\tet.txt");
+//	for (int i = 0; i < t.getHeight(); i++)
+//{
+//	for (int j = 0; j < t.getWidth(); j++)
+//	{
+//		cout << t.getMap()[i][j].getMark() << ' ';
+//	}
+//	cout << '\n';
+//}
 
-	tow.join();
-	tow1.join();
-	tow2.join();
-	tow3.join();*/
-
+	/*vector< vector<int> > ans;
+	t.browerMap(ans);
+	for (int i = 0; i < ans.size(); i++)
+	{
+		for (int j = 0; j < ans[i].size(); j++)
+		{
+			cout << ans[i][j] << ' ';
+		}
+		cout << '\n';
+	}*/
 
 	return 0;
 }

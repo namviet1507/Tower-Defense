@@ -4,8 +4,8 @@
 
 bool Menu::music_is_open;
 bool Menu::sound_is_open;
-char Menu::FILENAME[100];
-char Menu::NAMEFILE[100];
+char NAMEFILE[100];
+char FILENAME[100];
 
 bool Screen::isVie;
 void Screen::printRectangle(int left, int top, int width, int height)
@@ -268,7 +268,7 @@ int Screen::printLevel() {
 				Controller::gotoXY(50, 14 + i);
 				cout << "              ";
 			}
-			
+
 			if (Screen::isVie) {
 				Controller::gotoXY(56, 15);
 				Screen::printVietnamese(L"DỄ");
@@ -428,7 +428,7 @@ int Screen::printLevel() {
 	}
 }
 
-void Screen::printListFile(int start, int end, vector<string> arrFilename) {
+void ListFile::printListFile(int start, int end, vector<string> arrFilename) {
 	int y = 0;
 	for (int i = start; i < arrFilename.size() && i <= end; i++) {
 		Controller::SetColor(BRIGHT_WHITE, BLACK);
@@ -443,7 +443,7 @@ void Screen::printListFile(int start, int end, vector<string> arrFilename) {
 	}
 }
 
-string Menu::getFile() {
+string ListFile::getFile() {
 	fstream listFile;
 	listFile.open(LIST_FILE, ios::in | ios::binary);
 
@@ -506,7 +506,7 @@ string Menu::getFile() {
 	int bot = 10;
 	int y = 0;
 	bool isBack = false;
-	Screen::printListFile(top, bot, arrFilename);
+	ListFile::printListFile(top, bot, arrFilename);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printRectangle(51, 27, 8, 2);
 	Controller::SetColor(BRIGHT_WHITE, RED);
@@ -565,7 +565,7 @@ string Menu::getFile() {
 					if (index == top) {
 						top--;
 						bot--;
-						Screen::printListFile(top, bot, arrFilename);
+						ListFile::printListFile(top, bot, arrFilename);
 					}
 					else y--;
 					index--;
@@ -603,7 +603,7 @@ string Menu::getFile() {
 					if (index == bot) {
 						top++;
 						bot++;
-						Screen::printListFile(top, bot, arrFilename);
+						ListFile::printListFile(top, bot, arrFilename);
 					}
 					else y++;
 					index++;
@@ -651,7 +651,7 @@ string Menu::getFile() {
 					strcpy_s(filename, 100, arrFilename[index].c_str());
 					char* temp = new char[100];
 					strcpy_s(temp, 100, filename);
-					strcpy_s(Menu::FILENAME, 100, filename);
+					strcpy_s(FILENAME, 100, filename);
 					strcat_s(temp, 100, ".bin\0");
 					return temp;
 				}
@@ -1255,7 +1255,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"  Tower Defense là một thể loại game chiến thuật rất phổ biến, trong đó người chơi");
 	Controller::gotoXY(left + 17, top + 2);
 	Screen::printVietnamese(L" phải xây dựng các tháp (towers) để bảo vệ căn cứ khỏi các đợt tấn công của kẻ thù.");
-	
+
 	Controller::gotoXY(left + 17, top + 3);
 	putchar(249);
 	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
@@ -1330,7 +1330,7 @@ void Menu::helpScreen() {
 	if (Menu::sound_is_open)
 		Controller::playSound(ENTER_SOUND);
 	if (Game::isPlaying) {
-		
+
 	}
 	else Menu::goBack();
 }
