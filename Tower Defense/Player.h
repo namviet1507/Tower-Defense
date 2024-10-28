@@ -35,4 +35,3 @@ public:
 	static void check_win(int num_enemy);
 };
 extern Player player;
-

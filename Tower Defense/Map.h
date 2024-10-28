@@ -10,6 +10,7 @@ class Map {
 
 	vector<vector<Cell>> map;
 	int numRow;
+
 public:
 	Map() {
 		width = 0;
