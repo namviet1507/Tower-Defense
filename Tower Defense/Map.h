@@ -9,6 +9,7 @@ class Map {
 	static const int left = 2;
 
 	vector<vector<Cell>> map;
+	int numRow;
 public:
 	Map() {
 		width = 0;
@@ -24,4 +25,17 @@ public:
 	vector<Cell>& operator[] (int);
 
 	void createMap();
+
+
+	vector<vector<Cell>>& getMap()
+	{
+		return map;
+	}
+	int getNumRow()
+	{
+		return numRow;
+	}
+
+	void browseMap(vector< vector<int> >&);
+	void findPositionOfTower(vector< vector<int> >&);
 };

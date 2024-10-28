@@ -1,14 +1,14 @@
 ﻿#include "Game.h"
+#include "Play.h"
 #include "Controller.h"
 #pragma comment(lib, "winmm.lib")
 
-char Menu::FILENAME[100];
-char Menu::NAMEFILE[100];
+bool Menu::music_is_open;
+bool Menu::sound_is_open;
+char NAMEFILE[100];
+char FILENAME[100];
 
-bool Menu::music_is_open = false;
-bool Menu::sound_is_open = false;
-
-bool Screen::isVie;
+bool Screen::isVie = true;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
 	Controller::gotoXY(left, top);
@@ -36,7 +36,7 @@ void Screen::printRectangle(int left, int top, int width, int height)
 void Screen::printMainScreen() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	system("cls");
-	_game.setFlagPlaying(false);
+	Game::isPlaying = false;
 	if (Menu::sound_is_open)
 		Controller::playSound(BACKGROUND_SOUND);
 	Screen::printLogo();
@@ -206,9 +206,8 @@ void Screen::printMainScreen() {
 						Controller::playSound(ENTER_SOUND);
 					system("cls");
 					if (curChoice == 0) {
-						_game.setMode(Screen::printLevel());
-						Menu::signup();
-						_game.setupGame();
+						Game::mode = Screen::printLevel();
+						Game::setupGame();
 					}
 					else if (curChoice == 1) {
 						Menu::readLoadGame();
@@ -263,7 +262,7 @@ int Screen::printLevel() {
 				Controller::gotoXY(50, 14 + i);
 				cout << "              ";
 			}
-			
+
 			if (Screen::isVie) {
 				Controller::gotoXY(56, 15);
 				Screen::printVietnamese(L"DỄ");
@@ -423,7 +422,7 @@ int Screen::printLevel() {
 	}
 }
 
-void Screen::printListFile(int start, int end, vector<string> arrFilename) {
+void ListFile::printListFile(int start, int end, vector<string> arrFilename) {
 	int y = 0;
 	for (int i = start; i < arrFilename.size() && i <= end; i++) {
 		Controller::SetColor(BRIGHT_WHITE, BLACK);
@@ -438,7 +437,7 @@ void Screen::printListFile(int start, int end, vector<string> arrFilename) {
 	}
 }
 
-string Menu::getFile() {
+string ListFile::getFile() {
 	fstream listFile;
 	listFile.open(LIST_FILE, ios::in | ios::binary);
 
@@ -501,7 +500,7 @@ string Menu::getFile() {
 	int bot = 10;
 	int y = 0;
 	bool isBack = false;
-	Screen::printListFile(top, bot, arrFilename);
+	ListFile::printListFile(top, bot, arrFilename);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printRectangle(51, 27, 8, 2);
 	Controller::SetColor(BRIGHT_WHITE, RED);
@@ -560,7 +559,7 @@ string Menu::getFile() {
 					if (index == top) {
 						top--;
 						bot--;
-						Screen::printListFile(top, bot, arrFilename);
+						ListFile::printListFile(top, bot, arrFilename);
 					}
 					else y--;
 					index--;
@@ -598,7 +597,7 @@ string Menu::getFile() {
 					if (index == bot) {
 						top++;
 						bot++;
-						Screen::printListFile(top, bot, arrFilename);
+						ListFile::printListFile(top, bot, arrFilename);
 					}
 					else y++;
 					index++;
@@ -646,7 +645,7 @@ string Menu::getFile() {
 					strcpy_s(filename, 100, arrFilename[index].c_str());
 					char* temp = new char[100];
 					strcpy_s(temp, 100, filename);
-					strcpy_s(Menu::FILENAME, 100, filename);
+					strcpy_s(FILENAME, 100, filename);
 					strcat_s(temp, 100, ".bin\0");
 					return temp;
 				}
@@ -786,7 +785,7 @@ void Menu::Setting() {
 	Controller::SetColor(BRIGHT_WHITE, PURPLE);
 	Controller::gotoXY(30, 7);
 	Screen::printVietnamese(L"╚══════╝╚══════╝   ╚═╝      ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ \n");
-	
+
 	Controller::SetColor(BRIGHT_WHITE, YELLOW);
 	Controller::gotoXY(2, 8);
 	Screen::printVietnamese(L"                  ██████\n");
@@ -1056,8 +1055,8 @@ void Menu::Setting() {
 					else if (curChoice == 2)
 						Screen::isVie = !Screen::isVie;
 					else
-						if (/*Game::isPlaying*/ _game.getFlagPlaying()) {
-							
+						if (Game::isPlaying) {
+
 						}
 						else Menu::goBack();
 				}
@@ -1087,7 +1086,9 @@ void Menu::Setting() {
 	}
 }
 
-void Menu::signup() {}
+void Menu::signup() {
+
+}
 
 void Screen::printVietnamese(wstring text) {
 	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
@@ -1248,7 +1249,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"  Tower Defense là một thể loại game chiến thuật rất phổ biến, trong đó người chơi");
 	Controller::gotoXY(left + 17, top + 2);
 	Screen::printVietnamese(L" phải xây dựng các tháp (towers) để bảo vệ căn cứ khỏi các đợt tấn công của kẻ thù.");
-	
+
 	Controller::gotoXY(left + 17, top + 3);
 	putchar(249);
 	Screen::printVietnamese(L"  Trong game, người chơi sẽ đối mặt với các 'đợt sóng' kẻ địch, và nhiệm vụ của họ");
@@ -1281,7 +1282,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"  Khi một kẻ địch vượt qua hệ thống phòng thủ của bạn và vào căn cứ,");
 	Controller::gotoXY(left1, top + 13);
 	Screen::printVietnamese(L" bạn sẽ mất một lượng máu nhất định. Khi hết máu, bạn sẽ thua cuộc.");
-	
+
 	Controller::SetColor(BRIGHT_WHITE, PURPLE);
 	Controller::gotoXY(left1 + 30, top + 14);
 	Screen::printVietnamese(L"Chúc bạn nhiều may mắn !");
@@ -1322,10 +1323,8 @@ void Menu::helpScreen() {
 	}
 	if (Menu::sound_is_open)
 		Controller::playSound(ENTER_SOUND);
+	if (Game::isPlaying) {
 
-
-	if (_game.getFlagPlaying()) {
-		
 	}
 	else Menu::goBack();
 }

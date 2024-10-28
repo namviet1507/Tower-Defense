@@ -6,21 +6,9 @@
 #include "Map.h"
 
 class Game : public Player {
-	int mode;
-	bool is_playing;
-	string file_map;
-	Map _map;
 public:
-	int getMode();
-	bool getFlagPlaying();
-	string getFileMap();
+	static int mode;				// Chế độ Game
+	static bool isPlaying;			// check còn đang chơi không
 
-	void setMode(int);
-	void setFlagPlaying(bool);
-	void setFileMap(string);
-
-	void setupGame();
-	void buildTower();
+	static void setupGame();		// Cài đặt game
 };
-
-extern Game _game;

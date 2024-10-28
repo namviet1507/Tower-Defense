@@ -17,6 +17,7 @@ class Cell {
 	bool is_tower;
 	bool is_road;
 
+	int mark;
 	Point pos; // position (top left corner)
 
 public:
@@ -61,4 +62,7 @@ public:
 
 	void printCell();
 	void hoverCell();
+
+	void setMark(int a) { mark = a; }
+	int getMark() { return mark; }
 };
