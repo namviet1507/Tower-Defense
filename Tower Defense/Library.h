@@ -62,6 +62,6 @@ using namespace std;
 #define BACKGROUND_SOUND 5
 #define LOSE_SOUND 6
 
-#define FileListMapEasy "./Map/Easy/ListFileMapEasy.bin"
-#define FileListMapNormal "./Map/Normal/ListFileMapNormal.bin"
-#define FileListMapDificult "./Map/Dificult/ListFileMapDificult.bin"
+#define FileListMapEasy "./Map/Easy/ListFileMap.bin"
+#define FileListMapNormal "./Map/Normal/ListFileMap.bin"
+#define FileListMapDificult "./Map/Dificult/ListFileMap.bin"

@@ -4,47 +4,10 @@
 #include <mutex>
 
 mutex mu_global2;
-
-void Tower::setPos(int x, int y) {
-    this->x = x;
-    this->y = y;
-}
-
-int Tower::getX() {
-    return x;
-}
-int Tower::getY() {
-    return y;
-}
-
-int Tower::getLevel() {
-    return level;
-}
-
-int Tower::getPrice() {
-    return price;
-}
-
-void Tower::setLevel(int level) {
-    this->level = level;
-    if (level == 1) price = 10;
-    else if (level == 2) price = 20;
-    else if (level == 3) price = 30;
-}
-
-int Tower::getDir() {
-    return dir;
-}
-
-void Tower::setDir(int dir) {
-    this->dir = dir;
-}
-
-void Bullet::wayBulletOfLevel1_Up(int x, int y)
+void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
 {
-    Controller::showCursor(false);
     int i = 0;
-    while (y - 1 - i > 0)
+    while (y - 1 - i > y_end)
     {
         bool check;
         mu.lock();
@@ -79,7 +42,7 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
                     enemy.sub_hp(1);
                     flag = true;
@@ -108,7 +71,7 @@ void Tower::drawTowerLevel1_Up(int x, int y, int colorFirst, int colorSecond)
     indexOfTowerFollowY = y; // To process LOAD GAME.
 
 }
-void Tower::tower_bullet_level1_Up(int x, int y)
+void Tower::tower_bullet_level1_Up(int x, int y, int x_end, int y_end)
 {
     while (true)
     {
@@ -122,7 +85,7 @@ void Tower::tower_bullet_level1_Up(int x, int y)
         }
 
         Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y);
+        thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
@@ -165,7 +128,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
                     enemy.sub_hp(1);
                     flag = true;
@@ -181,14 +144,14 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
 void Tower::drawTowerLevel1_Left(int x, int y, int colorFirst, int colorSecond)
 {
     Controller::SetColor(colorFirst, colorSecond);
-    
-    Controller::gotoXY(x, y + 2);
+
+    Controller::gotoXY(x + 3, y + 2);
+    Screen::printVietnamese(L"▓▓▓▓▓");
+    Controller::gotoXY(x + 3, y + 3);
+    Screen::printVietnamese(L"▓▓▓▓▓");
+    Controller::gotoXY(x + 3, y + 4);
     Screen::printVietnamese(L"▓▓▓▓▓");
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x, y + 4);
-    Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x - 3, y + 3);
     Screen::printVietnamese(L"===");
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -254,7 +217,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(1);
                     flag = true;
@@ -343,7 +306,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(1);
                     flag = true;
@@ -359,13 +322,13 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
 void Tower::drawTowerLevel1_Down(int x, int y, int colorFirst, int colorSecond)
 {
     Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x, y + 1);
+    Screen::printVietnamese(L"▓▓▓▓▓");
     Controller::gotoXY(x, y + 2);
     Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x + 2, y + 4);
+    Controller::gotoXY(x + 2, y + 3);
     Screen::printVietnamese(L"▓");
-    Controller::gotoXY(x + 2, y + 5);
+    Controller::gotoXY(x + 2, y + 4);
     Screen::printVietnamese(L"▓");
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -393,13 +356,12 @@ void Tower::tower_bullet_level1_Down(int x, int y, int x_end, int y_end)
     }
 }
 
-void Bullet::wayBulletOfLevel2_Up(int x, int y)
+void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
 {
-    Controller::showCursor(false);
     mu.lock();
     int i = 0;
     mu.unlock();
-    while (y - 1 - i > 0)
+    while (y - 1 - i > y_end)
     {
 
         bool check;
@@ -441,7 +403,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
                     enemy.sub_hp(2);
                     flag = true;
@@ -476,7 +438,7 @@ void Tower::drawTowerLevel2_Up(int x, int y, int colorFirst, int colorSecond)
     indexOfTowerFollowY = y; // To process LOAD GAME.
 
 }
-void Tower::tower_bullet_level2_Up(int x, int y)
+void Tower::tower_bullet_level2_Up(int x, int y, int x_end, int y_end)
 {
     while (true)
     {
@@ -490,7 +452,7 @@ void Tower::tower_bullet_level2_Up(int x, int y)
         }
 
         Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y);
+        thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
@@ -501,7 +463,6 @@ void Tower::tower_bullet_level2_Up(int x, int y)
 
 void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
 {
-    Controller::showCursor(false);
     int newX = x, i = 0;
     //while (true)
     //{
@@ -544,7 +505,7 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
                     enemy.sub_hp(2);
                     flag = true;
@@ -561,27 +522,27 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel2_Left(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::gotoXY(x - 1, y + 2);
+    Controller::gotoXY(x + 2, y + 2);
     Controller::SetColor(colorFirst, colorSecond);
     Screen::printVietnamese(L"=");
-    Controller::gotoXY(x - 1, y + 3);
+    Controller::gotoXY(x + 2, y + 3);
     Screen::printVietnamese(L"=");
 
-    Controller::gotoXY(x - 2, y + 2);
+    Controller::gotoXY(x + 1, y + 2);
     Controller::SetColor(colorFirst, colorSecond);
     Screen::printVietnamese(L"=");
-    Controller::gotoXY(x - 2, y + 3);
-    Screen::printVietnamese(L"=");
-
-    Controller::gotoXY(x - 3, y + 2);
-    Controller::SetColor(colorFirst, colorSecond);
-    Screen::printVietnamese(L"=");
-    Controller::gotoXY(x - 3, y + 3);
+    Controller::gotoXY(x + 1, y + 3);
     Screen::printVietnamese(L"=");
 
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Controller::SetColor(colorFirst, colorSecond);
+    Screen::printVietnamese(L"=");
     Controller::gotoXY(x, y + 3);
+    Screen::printVietnamese(L"=");
+
+    Controller::gotoXY(x + 3, y + 2);
+    Screen::printVietnamese(L"▓▓▓▓▓");
+    Controller::gotoXY(x + 3, y + 3);
     Screen::printVietnamese(L"▓▓▓▓▓");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
@@ -615,7 +576,6 @@ void Tower::tower_bullet_level2_Left(int x, int y, int x_end, int y_end)
 
 void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
 {
-    Controller::showCursor(false);
     int i = 0, a = 81;
     while ((x + 8 + i) < x_end)
     {
@@ -659,7 +619,7 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(2);
                     flag = true;
@@ -772,7 +732,7 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(2);
                     flag = true;
@@ -787,16 +747,16 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel2_Down(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::gotoXY(x + 2, y + 4);
+    Controller::gotoXY(x + 2, y + 3);
     Controller::SetColor(colorFirst, colorSecond);
     Screen::printVietnamese(L"▓ ▓");
-    Controller::gotoXY(x + 2, y + 5);
+    Controller::gotoXY(x + 2, y + 4);
     Screen::printVietnamese(L"▓ ▓");
+    Controller::gotoXY(x, y + 1);
+    Screen::printVietnamese(L"▓▓▓▓▓▓▓");
     Controller::gotoXY(x, y + 2);
     Screen::printVietnamese(L"▓▓▓▓▓▓▓");
-    Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓▓▓");
-    Controller::gotoXY(x, y + 1);
+    Controller::gotoXY(x, y);
     Screen::printVietnamese(L"▓▓▓▓▓▓▓");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
@@ -826,11 +786,11 @@ void Tower::tower_bullet_level2_Down(int x, int y, int x_end, int y_end)
     }
 }
 
-void Bullet::wayBulletOfLevel3_Up(int x, int y)
+void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
 {
     Controller::showCursor(false);
     int i = 0;
-    while (y - 1 - i > 0)
+    while (y - 1 - i > y_end)
     {
         bool check;
         mu.lock();
@@ -871,7 +831,7 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(3);
                     flag = true;
@@ -891,17 +851,17 @@ void Tower::drawTowerLevel3_Up(int x, int y, int colorFirst, int colorSecond)
     Screen::printVietnamese(L"▓ ▓ ▓");
     Controller::gotoXY(x + 2, y + 1);
     Screen::printVietnamese(L"▓ ▓ ▓");
-    Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"█████████");
-    Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"█████████");
-    Controller::gotoXY(x, y + 4);
-    Screen::printVietnamese(L"█████████");
+    Controller::gotoXY(x + 1, y + 2);
+    Screen::printVietnamese(L"███████");
+    Controller::gotoXY(x + 1, y + 3);
+    Screen::printVietnamese(L"███████");
+    Controller::gotoXY(x + 1, y + 4);
+    Screen::printVietnamese(L"███████");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
 }
-void Tower::tower_bullet_level3_Up(int x, int y)
+void Tower::tower_bullet_level3_Up(int x, int y, int x_end, int y_end)
 {
     while (true)
     {
@@ -915,7 +875,7 @@ void Tower::tower_bullet_level3_Up(int x, int y)
         }
 
         Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel3_Up, &bullet, x, y);
+        thread bullet_firt(&Bullet::wayBulletOfLevel3_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
         {
             bullet_firt.join();
@@ -975,7 +935,7 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
                     enemy.sub_hp(3);
                     flag = true;
@@ -991,17 +951,17 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
 void Tower::drawTowerLevel3_Left(int x, int y, int colorFirst, int colorSecond)
 {
     Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x + 3, y + 2);
+    Screen::printVietnamese(L"█████");
+    Controller::gotoXY(x + 3, y + 3);
+    Screen::printVietnamese(L"█████");
+    Controller::gotoXY(x + 3, y + 4);
+    Screen::printVietnamese(L"█████");
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"█████");
+    Screen::printVietnamese(L"===");
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"█████");
+    Screen::printVietnamese(L"===");
     Controller::gotoXY(x, y + 4);
-    Screen::printVietnamese(L"█████");
-    Controller::gotoXY(x - 3, y + 2);
-    Screen::printVietnamese(L"===");
-    Controller::gotoXY(x - 3, y + 3);
-    Screen::printVietnamese(L"===");
-    Controller::gotoXY(x - 3, y + 4);
     Screen::printVietnamese(L"===");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
@@ -1030,7 +990,7 @@ void Tower::tower_bullet_level3_Left(int x, int y, int x_end, int y_end)
     }
 }
 
-void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end) 
+void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
 {
     Controller::showCursor(false);
     int i = 0;
@@ -1083,7 +1043,7 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(3);
                     flag = true;
@@ -1096,7 +1056,7 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         if (flag) break;
     }
 }
-void Tower::drawTowerLevel3_Right(int x, int y, int colorFirst, int colorSecond) 
+void Tower::drawTowerLevel3_Right(int x, int y, int colorFirst, int colorSecond)
 {
     Controller::SetColor(colorFirst, colorSecond);
     Controller::gotoXY(x, y + 2);
@@ -1115,7 +1075,7 @@ void Tower::drawTowerLevel3_Right(int x, int y, int colorFirst, int colorSecond)
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME..
 }
-void Tower::tower_bullet_level3_Right(int x, int y, int x_end, int y_end) 
+void Tower::tower_bullet_level3_Right(int x, int y, int x_end, int y_end)
 {
     while (true)
     {
@@ -1138,7 +1098,7 @@ void Tower::tower_bullet_level3_Right(int x, int y, int x_end, int y_end)
     }
 }
 
-void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end) 
+void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
 {
     int i = 0;
     Controller::showCursor(false);
@@ -1192,7 +1152,7 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         {
             if (enemy.get_hp() > 0)
             {
-                if (get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
+                if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
                     enemy.sub_hp(3);
                     flag = true;
@@ -1205,25 +1165,25 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         if (flag) break;
     }
 }
-void Tower::drawTowerLevel3_Down(int x, int y, int colorFirst, int colorSecond) 
+void Tower::drawTowerLevel3_Down(int x, int y, int colorFirst, int colorSecond)
 {
     Controller::SetColor(colorFirst, colorSecond);
-    Controller::gotoXY(x, y + 1);
-    Screen::printVietnamese(L"█████████");
-    Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"█████████");
-    Controller::gotoXY(x , y + 3);
-    Screen::printVietnamese(L"█████████");
-    Controller::gotoXY(x + 2, y + 4);
+    Controller::gotoXY(x + 1, y);
+    Screen::printVietnamese(L"███████");
+    Controller::gotoXY(x + 1, y + 1);
+    Screen::printVietnamese(L"███████");
+    Controller::gotoXY(x + 1, y + 2);
+    Screen::printVietnamese(L"███████");
+    Controller::gotoXY(x + 2, y + 3);
     Screen::printVietnamese(L"▓ ▓ ▓");
-    Controller::gotoXY(x + 2, y +  5);
+    Controller::gotoXY(x + 2, y + 4);
     Screen::printVietnamese(L"▓ ▓ ▓");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
     cout << "\n\n\n\n";
 }
-void Tower::tower_bullet_level3_Down(int x, int y, int x_end, int y_end) 
+void Tower::tower_bullet_level3_Down(int x, int y, int x_end, int y_end)
 {
     while (true)
     {
@@ -1261,48 +1221,4 @@ int Bullet::getIndexOfBulletFollowX()
 int Bullet::getIndexOfBulletFollowY()
 {
     return indexOfBulletFollowY;
-}
-
-void Tower::draw_tower(int bcolor, int color) {
-    if (level == 1) {
-        if (dir == 1) drawTowerLevel1_Up(x, y, bcolor, color);
-        else if (dir == 2) drawTowerLevel1_Left(x, y, bcolor, color);
-        else if (dir == 3) drawTowerLevel1_Down(x, y, bcolor, color);
-        else if (dir == 4) drawTowerLevel1_Right(x, y, bcolor, color);
-    }
-    else if (level == 2) {
-        if (dir == 1) drawTowerLevel2_Up(x, y, bcolor, color);
-        else if (dir == 2) drawTowerLevel2_Left(x, y, bcolor, color);
-        else if (dir == 3) drawTowerLevel2_Down(x, y, bcolor, color);
-        else if (dir == 4) drawTowerLevel2_Right(x, y, bcolor, color);
-    }
-    else if (level == 3) {
-        if (dir == 1) drawTowerLevel3_Up(x, y, bcolor, color);
-        else if (dir == 2) drawTowerLevel3_Left(x, y, bcolor, color);
-        else if (dir == 3) drawTowerLevel3_Down(x, y, bcolor, color);
-        else if (dir == 4) drawTowerLevel3_Right(x, y, bcolor, color);
-    }
-}
-
-void Tower::tower_bullet() {
-    int denta_x = 40;
-    int denta_y = 15;
-    if (level == 1) {
-        if (dir == 1) tower_bullet_level1_Up(x, y);
-        else if (dir == 2) tower_bullet_level1_Left(x, y, x - denta_x, y);
-        else if (dir == 3) tower_bullet_level1_Down(x, y, x, y + denta_y);
-        else if (dir == 4) tower_bullet_level1_Right(x, y, x + denta_x, y);
-    }
-    else if (level == 2) {
-        if (dir == 1) tower_bullet_level2_Up(x, y);
-        else if (dir == 2) tower_bullet_level2_Left(x, y, x - denta_x, y);
-        else if (dir == 3) tower_bullet_level2_Down(x, y, x, y + denta_y);
-        else if (dir == 4) tower_bullet_level2_Right(x, y, x + denta_x, y);
-    }
-    else if (level == 3) {
-        if (dir == 1) tower_bullet_level3_Up(x, y);
-        else if (dir == 2) tower_bullet_level3_Left(x, y, x - denta_x, y);
-        else if (dir == 3) tower_bullet_level3_Down(x, y, x, y + denta_y);
-        else if (dir == 4) tower_bullet_level3_Right(x, y, x + denta_x, y);
-    }
 }

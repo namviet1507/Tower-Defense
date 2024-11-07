@@ -3,8 +3,6 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
-#include "Library.h"
-#include <vector>
 #include "Player.h"
 
 using namespace std;
@@ -23,8 +21,12 @@ public:
 	int get_y() { return y_e; }
 	void sub_hp(int sub) { hp -= sub; }
 	int get_hp() { return hp; }
+	void set_hp(int num)
+	{
+		hp = num;
+	}
 
-	void showl_x(int x,int y,int bcolor,int color);
+	void showl_x(int x, int y, int bcolor, int color);
 	void showr_x(int x, int y, int bcolor, int color);
 	void dele_x(int x, int y);
 
@@ -45,10 +47,8 @@ public:
 	void move_p(int x_start, int y_start, int x_end, int y_end); // right
 	void move_t(int x_start, int y_start, int x_end, int y_end); // left
 
-	void move_map1();
+	static double get_distance(int x, int y, int a, int b);
 };
 
 extern vector<Enemy> e_global;
-double get_distance(int x, int y, int a, int b);
 
-void enemy_map1(int num);

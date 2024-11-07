@@ -10,7 +10,7 @@ void Cell::setColor(int color) {
 }
 
 void Cell::setColorHover() {
-	if (can_build) color_hover = LIGHT_GREEN;
+	if (is_destination) color_hover = LIGHT_GREEN;
 	else if (is_tower || is_road) color_hover = LIGHT_RED;
 	else color_hover = LIGHT_YELLOW;
 }
@@ -85,8 +85,8 @@ void Cell::hoverCell() {
 	}
 }
 
-void Cell::setFlagBuild(bool flag) {
-	can_build = flag;
+void Cell::setFlagDes(bool flag) {
+	is_destination = flag;
 }
 void Cell::setFlagTower(bool flag) {
 	is_tower = flag;
@@ -95,8 +95,8 @@ void Cell::setFlagRoad(bool flag) {
 	is_road = flag;
 }
 
-bool Cell::getFlagBuild() {
-	return can_build;
+bool Cell::getFlagDes() {
+	return is_destination;
 }
 bool Cell::getFlagTower() {
 	return is_tower;

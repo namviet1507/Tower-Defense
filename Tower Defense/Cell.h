@@ -15,10 +15,11 @@ class Cell {
 	int color;
 	int color_hover;
 
-	bool can_build;
+	bool is_destination;
 	bool is_tower;
 	bool is_road;
 
+	int mark;
 	Point pos; // position (top left corner)
 public:
 	Cell() {
@@ -30,7 +31,7 @@ public:
 		color_hover = LIGHT_YELLOW;
 		pos.setX(0);
 		pos.setY(0);
-		can_build = false;
+		is_destination = false;
 		is_tower = false;
 		is_road = false;
 	}
@@ -42,11 +43,11 @@ public:
 	void setPos(int, int);
 	void setArea(int, int);
 
-	void setFlagBuild(bool);
+	void setFlagDes(bool);
 	void setFlagTower(bool);
 	void setFlagRoad(bool);
 
-	bool getFlagBuild();
+	bool getFlagDes();
 	bool getFlagTower();
 	bool getFlagRoad();
 
@@ -62,4 +63,7 @@ public:
 
 	void printCell();
 	void hoverCell();
+
+	void setMark(int a) { mark = a; }
+	int getMark() { return mark; }
 };

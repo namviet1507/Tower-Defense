@@ -2,17 +2,18 @@
 #include "Library.h"
 #include "Player.h"
 
-class Menu 
+#define LIST_FILE "listFile.txt"
+class Menu
 {
 	private:
-		
+
 	public:
 		static bool music_is_open;
 		static bool sound_is_open;
 		static void Setting();
 		static void goBack();									//Trở về menu
 		static void readLoadGame();								//Đọc bảng xếp hạng
-		
+
 		static void helpScreen();								//Màn hình hướng dẫn
 		static void signup();									// Đăng ký
 };
@@ -27,7 +28,6 @@ struct Screen {
 	static int printLevel();								//In ra mức độ chơi
 	static void printRectangle(int left, int top, int width, int height);			//Vẽ hình chữ nhật
 	static void printVietnamese(wstring);
-	
 };
 
 struct ListFile {
