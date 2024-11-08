@@ -589,7 +589,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				do
 				{
 					position++;
-					if (position == 4)
+					if (position == towers.size())
 						position = 2;
 
 				} while (choose[position] && i < cnt);
@@ -605,7 +605,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				{
 					position--;
 					if (position == -1)
-						position = 3;
+						position = towers.size() - 1;
 				} while (choose[position] && i < cnt);
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
@@ -618,7 +618,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				do
 				{
 					position++;
-					if (position == 4)
+					if (position == towers.size())
 						position = 0;
 				} while (choose[position] && i < cnt);
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
@@ -634,7 +634,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				{
 					position--;
 					if (position == -1)
-						position = 3;
+						position = towers.size() - 1;
 					else if (position == 2)
 						position = 0;
 				} while (choose[position] && i < cnt);
@@ -744,7 +744,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 	colour_block(posTower[position][1], posTower[position][2], 5, 8, 6);
 	///
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < towers.size(); i++)
 	{
 		if (choose[i])
 		{
