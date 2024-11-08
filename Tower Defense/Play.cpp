@@ -563,7 +563,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 	vector<thread> draws;
 	vector<thread> bullets;
-	vector<Tower> towers(4);
+	vector<Tower> towers(posTower.size());
 	showcost = true;
 	Player::print_cost_first(125, 0, 7, 4);
 	ingame = true;
@@ -577,7 +577,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	int cnt = 0;
 	bool stop = false;
 
-	while (cnt < 4)
+	while (cnt < towers.size())
 	{
 		if (_kbhit())
 		{
@@ -656,7 +656,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				cnt++;
 				res[position] = i;
 				// push tower
-				for (int i = 0; i < 4; i++)
+				for (int i = 0; i < towers.size(); i++)
 				{
 					if (choose[i])
 					{
@@ -729,7 +729,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 					}
 				}
 
-				for (int j = 0; j < 4; j++)
+				for (int j = 0; j < towers.size(); j++)
 				{
 					if (choose[j] == false)
 					{
@@ -817,7 +817,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 	////////
-	for (int i = 0; i < 4; i++)
+	for (int i = 0; i < towers.size(); i++)
 	{
 		if (choose[i])
 		{
