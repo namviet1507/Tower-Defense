@@ -28,6 +28,11 @@ struct Screen {
 	static int printLevel();								//In ra mức độ chơi
 	static void printRectangle(int left, int top, int width, int height);			//Vẽ hình chữ nhật
 	static void printVietnamese(wstring);
+
+
+	static void printTower(int x, int y);
+	static void printAnt(int x, int y);
+	static void printBall(int x, int y);
 };
 
 struct ListFile {

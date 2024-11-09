@@ -2,6 +2,8 @@
 #include "Controller.h"
 mutex mu;
 
+int Enemy::count = 0;
+
 void Enemy::showl_x(int x, int y, int bcolor, int color)
 {
 	mu.lock();

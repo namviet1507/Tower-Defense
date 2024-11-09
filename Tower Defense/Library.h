@@ -62,6 +62,16 @@ using namespace std;
 #define BACKGROUND_SOUND 5
 #define LOSE_SOUND 6
 
+// Color RGB
+#define RGB_GRAY 128, 128, 128
+#define RGB_BLACK 0, 0, 0
+#define RGB_WHITE 245,245,245
+#define RGB_RED 255, 0, 0
+#define RGB_BROWN 126, 81, 9
+#define RGB_BLUE 0,0,255
+#define RGB_AQUA 0,255,255
+#define RGB_TUR 64,224,208
+
 #define FileListMapEasy "./Map/Easy/ListFileMap.bin"
 #define FileListMapNormal "./Map/Normal/ListFileMap.bin"
-#define FileListMapDificult "./Map/Dificult/ListFileMap.bin"
+#define FileListMapDificult "./Map/Difficult/ListFileMap.bin"

@@ -12,7 +12,7 @@ extern bool showcost;
 extern bool isbreakmap1;
 
 class Player {
-private:
+protected:
 	int score;
 	int hp;
 	int cost;

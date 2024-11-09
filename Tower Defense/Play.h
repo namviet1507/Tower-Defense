@@ -2,6 +2,7 @@
 #include "Library.h"
 #include "Tower.h"
 #include "Map.h"
+#include "Game.h"
 
 class Play
 {

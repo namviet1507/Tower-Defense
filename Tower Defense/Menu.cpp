@@ -1599,3 +1599,87 @@ string ListFile::getFileMap() {
 
 	return "";
 }
+
+void Screen::printTower(int x, int y) {
+	Controller::gotoXY(x, y);
+	Controller::setColorRGB(RGB_GRAY, RGB_BLACK);
+	Screen::printVietnamese(L" ▄ ");
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▄|");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Screen::printVietnamese(L"▀");
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▄");
+	Controller::setColorRGB(RGB_GRAY, RGB_BLACK);
+	Screen::printVietnamese(L" ▄ ");
+
+	Controller::gotoXY(x, y + 1);
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L"█        █");
+
+
+	Controller::gotoXY(x, y + 2);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L" ");
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L"█      █");
+
+	Controller::gotoXY(x, y + 3);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L" ");
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L"█ ");
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L"▐");
+	Controller::setColorRGB(RGB_BROWN, RGB_GRAY);
+	Screen::printVietnamese(L"██");
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L"▌");
+	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
+	Screen::printVietnamese(L" █");
+}
+
+void Screen::printAnt(int x, int y) {
+	Controller::gotoXY(x, y);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▄");
+	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
+	Screen::printVietnamese(L"▄▄▄▄");
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▄");
+
+	Controller::gotoXY(x, y + 1);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▀");
+	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
+	Screen::printVietnamese(L"▀▀");
+	Controller::SetColor(BRIGHT_WHITE, AQUA);
+	Controller::setColorRGB(RGB_TUR, RGB_WHITE);
+	Screen::printVietnamese(L"▀");
+	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
+	Screen::printVietnamese(L"▄");
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▀█");
+
+	Controller::gotoXY(x, y + 2);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"█ ▀");
+	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
+	Screen::printVietnamese(L"▀▀▀");
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▀▄");
+
+	Controller::gotoXY(x, y + 3);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"  ▀    ▀");
+}
+
+void Screen::printBall(int x, int y) {
+	Controller::gotoXY(x, y);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▄▀▀▄");
+	Controller::gotoXY(x, y + 1);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"▀▄▄▀");
+
+}

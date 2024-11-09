@@ -14,8 +14,11 @@ class Enemy
 	int hp;
 	int x_e;
 	int y_e;
+	int speed;
 public:
-	Enemy() { hp = 10; x_e = 0; y_e = 0; }
+	static int count;
+
+	Enemy() { hp = 10; x_e = 0; y_e = 0; count++; speed = 1; }
 
 	int get_x() { return x_e; }
 	int get_y() { return y_e; }
@@ -24,6 +27,10 @@ public:
 	void set_hp(int num)
 	{
 		hp = num;
+	}
+
+	void setSpeed(int speed) {
+		this->speed = speed;
 	}
 
 	void showl_x(int x, int y, int bcolor, int color);

@@ -14,7 +14,10 @@ public:
 	static bool isPlaying;
 	static string file_map;
 	static string file_enemy;
+
+	static int num_enemy;
+
 	static void setupGame();
-
-
+	static void printBoard();
+	static void runPlanEnemy();
 };

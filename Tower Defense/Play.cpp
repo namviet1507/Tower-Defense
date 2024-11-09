@@ -565,7 +565,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	vector<thread> bullets;
 	vector<Tower> towers(posTower.size());
 	showcost = true;
-	Player::print_cost_first(125, 0, 7, 4);
+	Player::print_cost_first(144, 5, BRIGHT_WHITE, YELLOW);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -651,7 +651,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
 				//test.printMap();
-				Player::print_cost_first(125, 0, 7, 4);
+				Player::print_cost_first(144, 5, BRIGHT_WHITE, YELLOW);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
@@ -891,10 +891,11 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 
 
-	bullets.push_back(thread(Player::print_cost_player, 125, 0, 0, 4));
-	bullets.push_back(thread(Player::print_hp_player, 125, 1, 0, 4));
+	bullets.push_back(thread(Player::print_cost_player, 144, 5, BLACK, YELLOW));
+	bullets.push_back(thread(Player::print_hp_player, 144, 6, BLACK, RED));
 	bullets.push_back(thread(enemy_move1, 20, filename_enemy));
 	bullets.push_back(thread(Player::check_win, 20));
+	bullets.push_back(thread(Game::runPlanEnemy));
 
 	for (auto& bu : bullets)
 	{
@@ -973,7 +974,7 @@ void Play::MOVE(string filename, Enemy& e)
 void Play::enemy_move1(int num, string fileName)
 {
 	e_global.clear();
-	e_global.resize(num);
+	//e_global.resize(num);
 	vector<thread> threads;
 
 	for (int i = 0; i < num; i++)
@@ -988,10 +989,12 @@ void Play::enemy_move1(int num, string fileName)
 		}
 
 		mu.lock();
+		Enemy dumy_e;
+		e_global.push_back(dumy_e);
 		Enemy& e = e_global[i];
 		mu.unlock();
 		threads.push_back(thread(MOVE, fileName, ref(e)));
-		Sleep(5000);
+		Sleep(5000 );
 	}
 
 	for (auto& th : threads)

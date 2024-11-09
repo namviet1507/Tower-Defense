@@ -8,8 +8,14 @@
 int main() {
 
 	//Map test;
+	//Controller::SetColor(BRIGHT_WHITE, BLACK);
+	//system("cls");
+	//test.setMap("./Map/Easy/level1_map.txt");
+	//test.printMap();
 
-	//test.createMap();
+	//Game::printBoard();
+
+	//cin.get();
 
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
