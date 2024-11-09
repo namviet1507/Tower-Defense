@@ -71,6 +71,10 @@ using namespace std;
 #define RGB_BLUE 0,0,255
 #define RGB_AQUA 0,255,255
 #define RGB_TUR 64,224,208
+#define RGB_DARK_GREEN 0, 100, 0
+#define RGB_GREEN 0,128,0
+#define RGB_FOREST_GREEN 34, 139, 34
+
 
 #define FileListMapEasy "./Map/Easy/ListFileMap.bin"
 #define FileListMapNormal "./Map/Normal/ListFileMap.bin"

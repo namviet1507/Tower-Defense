@@ -5,17 +5,15 @@
 #include "Tower.h"
 #include "Play.h"
 
+//
+//void printGrass(int x, int y) {
+//	Controller::gotoXY(x, y);
+//
+//}
+
 int main() {
 
-	//Map test;
-	//Controller::SetColor(BRIGHT_WHITE, BLACK);
-	//system("cls");
-	//test.setMap("./Map/Easy/level1_map.txt");
-	//test.printMap();
 
-	//Game::printBoard();
-
-	//cin.get();
 
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
