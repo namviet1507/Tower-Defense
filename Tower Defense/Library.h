@@ -67,14 +67,17 @@ using namespace std;
 #define RGB_BLACK 0, 0, 0
 #define RGB_WHITE 245,245,245
 #define RGB_RED 255, 0, 0
-#define RGB_BROWN 126, 81, 9
 #define RGB_BLUE 0,0,255
 #define RGB_AQUA 0,255,255
 #define RGB_TUR 64,224,208
-#define RGB_DARK_GREEN 0, 100, 0
-#define RGB_GREEN 0,128,0
-#define RGB_FOREST_GREEN 34, 139, 34
 
+#define RGB_Y_GREEN 181, 230, 29
+#define RGB_L_GREEN 37, 177, 76 
+#define RGB_D_GREEN 33, 85, 20
+#define RGB_GREEN 55, 125, 34
+
+#define RGB_BROWN 151, 96, 89
+#define RGB_L_BROWN 185, 122, 87
 
 #define FileListMapEasy "./Map/Easy/ListFileMap.bin"
 #define FileListMapNormal "./Map/Normal/ListFileMap.bin"

@@ -1683,3 +1683,67 @@ void Screen::printBall(int x, int y) {
 	Screen::printVietnamese(L"▀▄▄▀");
 
 }
+
+void Screen::printGrass(int x, int y) {
+	Controller::setColorRGB(RGB_L_GREEN, RGB_Y_GREEN);
+	Controller::gotoXY(x, y);
+	Screen::printVietnamese(L" ▄    ▄ ");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L" ▀▀ ▄▄  ");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"  ▄  ▀▀ ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"   ▀    ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"   ▀▀▀  ");
+}
+
+void Screen::printBush(int x, int y) {
+	Controller::gotoXY(x, y);
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"██▀▀▀▀██");
+
+	Controller::gotoXY(x, y + 1);
+	Controller::setColorRGB(RGB_D_GREEN, RGB_Y_GREEN);
+	Screen::printVietnamese(L"█▀ ");
+	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
+	Screen::printVietnamese(L"▀");
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"   █");
+
+	Controller::gotoXY(x, y + 2);
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"█ ");
+	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
+	Screen::printVietnamese(L" ▄▀███");
+
+	Controller::gotoXY(x, y + 3);
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"▄  ");
+	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
+	Screen::printVietnamese(L"▄███");
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"█");
+
+	Controller::gotoXY(x, y + 4);
+	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
+	Screen::printVietnamese(L"██▄▄▄███");
+}
+
+void Screen::printLand(int x, int y) {
+	Controller::gotoXY(x, y);
+	Controller::setColorRGB(RGB_L_GREEN, RGB_Y_GREEN);
+	Screen::printVietnamese(L" ▄ ▄█   ");
+	Controller::gotoXY(x, y + 1);
+	Controller::setColorRGB(RGB_BROWN, RGB_Y_GREEN);
+	Screen::printVietnamese(L" ▄▄  ▄▄ ");
+	Controller::gotoXY(x, y + 2);
+	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
+	Screen::printVietnamese(L" ▀██▀ ██");
+	Controller::gotoXY(x, y + 3);
+	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
+	Screen::printVietnamese(L" █▀█▄ ██");
+	Controller::gotoXY(x, y + 4);
+	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
+	Screen::printVietnamese(L"██▄█████");
+}

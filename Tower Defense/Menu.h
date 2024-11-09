@@ -33,6 +33,10 @@ struct Screen {
 	static void printTower(int x, int y);
 	static void printAnt(int x, int y);
 	static void printBall(int x, int y);
+
+	static void printGrass(int x, int y);
+	static void printBush(int x, int y);
+	static void printLand(int x, int y);
 };
 
 struct ListFile {

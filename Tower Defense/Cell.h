@@ -19,6 +19,8 @@ class Cell {
 	bool is_tower;
 	bool is_road;
 
+	vector<bool> type; // 1: grass, 2: bush, 3: land
+
 	int mark;
 	Point pos; // position (top left corner)
 public:
@@ -34,6 +36,7 @@ public:
 		is_destination = false;
 		is_tower = false;
 		is_road = false;
+		type.resize(3);
 	}
 
 	void setRowCol(int, int);
@@ -46,6 +49,16 @@ public:
 	void setFlagDes(bool);
 	void setFlagTower(bool);
 	void setFlagRoad(bool);
+
+	void setFlagGrass(bool);
+	void setFlagBush(bool);
+	void setFlagLand(bool);
+
+	vector<bool> getType();
+
+	bool getFlagGrass();
+	bool getFlagBush();
+	bool getFlagLand();
 
 	bool getFlagDes();
 	bool getFlagTower();

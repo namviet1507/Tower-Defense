@@ -45,9 +45,9 @@ void Map::setMap(string fileMap) {
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			int color;
-			bool flag_des, flag_tower, flag_road;
+			bool flag_des, flag_tower, flag_road, grass, bush, land;
 			int mark;
-			fin >> color >> flag_des >> flag_tower >> flag_road >> mark;
+			fin >> color >> flag_des >> flag_tower >> flag_road >> mark >> grass >> bush >> land;
 			// color 
 			map[i][j].setColor(color);
 			map[i][j].setFlagDes(flag_des);
@@ -58,6 +58,10 @@ void Map::setMap(string fileMap) {
 			map[i][j].setRowCol(i, j);
 			map[i][j].setPos(x, y);
 			map[i][j].setMark(mark);
+			map[i][j].setFlagGrass(grass);
+			map[i][j].setFlagBush(bush);
+			map[i][j].setFlagLand(land);
+
 			x = x + cell_width;
 		}
 		x = left;
@@ -118,7 +122,7 @@ void Map::createMap() {
 	pointer->hoverCell();
 
 	int color;
-	bool flag_des, flag_tower, flag_road;
+	bool flag_des, flag_tower, flag_road, grass, bush, land;
 
 	Controller::gotoXY(132, 2);
 	Controller::SetColor(BLACK, WHITE);
@@ -133,9 +137,18 @@ void Map::createMap() {
 	Controller::gotoXY(132, 5);
 	cout << "is road: ";
 	cin >> flag_road;
+	Controller::gotoXY(132, 6);
+	cout << "is Grass: ";
+	cin >> grass;
+	Controller::gotoXY(132, 7);
+	cout << "is Bush: ";
+	cin >> bush;
+	Controller::gotoXY(132, 8);
+	cout << "is Land: ";
+	cin >> land;
 
 
-	for (int i = 0; i < 4; i++) {
+	for (int i = 0; i < 7; i++) {
 		Controller::gotoXY(132, 2 + i);
 		Controller::SetColor(BLACK, BLACK);
 		cout << "                         ";
@@ -182,6 +195,9 @@ void Map::createMap() {
 				pointer->setFlagTower(flag_tower);
 				pointer->setFlagRoad(flag_road);
 				pointer->setMark(num);
+				pointer->setFlagGrass(grass);
+				pointer->setFlagBush(bush);
+				pointer->setFlagLand(land);
 				num++;
 				pointer->setColorHover();
 				break;
@@ -199,8 +215,17 @@ void Map::createMap() {
 				Controller::gotoXY(132, 5);
 				cout << "is road: ";
 				cin >> flag_road;
+				Controller::gotoXY(132, 6);
+				cout << "is Grass: ";
+				cin >> grass;
+				Controller::gotoXY(132, 7);
+				cout << "is Bush: ";
+				cin >> bush;
+				Controller::gotoXY(132, 8);
+				cout << "is Land: ";
+				cin >> land;
 
-				for (int i = 0; i < 4; i++) {
+				for (int i = 0; i < 7; i++) {
 					Controller::gotoXY(132, 2 + i);
 					Controller::SetColor(BLACK, BLACK);
 					cout << "                         ";
@@ -229,7 +254,8 @@ void Map::createMap() {
 	fout << h << ' ' << w << ' ' << height << ' ' << width << '\n';
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagDes() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << " " << map[i][j].getMark() << '\n';
+			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagDes() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << " " << map[i][j].getMark() << ' ';
+			fout << map[i][j].getFlagGrass() << " " << map[i][j].getFlagBush() << " " << map[i][j].getFlagLand() << '\n';
 		}
 	}
 

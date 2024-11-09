@@ -56,22 +56,35 @@ int Cell::getColor() {
 void Cell::printCell() {
 	int x = pos.getX();
 	int y = pos.getY();
-	Controller::gotoXY(pos.getX(), pos.getY());
-	Controller::SetColor(color, WHITE);
-	for (int i = 0; i < height; ++i) {
-		for (int j = 0; j < width; ++j) {
-			Controller::gotoXY(x, y);
-			cout << ' ';
-			x = x + 1;
+
+	if (type[0]) {
+		Screen::printGrass(x, y);
+	}
+	else if (type[1]) {
+		Screen::printBush(x, y);
+	}
+	else if (type[2]) {
+		Screen::printLand(x, y);
+	}
+	else {
+		Controller::gotoXY(pos.getX(), pos.getY());
+		Controller::SetColor(color, WHITE);
+		for (int i = 0; i < height; ++i) {
+			for (int j = 0; j < width; ++j) {
+				Controller::gotoXY(x, y);
+				cout << ' ';
+				x = x + 1;
+			}
+			x = pos.getX();
+			y = y + 1;
 		}
-		x = pos.getX();
-		y = y + 1;
 	}
 }
 
 void Cell::hoverCell() {
 	int x = pos.getX();
 	int y = pos.getY();
+
 	Controller::gotoXY(pos.getX(), pos.getY());
 	Controller::SetColor(color_hover, WHITE);
 	for (int i = 0; i < height; ++i) {
@@ -82,6 +95,7 @@ void Cell::hoverCell() {
 		}
 		x = pos.getX();
 		y = y + 1;
+		
 	}
 }
 
@@ -95,6 +109,30 @@ void Cell::setFlagRoad(bool flag) {
 	is_road = flag;
 }
 
+void Cell::setFlagGrass(bool grass) {
+	this->type[0] = grass;
+}
+
+void Cell::setFlagBush(bool bush) {
+	this->type[1] = bush;
+}
+
+void Cell::setFlagLand(bool land) {
+	this->type[2] = land;
+}
+
+bool Cell::getFlagGrass() {
+	return this->type[0];
+}
+
+bool Cell::getFlagBush() {
+	return this->type[1];
+}
+
+bool Cell::getFlagLand() {
+	return this->type[2];
+}
+
 bool Cell::getFlagDes() {
 	return is_destination;
 }
@@ -103,4 +141,8 @@ bool Cell::getFlagTower() {
 }
 bool Cell::getFlagRoad() {
 	return is_road;
+}
+
+vector<bool> Cell::getType() {
+	return type;
 }

@@ -5,15 +5,10 @@
 #include "Tower.h"
 #include "Play.h"
 
-//
-//void printGrass(int x, int y) {
-//	Controller::gotoXY(x, y);
-//
-//}
-
 int main() {
+	//Map test;
 
-
+	//test.createMap();
 
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
