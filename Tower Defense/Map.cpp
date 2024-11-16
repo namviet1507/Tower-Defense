@@ -129,7 +129,9 @@ void Map::createMap() {
 		cout << "                         ";
 	}
 
+	int num = 0;
 	bool stop = false;
+
 	while (stop == false) {
 		if (_kbhit()) {
 			switch (Controller::getConsoleInput()) {
@@ -169,7 +171,8 @@ void Map::createMap() {
 				pointer->setFlagBuild(flag_build);
 				pointer->setFlagTower(flag_tower);
 				pointer->setFlagRoad(flag_road);
-
+				pointer->setMark(num);
+				num++;
 				pointer->setColorHover();
 				break;
 			case 15:
@@ -206,7 +209,7 @@ void Map::createMap() {
 	fout << h << ' ' << w << ' ' << height << ' ' << width << '\n';
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << '\n';
+			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << map[i][j].getMark() << '\n';
 		}
 		cout << '\n';
 	}

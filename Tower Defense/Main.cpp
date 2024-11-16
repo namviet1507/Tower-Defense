@@ -9,7 +9,7 @@ int main() {
 	// remember below.
 
 	Controller::setUpConsole();
-	Menu::music_is_open = true;
+	/*Menu::music_is_open = true;
 	Menu::sound_is_open = true;
 	while (true)
 	{
@@ -28,8 +28,9 @@ int main() {
 			system("cls");
 			cout << "shitttttttttttttttttttttttttttttttttt";
 		}
-	}
-
+	}*/
+	//Map t;
+	//t.createMap();
 
 	//Map t;
 	//t.setMap("./Map/level1.txt");
@@ -61,7 +62,6 @@ int main() {
 	tow1.join();
 	tow2.join();
 	tow3.join();*/
-
 
 	return 0;
 }
