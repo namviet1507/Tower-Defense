@@ -2,11 +2,22 @@
 #include "Library.h"
 #include "Menu.h"
 #include "Player.h"
+#include "Controller.h"
+#include "Map.h"
+#include "Tower.h"
+#include "Play.h"
+#include "Enemy.h"
 
 class Game : public Player {
-	public:
-		static int mode;				// Chế độ Game
-		static bool isPlaying;			// check còn đang chơi không
+public:
+	static int mode;
+	static bool isPlaying;
+	static string file_map;
+	static string file_enemy;
 
-		static void setupGame();		// Cài đặt game
+	static int num_enemy;
+
+	static void setupGame();
+	static void printBoard();
+	static void runPlanEnemy();
 };

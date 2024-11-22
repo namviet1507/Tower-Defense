@@ -23,6 +23,7 @@
 #include <chrono>
 #include <thread>
 #include <mutex>
+#include <filesystem>
 
 using namespace std;
 
@@ -60,3 +61,24 @@ using namespace std;
 #define WIN_SOUND 4
 #define BACKGROUND_SOUND 5
 #define LOSE_SOUND 6
+
+// Color RGB
+#define RGB_GRAY 128, 128, 128
+#define RGB_BLACK 0, 0, 0
+#define RGB_WHITE 245,245,245
+#define RGB_RED 255, 0, 0
+#define RGB_BLUE 0,0,255
+#define RGB_AQUA 0,255,255
+#define RGB_TUR 64,224,208
+
+#define RGB_Y_GREEN 181, 230, 29
+#define RGB_L_GREEN 37, 177, 76 
+#define RGB_D_GREEN 33, 85, 20
+#define RGB_GREEN 55, 125, 34
+
+#define RGB_BROWN 151, 96, 89
+#define RGB_L_BROWN 185, 122, 87
+
+#define FileListMapEasy "./Map/Easy/ListFileMap.bin"
+#define FileListMapNormal "./Map/Normal/ListFileMap.bin"
+#define FileListMapDificult "./Map/Difficult/ListFileMap.bin"

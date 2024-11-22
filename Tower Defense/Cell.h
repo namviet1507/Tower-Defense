@@ -3,6 +3,7 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
+#include "Tower.h"
 
 class Cell {
 	int row;
@@ -10,15 +11,18 @@ class Cell {
 
 	int width;
 	int height;
+
 	int color;
 	int color_hover;
 
-	bool can_build;
+	bool is_destination;
 	bool is_tower;
 	bool is_road;
 
-	Point pos; // position (top left corner)
+	vector<bool> type; // 1: grass, 2: bush, 3: land
 
+	int mark;
+	Point pos; // position (top left corner)
 public:
 	Cell() {
 		row = 0;
@@ -29,9 +33,10 @@ public:
 		color_hover = LIGHT_YELLOW;
 		pos.setX(0);
 		pos.setY(0);
-		can_build = false;
+		is_destination = false;
 		is_tower = false;
 		is_road = false;
+		type.resize(3);
 	}
 
 	void setRowCol(int, int);
@@ -41,11 +46,21 @@ public:
 	void setPos(int, int);
 	void setArea(int, int);
 
-	void setFlagBuild(bool);
+	void setFlagDes(bool);
 	void setFlagTower(bool);
 	void setFlagRoad(bool);
 
-	bool getFlagBuild();
+	void setFlagGrass(bool);
+	void setFlagBush(bool);
+	void setFlagLand(bool);
+
+	vector<bool> getType();
+
+	bool getFlagGrass();
+	bool getFlagBush();
+	bool getFlagLand();
+
+	bool getFlagDes();
 	bool getFlagTower();
 	bool getFlagRoad();
 
@@ -61,4 +76,7 @@ public:
 
 	void printCell();
 	void hoverCell();
+
+	void setMark(int a) { mark = a; }
+	int getMark() { return mark; }
 };

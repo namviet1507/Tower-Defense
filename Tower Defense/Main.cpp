@@ -6,52 +6,14 @@
 #include "Play.h"
 
 int main() {
+	//Map test;
+
+	//test.createMap();
+
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	int mode = Screen::printMainScreen();
-	if (mode == 0)
-		play_map1();
-	else
-	{
-		system("cls");
-		cout << "shitttttttttttttttttttttttttttttttttt";
-	}
-	//Map test;
+	Screen::printMainScreen();
 
-	////test.createMap();
-
-	//test.setMap("./Map/level1.txt");
-	//test.printMap();
-	//Controller::showCursor(false);
-	//Enemy t;
-	//t.move_x(1,0,1,24);
-	//t.move_p(1, 24, 48, 24);
-	//t.move_l(48, 24, 48, 0);
-	//t.move_t(48, 0, 1, 0);
-
-	//thread e(enemy_map1, 5);
-	
-	//vector<Enemy> e(5);
-	//vector<thread> threads;
-	//Enemy e1, e2;
-	//thread th1(&Enemy::move_x, &e1, 10 + 0 * 40, 0, 10 + 0 * 30, 6);
-	//thread th2(&Enemy::move_x, &e2, 10 + 1 * 40, 0, 10 + 1 * 30, 6);
-	//th1.join();
-	//th2.join();
-	//cin.get();
-
-	//Tower a;
-	//a.drawTowerLevel1(0, 26, 0, 15);
-	//a.tower_bullet_level1(0, 26);
-
-	//play_map1();
-	//Map test;
-	//test.createMap();
-
-	//colour_block(18, 18, 5, 8, 11);
-	//print_menu_Tower(18, 18);
-	//print_x_block(18, 18, 5, 6);
-	//cin.get();
 	return 0;
 }

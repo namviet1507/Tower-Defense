@@ -3,8 +3,6 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
-#include "Library.h"
-#include <vector>
 #include "Player.h"
 
 using namespace std;
@@ -16,15 +14,26 @@ class Enemy
 	int hp;
 	int x_e;
 	int y_e;
+	int speed;
 public:
-	Enemy() { hp = 10; x_e = 0; y_e = 0; }
+	static int count;
+
+	Enemy() { hp = 10; x_e = 0; y_e = 0; count++; speed = 1; }
 
 	int get_x() { return x_e; }
 	int get_y() { return y_e; }
 	void sub_hp(int sub) { hp -= sub; }
 	int get_hp() { return hp; }
+	void set_hp(int num)
+	{
+		hp = num;
+	}
 
-	void showl_x(int x,int y,int bcolor,int color);
+	void setSpeed(int speed) {
+		this->speed = speed;
+	}
+
+	void showl_x(int x, int y, int bcolor, int color);
 	void showr_x(int x, int y, int bcolor, int color);
 	void dele_x(int x, int y);
 
@@ -40,15 +49,13 @@ public:
 	void showr_t(int x, int y, int bcolor, int color);
 	void dele_t(int x, int y);
 
-	void move_x(int x_start, int y_start, int x_end, int y_end);
-	void move_l(int x_start, int y_start, int x_end, int y_end);
-	void move_p(int x_start, int y_start, int x_end, int y_end);
-	void move_t(int x_start, int y_start, int x_end, int y_end);
+	void move_x(int x_start, int y_start, int x_end, int y_end); // down
+	void move_l(int x_start, int y_start, int x_end, int y_end); // up
+	void move_p(int x_start, int y_start, int x_end, int y_end); // right
+	void move_t(int x_start, int y_start, int x_end, int y_end); // left
 
-	void move_map1();
+	static double get_distance(int x, int y, int a, int b);
 };
 
 extern vector<Enemy> e_global;
-double get_distance(int x, int y, int a, int b);
 
-void enemy_map1(int num);
