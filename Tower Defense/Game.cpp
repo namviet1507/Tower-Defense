@@ -61,9 +61,9 @@ void Game::printBoard() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Controller::gotoXY(135, 10);
 	for (int i = 0; i < 16; i++) {
-		if(i % 5 == 0) 
+		if (i % 5 == 0)
 			Screen::printVietnamese(L"█");
-		else 
+		else
 			Screen::printVietnamese(L"▄");
 	}
 }
@@ -74,7 +74,7 @@ void Game::runPlanEnemy() {
 	int last = Enemy::count;
 
 	while (Enemy::count < num_enemy) {
-		
+
 		if (Enemy::count != last) {
 			mu.lock();
 			int last_t = static_cast<int>((last) * (15 * 1.0 / num_enemy));

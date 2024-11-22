@@ -61,7 +61,7 @@ public:
         x = t.x;
         y = t.y;
     }
-    
+
     void setPos(int x, int y);
     int getX();
     int getY();

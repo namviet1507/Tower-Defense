@@ -95,7 +95,7 @@ void Cell::hoverCell() {
 		}
 		x = pos.getX();
 		y = y + 1;
-		
+
 	}
 }
 

@@ -5,17 +5,17 @@
 #define LIST_FILE "listFile.txt"
 class Menu
 {
-	private:
+private:
 
-	public:
-		static bool music_is_open;
-		static bool sound_is_open;
-		static void Setting();
-		static void goBack();									//Trở về menu
-		static void readLoadGame();								//Đọc bảng xếp hạng
+public:
+	static bool music_is_open;
+	static bool sound_is_open;
+	static void Setting();
+	static void goBack();									//Trở về menu
+	static void readLoadGame();								//Đọc bảng xếp hạng
 
-		static void helpScreen();								//Màn hình hướng dẫn
-		static void signup();									// Đăng ký
+	static void helpScreen();								//Màn hình hướng dẫn
+	static void signup();									// Đăng ký
 };
 
 struct Screen {
