@@ -6,10 +6,6 @@
 #include "Play.h"
 
 int main() {
-
-
-
-
 	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;

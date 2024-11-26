@@ -19,6 +19,16 @@ void Controller::SetColor(int background_color, int text_color) {
 	SetConsoleTextAttribute(h, color_code);
 }
 
+void Controller::setColorRGB(int red, int green, int blue, int bgRed, int bgGreen, int bgBlue) {
+	if ((red < 0 || red > 255 || green < 0 || green > 255 || blue < 0 || blue > 255) ||
+		(bgRed < 0 || bgRed > 255 || bgGreen < 0 || bgGreen > 255 || bgBlue < 0 || bgBlue > 255)) {
+		return;
+	}
+
+	cout << "\033[38;2;" << red << ";" << green << ";" << blue << "m"  // Màu văn bản
+		<< "\033[48;2;" << bgRed << ";" << bgGreen << ";" << bgBlue << "m";  // Màu nền
+}
+
 void Controller::gotoXY(int x, int y) {
 	HANDLE h = GetStdHandle(STD_OUTPUT_HANDLE);
 	COORD Position;

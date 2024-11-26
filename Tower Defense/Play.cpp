@@ -7,6 +7,7 @@ void Play::colour_block(int x, int y, int h, int w, int color)
 	Cell t;
 	t.setArea(h, w);
 	t.setColor(color);
+	t.setFlagGrass(false);
 	t.setPos(x, y);
 	t.printCell();
 }

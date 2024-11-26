@@ -38,14 +38,16 @@ void Map::setMap(string fileMap) {
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
 			int color;
-			bool flag_build, flag_tower, flag_road;
+			bool flag_build, flag_tower, flag_road, flag_grass, flag_bush;
 			int mark;
-			fin >> color >> flag_build >> flag_tower >> flag_road >> mark;
+			fin >> color >> flag_build >> flag_tower >> flag_road >> flag_grass >> flag_bush >> mark;
 			// color 
 			map[i][j].setColor(color);
 			map[i][j].setFlagBuild(flag_build);
 			map[i][j].setFlagTower(flag_tower);
 			map[i][j].setFlagRoad(flag_road);
+			map[i][j].setFlagGrass(flag_grass);
+			map[i][j].setFlagBush(flag_bush);
 			map[i][j].setColorHover();
 			map[i][j].setArea(cell_height, cell_width);
 			map[i][j].setRowCol(i, j);
@@ -65,6 +67,11 @@ void Map::printMap() {
 	system("cls");
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
+			bool top = i > 0 && map[i - 1][j].getFlagBush();
+			bool bot = i < height - 1 && map[i + 1][j].getFlagBush();
+			bool left = j > 0 && map[i][j - 1].getFlagBush();
+			bool right = j < width - 1 && map[i][j + 1].getFlagBush();
+			map[i][j].setC({ top, bot, left, right });
 			map[i][j].printCell();
 		}
 	}
@@ -94,6 +101,7 @@ void Map::createMap() {
 			map[i][j].setColor(AQUA);
 			map[i][j].setPos(x, y);
 			map[i][j].setRowCol(i, j);
+			map[i][j].setFlagGrass(true);
 			map[i][j].setColorHover();
 			map[i][j].setMark(-1);
 			x += w;
@@ -109,7 +117,7 @@ void Map::createMap() {
 	pointer->hoverCell();
 
 	int color;
-	bool flag_build, flag_tower, flag_road;
+	bool flag_build, flag_tower, flag_road, flag_grass, flag_bush;
 
 	Controller::gotoXY(132, 2);
 	Controller::SetColor(BLACK, WHITE);
@@ -124,6 +132,13 @@ void Map::createMap() {
 	Controller::gotoXY(132, 5);
 	cout << "is road: ";
 	cin >> flag_road;
+	Controller::gotoXY(132, 6);
+	cout << "is grass: ";
+	cin >> flag_grass;
+	Controller::gotoXY(132, 7);
+	cout << "is bush: ";
+	cin >> flag_bush;
+
 
 
 	for (int i = 0; i < 4; i++) {
@@ -172,6 +187,8 @@ void Map::createMap() {
 				pointer->setFlagBuild(flag_build);
 				pointer->setFlagTower(flag_tower);
 				pointer->setFlagRoad(flag_road);
+				pointer->setFlagGrass(flag_grass);
+				pointer->setFlagBush(flag_bush);
 				pointer->setMark(num);
 				num++;
 				pointer->setColorHover();
@@ -190,6 +207,12 @@ void Map::createMap() {
 				Controller::gotoXY(132, 5);
 				cout << "is road: ";
 				cin >> flag_road;
+				Controller::gotoXY(132, 6);
+				cout << "is grass: ";
+				cin >> flag_grass;
+				Controller::gotoXY(132, 7);
+				cout << "is bush: ";
+				cin >> flag_bush;
 
 				for (int i = 0; i < 4; i++) {
 					Controller::gotoXY(132, 2 + i);
@@ -210,7 +233,7 @@ void Map::createMap() {
 	fout << h << ' ' << w << ' ' << height << ' ' << width << '\n';
 	for (int i = 0; i < height; i++) {
 		for (int j = 0; j < width; j++) {
-			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << " " << map[i][j].getMark() << '\n';
+			fout << map[i][j].getColor() << ' ' << map[i][j].getFlagBuild() << ' ' << map[i][j].getFlagTower() << ' ' << map[i][j].getFlagRoad() << " " << map[i][j].getFlagGrass() << " " << map[i][j].getFlagBush() << " " << map[i][j].getMark() << '\n';
 		}
 		cout << '\n';
 	}
