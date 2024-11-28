@@ -369,7 +369,7 @@ int Play::print_continue_board(int x, int y, Map m)
 			}
 			else if (tmp == 6) // enter
 			{
-				if(pos == 0)
+				if (pos == 0)
 					m.printMap();
 				return pos;
 			}

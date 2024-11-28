@@ -8,6 +8,7 @@ bool showcost;
 bool isbreakmap1;
 void Player::print_hp(int x, int y, int bcolor, int color)
 {
+
 	mu.lock();
 	int end = player.get_hp();
 	mu.unlock();
@@ -15,11 +16,6 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-	if (Screen::isVie)
-		Screen::printVietnamese(L"Chỉ số máu: ");
-	else cout << "HP: ";
-	Controller::gotoXY(x, y + 1);
-
 	for (int i = 0; i < end; i++)
 	{
 		Screen::printVietnamese(L"█");
@@ -35,6 +31,17 @@ void Player::print_hp(int x, int y, int bcolor, int color)
 	}
 	mu.unlock();
 
+	//mu.lock();
+	//Controller::gotoXY(x, y);
+	//Controller::SetColor(bcolor, color);
+	//cout << hp;
+	//mu.unlock();
+	//Sleep(400);
+	//mu.lock();
+	//Controller::gotoXY(x, y);
+	//Controller::SetColor(bcolor, color);
+	//cout << "  ";
+	//mu.unlock();
 }
 
 void Player::print_cost(int x, int y, int bcolor, int color)
@@ -46,9 +53,6 @@ void Player::print_cost(int x, int y, int bcolor, int color)
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-	if (Screen::isVie)
-		Screen::printVietnamese(L"Tiền: ");
-	else cout << "Money: ";
 	cout << h;
 	Screen::printVietnamese(L" $");
 	mu.unlock();
@@ -69,9 +73,6 @@ void Player::print_cost_first(int x, int y, int bcolor, int color)
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-	if (Screen::isVie)
-		Screen::printVietnamese(L"Tiền: ");
-	else cout << "Money: ";
 	cout << h;
 	Screen::printVietnamese(L" $");
 	mu.unlock();
