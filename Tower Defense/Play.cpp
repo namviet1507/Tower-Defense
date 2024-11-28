@@ -565,7 +565,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(125, 0, 7, 4);
+	Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -650,7 +650,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
 				//test.printMap();
-				Player::print_cost_first(125, 0, 7, 4);
+				Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
@@ -890,8 +890,8 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 
 
-	bullets.push_back(thread(Player::print_cost_player, 125, 0, 0, 4));
-	bullets.push_back(thread(Player::print_hp_player, 125, 1, 0, 4));
+	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 138, 3, 0, 4));
 	bullets.push_back(thread(enemy_move1, 20, filename_enemy));
 	bullets.push_back(thread(Player::check_win, 20));
 
