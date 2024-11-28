@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Sound">
+      <UniqueIdentifier>{dd9c3bf6-69ec-407a-9101-cfbec369411d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map">
+      <UniqueIdentifier>{6df00851-701d-469c-b76b-d6d6ac227a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map\Easy">
+      <UniqueIdentifier>{dfafe88c-e4f0-4069-bf65-106dd26d34ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Map\Normal">
+      <UniqueIdentifier>{12e1fb5e-4e5d-479f-b58a-583fc7250777}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
@@ -83,5 +95,77 @@
     <ClCompile Include="Play.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\win.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\SoundGame.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\nhacnen.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\MOVE.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\lose.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\error.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\enterbutton.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\enter.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\effect.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map\Easy\leve1_enemy.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level1_enemy.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level1_map.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level2_enemy.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level2_map.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level3_enemy.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level3_map.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level4_enemy.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Easy\level4_map.txt">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </Text>
+    <Text Include="Map\Normal\level1_enemy.txt">
+      <Filter>Resource Files\Map\Normal</Filter>
+    </Text>
+    <Text Include="Map\Normal\level1_map.txt">
+      <Filter>Resource Files\Map\Normal</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Map\Easy\ListFileMap.bin">
+      <Filter>Resource Files\Map\Easy</Filter>
+    </None>
+    <None Include="Map\Normal\ListFileMap.bin">
+      <Filter>Resource Files\Map\Normal</Filter>
+    </None>
   </ItemGroup>
 </Project>

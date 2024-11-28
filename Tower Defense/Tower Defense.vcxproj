@@ -160,6 +160,34 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Tower.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\effect.wav" />
+    <Media Include="Sound\enter.wav" />
+    <Media Include="Sound\enterbutton.wav" />
+    <Media Include="Sound\error.wav" />
+    <Media Include="Sound\lose.wav" />
+    <Media Include="Sound\MOVE.wav" />
+    <Media Include="Sound\nhacnen.wav" />
+    <Media Include="Sound\SoundGame.wav" />
+    <Media Include="Sound\win.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map\Easy\leve1_enemy.txt" />
+    <Text Include="Map\Easy\level1_enemy.txt" />
+    <Text Include="Map\Easy\level1_map.txt" />
+    <Text Include="Map\Easy\level2_enemy.txt" />
+    <Text Include="Map\Easy\level2_map.txt" />
+    <Text Include="Map\Easy\level3_enemy.txt" />
+    <Text Include="Map\Easy\level3_map.txt" />
+    <Text Include="Map\Easy\level4_enemy.txt" />
+    <Text Include="Map\Easy\level4_map.txt" />
+    <Text Include="Map\Normal\level1_enemy.txt" />
+    <Text Include="Map\Normal\level1_map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Map\Easy\ListFileMap.bin" />
+    <None Include="Map\Normal\ListFileMap.bin" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
