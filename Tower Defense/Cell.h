@@ -17,9 +17,13 @@ class Cell {
 	bool is_tower;
 	bool is_road;
 
+	bool isGrass;
+	bool isBush;
+
 	int mark;
 	Point pos; // position (top left corner)
 
+	vector<bool> c;
 public:
 	Cell() {
 		row = 0;
@@ -33,6 +37,8 @@ public:
 		can_build = false;
 		is_tower = false;
 		is_road = false;
+		isGrass = true;
+		isBush = false;
 	}
 
 	void setRowCol(int, int);
@@ -50,6 +56,12 @@ public:
 	bool getFlagTower();
 	bool getFlagRoad();
 
+	void setFlagGrass(bool);
+	void setFlagBush(bool);
+
+	bool getFlagGrass();
+	bool getFlagBush();
+
 	int getRow();
 	int getCol();
 
@@ -62,6 +74,10 @@ public:
 
 	void printCell();
 	void hoverCell();
+
+	void printGrass();
+	void printBush();
+	void setC(vector<bool>);
 
 	void setMark(int a) { mark = a; }
 	int getMark() { return mark; }

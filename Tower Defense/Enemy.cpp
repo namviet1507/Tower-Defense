@@ -111,7 +111,7 @@ void Enemy::dele_x(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x - 1, y - 2);
-	Controller::SetColor(0, 12);
+	Controller::SetColor(LIGHT_YELLOW, LIGHT_RED);
 	for (int i = 0; i < 10; i++)
 		Screen::printVietnamese(L" ");
 	mu.unlock();
@@ -273,7 +273,7 @@ void Enemy::dele_l(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x - 1, y - 2);
-	Controller::SetColor(0, 12);
+	Controller::SetColor(LIGHT_YELLOW, LIGHT_RED);
 	for (int i = 0; i < 10; i++)
 		Screen::printVietnamese(L" ");
 	mu.unlock();
@@ -429,7 +429,7 @@ void Enemy::dele_p(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x - 1, y - 2);
-	Controller::SetColor(0, 12);
+	Controller::SetColor(14, 12);
 
 	if (hp == 1)
 		cout << " ";
@@ -548,7 +548,7 @@ void Enemy::dele_t(int x, int y)
 	mu.lock();
 
 	Controller::gotoXY(x - 1, y - 2);
-	Controller::SetColor(0, 12);
+	Controller::SetColor(LIGHT_YELLOW, LIGHT_RED);
 
 	if (hp == 1)
 		cout << " ";
@@ -601,11 +601,11 @@ void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
-			showl_l(x_start, y_start - 2 * i, 0, 11);
+			showl_l(x_start, y_start - 2 * i, 14, 11);
 			Sleep(200);
 			dele_l(x_start, y_start - 2 * i);
 			//Sleep(25);
-			showr_l(x_start, y_start - 2 * i - 1, 0, 11);
+			showr_l(x_start, y_start - 2 * i - 1, 14, 11);
 			Sleep(200);
 			dele_l(x_start, y_start - 2 * i - 1);
 		}
@@ -634,7 +634,7 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 				break;
 			}
 			mu_e2.lock();
-			showl_x(x_start, y_start + 2 * i, 0, 11);
+			showl_x(x_start, y_start + 2 * i, 14, 11);
 			mu_e2.unlock();
 			Sleep(200);
 			mu_e2.lock();
@@ -642,7 +642,7 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 			mu_e2.unlock();
 			//Sleep(25);
 			mu_e2.lock();
-			showr_x(x_start, y_start + 2 * i + 1, 0, 11);
+			showr_x(x_start, y_start + 2 * i + 1, 14, 11);
 			mu_e2.unlock();
 			Sleep(200);
 			mu_e2.lock();
@@ -673,11 +673,11 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
-			showl_p(x_start + 2 * i, y_start, 0, 11);
+			showl_p(x_start + 2 * i, y_start, 14, 11);
 			Sleep(200);
 			dele_p(x_start + 2 * i, y_start);
 			//Sleep(25);
-			showr_p(x_start + 2 * i + 1, y_start, 0, 11);
+			showr_p(x_start + 2 * i + 1, y_start, 14, 11);
 			Sleep(200);
 			dele_p(x_start + 2 * i + 1, y_start);
 		}
@@ -705,11 +705,11 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
-			showl_t(x_start - 2 * i, y_start, 0, 11);
+			showl_t(x_start - 2 * i, y_start, 14, 11);
 			Sleep(200);
 			dele_t(x_start - 2 * i, y_start);
 			//Sleep(25);
-			showr_t(x_start - 2 * i - 1, y_start, 0, 11);
+			showr_t(x_start - 2 * i - 1, y_start, 14, 11);
 			Sleep(200);
 			dele_t(x_start - 2 * i - 1, y_start);
 		}
