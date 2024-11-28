@@ -1090,7 +1090,7 @@ void Menu::signup() {
 
 }
 
-void Screen::printVietnamese(wstring text) {
+void Screen::printVietnamese(const wstring& text) {
 	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
 	wcout << text;
 	mode = _setmode(_fileno(stdout), _O_TEXT);
