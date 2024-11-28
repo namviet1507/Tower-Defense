@@ -369,8 +369,8 @@ int Play::print_continue_board(int x, int y, Map m)
 			}
 			else if (tmp == 6) // enter
 			{
-
-				m.printMap();
+				if(pos == 0)
+					m.printMap();
 				return pos;
 			}
 		}
@@ -917,9 +917,10 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 	if (value == 1)
 	{
-		isbreakmap1 = true;
+		Game::isPlaying = false;
+		Menu::goBack();
+		//isbreakmap1 = true;
 	}
-
 }
 
 void Play::MOVE(string filename, Enemy& e)
