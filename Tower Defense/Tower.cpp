@@ -200,7 +200,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, BLACK);
         Screen::printVietnamese(L">");
         mu.unlock();
 
@@ -291,7 +291,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, BLACK);
         Screen::printVietnamese(L"v");
         mu.unlock();
 
@@ -382,8 +382,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         }
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
-        Controller::SetColor(0, 4);
+        Controller::SetColor(LIGHT_YELLOW, BLACK);
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"^");
         Controller::gotoXY(x + 4, y - 1 - i);
@@ -397,7 +396,6 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
-        Controller::SetColor(0, 4);
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L" ");
         Controller::gotoXY(x + 4, y - 1 - i);
