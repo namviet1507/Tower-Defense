@@ -17,8 +17,6 @@ class Menu
 		static void helpScreen();								//Màn hình hướng dẫn
 		static void signup();									// Đăng ký
 
-		//static vector<string> list_map;
-		//static void getListFileMap();
 };
 
 struct Screen {
@@ -30,7 +28,7 @@ struct Screen {
 	static void printLogoStandard();
 	static int printLevel();								//In ra mức độ chơi
 	static void printRectangle(int, int, int, int);			//Vẽ hình chữ nhật
-	static void printVietnamese(const wstring&);
+	static void printVietnamese(wstring);
 };
 
 struct ListFile {

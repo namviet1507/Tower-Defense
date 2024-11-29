@@ -785,7 +785,7 @@ void Menu::Setting() {
 	Controller::SetColor(BRIGHT_WHITE, PURPLE);
 	Controller::gotoXY(30, 7);
 	Screen::printVietnamese(L"╚══════╝╚══════╝   ╚═╝      ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝ \n");
-
+	
 	Controller::SetColor(BRIGHT_WHITE, YELLOW);
 	Controller::gotoXY(2, 8);
 	Screen::printVietnamese(L"                  ██████\n");
@@ -1056,7 +1056,7 @@ void Menu::Setting() {
 						Screen::isVie = !Screen::isVie;
 					else
 						if (Game::isPlaying) {
-
+							
 						}
 						else Menu::goBack();
 				}
@@ -1090,7 +1090,7 @@ void Menu::signup() {
 
 }
 
-void Screen::printVietnamese(const wstring& text) {
+void Screen::printVietnamese(wstring text) {
 	int mode = _setmode(_fileno(stdout), _O_U16TEXT);
 	wcout << text;
 	mode = _setmode(_fileno(stdout), _O_TEXT);
@@ -1282,7 +1282,7 @@ void Menu::helpScreen() {
 	Screen::printVietnamese(L"  Khi một kẻ địch vượt qua hệ thống phòng thủ của bạn và vào căn cứ,");
 	Controller::gotoXY(left1, top + 13);
 	Screen::printVietnamese(L" bạn sẽ mất một lượng máu nhất định. Khi hết máu, bạn sẽ thua cuộc.");
-
+	
 	Controller::SetColor(BRIGHT_WHITE, PURPLE);
 	Controller::gotoXY(left1 + 30, top + 14);
 	Screen::printVietnamese(L"Chúc bạn nhiều may mắn !");
