@@ -82,7 +82,7 @@ void Play::print_box_continue(int x, int y, int bcolor, int color)
 void Play::print_box_yes(int x, int y, int bcolor, int color)
 {
 	Controller::gotoXY(x, y);
-	Controller::SetColor(8, color);
+	Controller::SetColor(bcolor, color);
 	putchar(204);
 	for (int i = 1; i < 42 - 1; i++) {
 		putchar(205);
@@ -110,7 +110,7 @@ void Play::print_box_yes(int x, int y, int bcolor, int color)
 void Play::print_box_no(int x, int y, int bcolor, int color)
 {
 	Controller::gotoXY(x, y);
-	Controller::SetColor(8, color);
+	Controller::SetColor(bcolor, color);
 	putchar(203);
 	for (int i = 1; i < 42; i++) {
 		putchar(205);
@@ -299,17 +299,17 @@ void Play::print_x_block(int x, int y, int bcolor, int color)
 
 void Play::print_menu_continue(int x, int y)
 {
-	print_box_continue(x - 1, y - 1, 8, 13);
-	print_continue(x, y, 8, 13);
-	print_yes(x, y + 7, 8, 13);
-	print_no(x + 42, y + 7, 8, 13);
+	print_box_continue(x - 1, y - 1, LIGHT_GREEN, LIGHT_PURPLE);
+	print_continue(x, y, LIGHT_GREEN, LIGHT_PURPLE);
+	print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
+	print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 }
 int Play::print_continue_board(int x, int y, Map m)
 {
 	print_menu_continue(30, 18);
 	int old_pos;
 	int pos = 0;
-	print_yes(x, y + 7, 6, 13);
+	print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 
 	while (true)
 	{
@@ -325,20 +325,20 @@ int Play::print_continue_board(int x, int y, Map m)
 
 				if (old_pos == 0)
 				{
-					print_yes(x, y + 7, 8, 13);
+					print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
 				}
 				else if (old_pos == 1)
 				{
-					print_no(x + 42, y + 7, 8, 13);
+					print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 				}
 
 				if (pos == 0)
 				{
-					print_yes(x, y + 7, 6, 13);
+					print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 				else if (pos == 1)
 				{
-					print_no(x + 42, y + 7, 6, 13);
+					print_no(x + 42, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 
 			}
@@ -351,20 +351,20 @@ int Play::print_continue_board(int x, int y, Map m)
 
 				if (old_pos == 0)
 				{
-					print_yes(x, y + 7, 8, 13);
+					print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
 				}
 				else if (old_pos == 1)
 				{
-					print_no(x + 42, y + 7, 8, 13);
+					print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 				}
 
 				if (pos == 0)
 				{
-					print_yes(x, y + 7, 6, 13);
+					print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 				else if (pos == 1)
 				{
-					print_no(x + 42, y + 7, 6, 13);
+					print_no(x + 42, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 			}
 			else if (tmp == 6) // enter
@@ -901,14 +901,14 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 	if (losegame)
 	{
-		print_lose(30, 18, 8, 13);
+		print_lose(30, 18, YELLOW, LIGHT_PURPLE);
 		Sleep(3000);
 	}
 	else
 	{
 		if (wingame)
 		{
-			print_win(30, 18, 8, 13);
+			print_win(30, 18, YELLOW, LIGHT_PURPLE);
 			Sleep(3000);
 		}
 	}
