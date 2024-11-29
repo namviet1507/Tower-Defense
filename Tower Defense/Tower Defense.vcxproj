@@ -162,6 +162,23 @@
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Tower.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map\level1.txt" />
+    <Text Include="Map\level1_enemy.txt" />
+    <Text Include="Map\level1_map.txt" />
+    <Text Include="Map\level2.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\effect.wav" />
+    <Media Include="Sound\enter.wav" />
+    <Media Include="Sound\enterbutton.wav" />
+    <Media Include="Sound\error.wav" />
+    <Media Include="Sound\lose.wav" />
+    <Media Include="Sound\MOVE.wav" />
+    <Media Include="Sound\nhacnen.wav" />
+    <Media Include="Sound\SoundGame.wav" />
+    <Media Include="Sound\win.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Resource Files\Map">
+      <UniqueIdentifier>{fc9aaf04-5aa3-49c0-8377-3a8e52622c39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Sound">
+      <UniqueIdentifier>{0f23092d-8c0d-437d-8e59-2ce1babc6087}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
@@ -46,6 +52,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Play.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -83,5 +92,51 @@
     <ClCompile Include="Play.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Map\level1.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level1_enemy.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level1_map.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level2.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\effect.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\enter.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\enterbutton.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\error.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\lose.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\MOVE.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\nhacnen.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\SoundGame.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\win.wav">
+      <Filter>Resource Files\Sound</Filter>
+    </Media>
   </ItemGroup>
 </Project>
