@@ -1,6 +1,8 @@
 ﻿#include "Enemy.h"
 #include "Controller.h"
+#include "Game.h"
 mutex mu;
+int Enemy::count = 0;
 
 void Enemy::showl_x(int x, int y, int bcolor, int color)
 {
@@ -517,6 +519,16 @@ void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
+
 			if (hp <= 0)
 			{
 				break;
@@ -538,8 +550,11 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 	int step = (y_end - y_start) / 2;
 	if (true)
 	{
+
+		
 		for (int i = 0; i < step; i++)
 		{
+
 			bool check;
 			mu.lock();
 			check = ingame;
@@ -548,6 +563,15 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 
 			if (hp <= 0)
 			{
@@ -589,6 +613,15 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 				break;
 			}
 
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 			if (hp <= 0)
 			{
 				break;
@@ -620,6 +653,15 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 
 			if (hp <= 0)
 			{

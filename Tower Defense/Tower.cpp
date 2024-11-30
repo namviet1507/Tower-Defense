@@ -1,6 +1,7 @@
 ﻿#include "Tower.h"
 #include "Controller.h"
 #include "Library.h"
+#include "Game.h"
 #include <mutex>
 
 mutex mu_global2;
@@ -17,6 +18,14 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
@@ -97,6 +106,14 @@ void Tower::tower_bullet_level1_Up(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -121,7 +138,16 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
         mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+        mu.lock();
+
         Controller::gotoXY(x - 5 - i, y + 3);
         Controller::SetColor(LIGHT_YELLOW, BLACK);
         Screen::printVietnamese(L"<");
@@ -222,7 +248,13 @@ void Tower::tower_bullet_level1_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Left, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -239,6 +271,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
     int i = 0;
     while ((x + 8 + i) < x_end)
     {
+
         bool check;
         mu.lock();
         check = ingame;
@@ -246,6 +279,13 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         if (check == false)
         {
             break;
+        }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
         }
 
         mu.lock();
@@ -356,7 +396,13 @@ void Tower::tower_bullet_level1_Right(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Right, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -381,6 +427,14 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
@@ -459,7 +513,13 @@ void Tower::tower_bullet_level1_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Down, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())

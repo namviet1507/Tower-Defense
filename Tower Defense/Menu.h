@@ -35,6 +35,6 @@ struct ListFile {
 
 	static void printListFile(int start, int end, vector<string> arrFilename);
 	static string getFile();
-	static void processSaveFile(char);		// Lưu file
+	static void processSaveFile(const char*);		// Lưu file
 	static void processLoadFile(string filename);	// Tải file
 };

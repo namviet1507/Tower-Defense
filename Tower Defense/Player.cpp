@@ -1,4 +1,6 @@
 ﻿#include "Player.h"
+#include "Game.h"
+#include "Play.h"
 
 bool ingame;
 Player player;
@@ -6,61 +8,48 @@ bool wingame;
 bool losegame;
 bool showcost;
 bool isbreakmap1;
-void Player::print_hp(int x, int y, int bcolor, int color)
-{
 
-	mu.lock();
-	int end = player.get_hp();
-	mu.unlock();
+void Player::setName(wstring name) {
+	this->name = name;
+}
+
+wstring Player::getName() {
+	return name;
+}
+
+void Player::print_hp(int x, int y, int bcolor, int color, int _hp)
+{
 
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-	for (int i = 0; i < end; i++)
+	for (int i = 0; i < _hp; i++)
 	{
 		Screen::printVietnamese(L"█");
 	}
 	mu.unlock();
-	Sleep(1000);
-	mu.lock();
+	//Sleep(1000);
+	/*mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	for (int i = 0; i < end; i++)
 	{
 		Screen::printVietnamese(L" ");
 	}
-	mu.unlock();
-
-	//mu.lock();
-	//Controller::gotoXY(x, y);
-	//Controller::SetColor(bcolor, color);
-	//cout << hp;
-	//mu.unlock();
-	//Sleep(400);
-	//mu.lock();
-	//Controller::gotoXY(x, y);
-	//Controller::SetColor(bcolor, color);
-	//cout << "  ";
-	//mu.unlock();
+	mu.unlock();*/
 }
 
 void Player::print_cost(int x, int y, int bcolor, int color)
 {
 	mu.lock();
-	int h = player.get_cost();
+	int cost = player.get_cost();
 	mu.unlock();
 
 	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
-	cout << h;
+	cout << cost;
 	Screen::printVietnamese(L" $");
-	mu.unlock();
-	Sleep(1000);
-	mu.lock();
-	Controller::gotoXY(x, y);
-	Controller::SetColor(bcolor, color);
-	Screen::printVietnamese(L"    ");
 	mu.unlock();
 }
 
@@ -80,6 +69,15 @@ void Player::print_cost_first(int x, int y, int bcolor, int color)
 
 void Player::print_hp_player(int x, int y, int bcolor, int color)
 {
+	mu.lock();
+	bool isPause = Game::isPause;
+	mu.unlock();
+
+	mu.lock();
+	int last_hp = player.hp;
+	mu.unlock();
+	player.print_hp(x, y, bcolor, color, last_hp);
+
 	while (player.get_hp() > 0)
 	{
 		bool check;
@@ -88,12 +86,29 @@ void Player::print_hp_player(int x, int y, int bcolor, int color)
 		mu.unlock();
 		if (check == false)
 			return;
-		thread p(&Player::print_hp, &player, x, y, bcolor, color);
-		if (p.joinable())
-		{
-			p.join();
-			Sleep(50);
+
+		mu.lock();
+		isPause = Game::isPause;
+		mu.unlock();
+
+		if (isPause) continue;
+
+
+		mu.lock();
+		int cur_hp = player.hp;
+		mu.unlock();
+
+		if (last_hp != cur_hp) {
+			player.print_hp(x, y, bcolor, bcolor,last_hp);
+
+			player.print_hp(x, y, bcolor, color, cur_hp);
+
+
+			last_hp = cur_hp;
 		}
+
+		
+
 	}
 	mu.lock();
 	ingame = false;
@@ -105,19 +120,39 @@ void Player::print_hp_player(int x, int y, int bcolor, int color)
 void Player::print_cost_player(int x, int y, int bcolor, int color)
 {
 	mu.lock();
-	bool check = showcost;
+	bool check = ingame;
 	mu.unlock();
+
+	mu.lock();
+	bool isPause = Game::isPause;
+	int last_cost = player.cost;
+	mu.unlock();
+
+
 	while (check)
 	{
-		thread p(&Player::print_cost, &player, x, y, bcolor, color);
-		if (p.joinable())
-		{
-			p.join();
-			Sleep(50);
-		}
 		mu.lock();
-		check = showcost;
+		check = ingame;
 		mu.unlock();
+
+		mu.lock();
+		isPause = Game::isPause;
+		mu.unlock();
+
+		if (isPause) continue;
+
+		mu.lock();
+		int cur_cost = player.cost;
+		mu.unlock();
+
+		if (last_cost != cur_cost) {
+			player.print_cost(x, y, bcolor, bcolor);
+
+			player.print_cost(x, y, bcolor, color);
+
+			last_cost = cur_cost;
+		}
+
 	}
 }
 
@@ -126,6 +161,39 @@ void Player::check_win(int num_enemy)
 	int count = 0;
 	while (count < num_enemy)
 	{
+		int res = 0;
+		if (_kbhit()) {
+			mu.lock();
+			int key = Controller::getConsoleInput();
+			mu.unlock();
+
+			if (key == 1) {
+				mu.lock();
+				Game::isPause = true;
+				res = Play::printMenuPause(135, 15, BRIGHT_WHITE, LIGHT_PURPLE);
+				mu.unlock();
+			}
+		}
+		mu.lock();
+		bool isPause = Game::isPause;
+		mu.unlock();
+
+		
+		if (isPause) {
+			if (res == 0) {
+				mu.lock();
+				Game::isPause = false;
+				mu.unlock();
+			}
+			else if (res == 1) {
+
+			}
+			else if (res == 2) {
+				break;
+			}
+		}
+
+
 		count = 0;
 		bool check;
 		mu.lock();

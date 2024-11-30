@@ -207,6 +207,7 @@ void Screen::printMainScreen() {
 					system("cls");
 					if (curChoice == 0) {
 						Game::mode = Screen::printLevel();
+						Menu::signup();
 						Game::setupGame();
 					}
 					else if (curChoice == 1) {
@@ -1087,7 +1088,23 @@ void Menu::Setting() {
 }
 
 void Menu::signup() {
-
+	system("cls");
+	Screen::printLogoStandard();
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(28, 16);
+	Screen::printVietnamese(L"Nhập tên của bạn ngắn thôi nha, ít hơn 20 ký tự");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(35, 18);
+	Screen::printVietnamese(L"Nhập tên:  ");
+	_setmode(_fileno(stdin), _O_U16TEXT);
+	wstring name;
+	getline(wcin, name);
+	player.setName(name);
+	if (player.getName() == L"")
+		player.setName(L"Unknown");
+	_setmode(_fileno(stdin), _O_TEXT);
+	if (Menu::sound_is_open)
+		Controller::playSound(ENTER_SOUND);
 }
 
 void Screen::printVietnamese(wstring text) {
@@ -1333,9 +1350,14 @@ void Menu::goBack() {
 	Screen::printMainScreen();
 }
 
-void processSaveFile(char) {
+void processSaveFile(const char* filename) {
+	fstream fout(filename, ios::out | ios::binary);
+
+	if (fout.is_open() == false) return;
+
 
 }
+
 void processLoadFile(string filename) {
 
 }

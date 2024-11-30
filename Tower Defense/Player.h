@@ -13,6 +13,7 @@ extern bool isbreakmap1;
 
 class Player {
 private:
+	wstring name;
 	int score;
 	int hp;
 	int cost;
@@ -26,13 +27,16 @@ public:
 	int get_cost() { return cost; }
 	void in_cost(int a) { cost += a; }
 	void de_cost(int a) { cost -= a; }
-	void print_hp(int x, int y, int bcolor, int color);
+	void print_hp(int x, int y, int bcolor, int color, int _hp);
 	void print_cost(int x, int y, int bcolor, int color);
 
 	static void print_cost_first(int x, int y, int bcolor, int color);
 	static void print_hp_player(int x, int y, int bcolor, int color);
 	static void print_cost_player(int x, int y, int bcolor, int color);
 	static void check_win(int num_enemy);
+
+	void setName(wstring);
+	wstring getName();
 };
 extern Player player;
 

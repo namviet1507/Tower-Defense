@@ -1,8 +1,10 @@
-#include "Game.h"
+﻿#include "Game.h"
 #include "Play.h"
 
 int Game::mode = 0;
 bool Game::isPlaying = false;
+bool Game::isPause = false;
+int Game::num_enemy = 16;
 
 void Game::setupGame() {
 	if (Game::mode == 3) {
@@ -11,6 +13,8 @@ void Game::setupGame() {
 	Game::isPlaying = true;
 	system("cls");
 	system("color F0");
+
+
 	if (mode == 0)
 	{
 		isbreakmap1 = false;
@@ -27,5 +31,85 @@ void Game::setupGame() {
 		isbreakmap1 = false;
 		while (!isbreakmap1)
 			Play::play_map(".\\Map\\level3_enemy.txt", ".\\Map\\level3_map.txt");
+	}
+}
+
+void Game::printBoard() {
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
+	Screen::printRectangle(130, 1, 24, 39);
+
+	// ▀ █ ▄ ▐ ▌
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(144, 4);
+	Screen::printVietnamese(L"UNKNOWN");
+
+	Controller::gotoXY(135, 9);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Screen::printVietnamese(L"|");
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Screen::printVietnamese(L"▀");
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(135, 10);
+	for (int i = 0; i < 16; i++) {
+		if (i == 0 || i == 15)
+			Screen::printVietnamese(L"█");
+		else
+			Screen::printVietnamese(L"▄");
+	}
+}
+
+void Game::printNumEnemy() {
+	mu.lock();
+	bool check = ingame;
+	mu.unlock();
+
+	mu.lock();
+	bool isPause = Game::isPause;
+	int last_count = Enemy::count;
+	mu.unlock();
+
+
+	while (check)
+	{
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+
+		mu.lock();
+		isPause = Game::isPause;
+		mu.unlock();
+
+		if (isPause) continue;
+
+		mu.lock();
+		int cur_count = Enemy::count;
+		mu.unlock();
+
+		if (cur_count != last_count) {
+			mu.lock();
+			int last_t = (last_count * 1.0 / Game::num_enemy) * 15;
+	
+			Controller::gotoXY(135 + last_t, 9);
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			Screen::printVietnamese(L"|");
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			Screen::printVietnamese(L"▀");
+			mu.unlock();
+
+			mu.lock();
+			int t = (cur_count * 1.0 / Game::num_enemy) * 15;
+
+			Controller::gotoXY(135 + t, 9);
+			Controller::SetColor(BRIGHT_WHITE, BLACK);
+			Screen::printVietnamese(L"|");
+			Controller::SetColor(BRIGHT_WHITE, RED);
+			Screen::printVietnamese(L"▀");
+			mu.unlock();
+			
+			last_count = cur_count;
+		}
+
 	}
 }

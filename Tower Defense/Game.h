@@ -7,6 +7,11 @@ class Game : public Player {
 	public:
 		static int mode;				// Chế độ Game
 		static bool isPlaying;			// check còn đang chơi không
+		static bool isPause;
+		static int num_enemy;
 
 		static void setupGame();		// Cài đặt game
+
+		static void printBoard();
+		static void printNumEnemy();
 };

@@ -11,6 +11,12 @@ public:
 	static void colour_block2(int x, int y, int w, int h, int bcolor);
 	static void print_rectangle(int x, int y, int w, int h, int bcolor, int color);
 
+	static void printBoxContinue(int x, int y, int bcolor, int color);
+	static void printBoxSave(int x, int y, int bcolor, int color);
+	static void printBoxExit(int x, int y, int bcolor, int color);
+
+	static int printMenuPause(int x, int y, int bcolor, int color);
+
 	static void print_box_continue(int x, int y, int bcolor, int color);
 	static void print_box_yes(int x, int y, int bcolor, int color);
 	static void print_box_no(int x, int y, int bcolor, int color);

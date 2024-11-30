@@ -387,6 +387,110 @@ void Play::print_menu_Tower(int x, int y)
 	print_x_block(x + 7 + 9 + 11, y, 5, 6);
 }
 
+void Play::printBoxContinue(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+	
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Tiếp tục");
+	}
+	else {
+		cout << "Continue";
+	}
+}
+
+void Play::printBoxSave(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Lưu Game");
+	}
+	else {
+		cout << "Save Game";
+	}
+}
+
+void Play::printBoxExit(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Thoát Game");
+	}
+	else {
+		cout << "Exit Game";
+	}
+}
+
+int Play::printMenuPause(int x, int y, int bcolor, int color) {
+	Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+	Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+	Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+
+	int choice = 0;
+
+	while (true) {
+		if (_kbhit()) {
+			switch (Controller::getConsoleInput())
+			{
+			case 2:
+				if (choice > 0) {
+					choice--;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 5:
+				if (choice < 2) {
+					choice++;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 6:
+				Play::printBoxContinue(x, y, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxSave(x, y + 4, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxExit(x, y + 8, BRIGHT_WHITE, BRIGHT_WHITE);
+				return choice;
+
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
 int Play::get_lever_Tower(int x, int y, Map m)
 {
 	print_menu_Tower(x, y);
@@ -891,26 +995,25 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 
 	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 138, 3, 0, 4));
-	bullets.push_back(thread(enemy_move1, 20, filename_enemy));
-	bullets.push_back(thread(Player::check_win, 20));
+	bullets.push_back(thread(Player::print_hp_player, 138, 3, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
+	bullets.push_back(thread(Player::check_win, Game::num_enemy));
+	bullets.push_back(thread(Game::printNumEnemy));
 
 	for (auto& bu : bullets)
 	{
 		bu.join();
 	}
+
 	if (losegame)
 	{
 		print_lose(30, 18, 8, 13);
 		Sleep(3000);
 	}
-	else
+	else if (wingame)
 	{
-		if (wingame)
-		{
-			print_win(30, 18, 8, 13);
-			Sleep(3000);
-		}
+		print_win(30, 18, 8, 13);
+		Sleep(3000);
 	}
 
 	int value = print_continue_board(30, 18, test);
@@ -989,6 +1092,7 @@ void Play::enemy_move1(int num, string fileName)
 
 		mu.lock();
 		Enemy& e = e_global[i];
+		Enemy::count++;
 		mu.unlock();
 		threads.push_back(thread(MOVE, fileName, ref(e)));
 		Sleep(5000);
