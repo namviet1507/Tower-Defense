@@ -59,15 +59,26 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Up(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::gotoXY(x + 2, y);
+    //Controller::gotoXY(x + 2, y);
+    //Controller::SetColor(colorFirst, colorSecond);
+    //Screen::printVietnamese(L"▓");
+    //Controller::gotoXY(x + 2, y + 1);
+    //Screen::printVietnamese(L"▓");
+    //Controller::gotoXY(x, y + 2);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 3);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+
+    Controller::SetColor(4, 4);
+    Controller::gotoXY(x + 3, y);
+    Screen::printVietnamese(L"▓");
     Controller::SetColor(colorFirst, colorSecond);
-    Screen::printVietnamese(L"▓");
     Controller::gotoXY(x + 2, y + 1);
-    Screen::printVietnamese(L"▓");
-    Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"▓▓▓");    // 3 
+    Controller::gotoXY(x + 1, y + 2);
+    Screen::printVietnamese(L"▓▓▓▓▓"); // 5
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"▓▓▓▓▓▓▓"); // 9
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -147,7 +158,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Left(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::SetColor(colorFirst, colorSecond);
+    /*Controller::SetColor(colorFirst, colorSecond);
 
     Controller::gotoXY(x + 3, y + 2);
     Screen::printVietnamese(L"▓▓▓▓▓");
@@ -156,7 +167,46 @@ void Tower::drawTowerLevel1_Left(int x, int y, int colorFirst, int colorSecond)
     Controller::gotoXY(x + 3, y + 4);
     Screen::printVietnamese(L"▓▓▓▓▓");
     Controller::gotoXY(x, y + 3);
+    Screen::printVietnamese(L"▓▓▓");*/
+
+    Controller::SetColor(colorFirst, colorSecond);
+
+    Controller::gotoXY(x + 6, y);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 6, y + 1);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 6, y + 2);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 6, y + 3);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 6, y + 4);
+    Screen::printVietnamese(L"▓▓");
+
+    Controller::gotoXY(x + 3, y + 1);
     Screen::printVietnamese(L"▓▓▓");
+    Controller::gotoXY(x + 3, y + 2);
+    Screen::printVietnamese(L"▓▓▓");
+    Controller::gotoXY(x + 3, y + 3);
+    Screen::printVietnamese(L"▓▓▓");
+
+    Controller::gotoXY(x + 3 , y + 1);
+    Screen::printVietnamese(L"▓");
+    Controller::gotoXY(x + 3, y + 2);
+    Screen::printVietnamese(L"▓");
+    Controller::gotoXY(x + 3, y + 3);
+    Screen::printVietnamese(L"▓");
+
+    Controller::SetColor(4, 4);
+    Controller::gotoXY(x + 2, y + 2);
+    Screen::printVietnamese(L"▓");
+
+    Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x+1, y + 2);
+    Screen::printVietnamese(L"=");
+    Controller::gotoXY(x , y + 2);
+    Screen::printVietnamese(L"=");
+
+
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
 }
@@ -238,15 +288,58 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Right(int x, int y, int colorFirst, int colorSecond)
 {
+    //Controller::SetColor(colorFirst, colorSecond);
+    //Controller::gotoXY(x, y + 2);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 3);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 4);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x + 5, y + 3);
+    //Screen::printVietnamese(L"===");
+
     Controller::SetColor(colorFirst, colorSecond);
+
+    Controller::gotoXY(x, y);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x, y + 1);
+    Screen::printVietnamese(L"▓▓");
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"▓▓");
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"▓▓");
     Controller::gotoXY(x, y + 4);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"▓▓");
+
+    Controller::gotoXY(x + 2, y + 1);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 2, y + 2);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 2, y + 3);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 4, y + 1);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 4, y + 2);
+    Screen::printVietnamese(L"▓▓");
+    Controller::gotoXY(x + 4, y + 3);
+    Screen::printVietnamese(L"▓▓");
+
+    Controller::gotoXY(x + 5, y + 1);
+    Screen::printVietnamese(L"▓");
+    Controller::gotoXY(x + 5, y + 2);
+    Screen::printVietnamese(L"▓");
     Controller::gotoXY(x + 5, y + 3);
-    Screen::printVietnamese(L"===");
+    Screen::printVietnamese(L"▓");
+
+    Controller::SetColor(4, 4);
+    Controller::gotoXY(x + 6, y + 2);
+    Screen::printVietnamese(L"▓");
+
+    Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x + 7, y + 2);
+    Screen::printVietnamese(L"=");
+    Controller::gotoXY(x + 8, y + 2);
+    Screen::printVietnamese(L"=");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -329,7 +422,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Down(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::SetColor(colorFirst, colorSecond);
+    /*Controller::SetColor(colorFirst, colorSecond);
     Controller::gotoXY(x, y + 1);
     Screen::printVietnamese(L"▓▓▓▓▓");
     Controller::gotoXY(x, y + 2);
@@ -337,7 +430,20 @@ void Tower::drawTowerLevel1_Down(int x, int y, int colorFirst, int colorSecond)
     Controller::gotoXY(x + 2, y + 3);
     Screen::printVietnamese(L"▓");
     Controller::gotoXY(x + 2, y + 4);
+    Screen::printVietnamese(L"▓");*/
+
+    Controller::SetColor(4, 4);
+    Controller::gotoXY(x + 4, y + 7);
     Screen::printVietnamese(L"▓");
+    Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x + 3, y + 6);
+    Screen::printVietnamese(L"▓▓▓");    // 3 
+    Controller::gotoXY(x + 2, y + 5);
+    Screen::printVietnamese(L"▓▓▓▓▓"); // 5
+    Controller::gotoXY(x + 2, y + 4);
+    Screen::printVietnamese(L"▓▓▓▓▓"); // 5
+    Controller::gotoXY(x, y + 3);
+    Screen::printVietnamese(L"▓▓▓▓▓▓▓▓▓"); // 9
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
 }

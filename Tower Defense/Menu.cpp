@@ -1332,3 +1332,10 @@ void Menu::helpScreen() {
 void Menu::goBack() {
 	Screen::printMainScreen();
 }
+
+void processSaveFile(char) {
+
+}
+void processLoadFile(string filename) {
+
+}
