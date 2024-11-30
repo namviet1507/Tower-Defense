@@ -2,7 +2,7 @@
 #include "Library.h"
 #include "Player.h"
 
-#define LIST_FILE "listFile.txt"
+#define LIST_FILE "./ListSaveFile/listFile.txt"
 class Menu
 {
 	private:
@@ -35,6 +35,6 @@ struct ListFile {
 
 	static void printListFile(int start, int end, vector<string> arrFilename);
 	static string getFile();
-	static void processSaveFile(const char*);		// Lưu file
-	static void processLoadFile(string filename);	// Tải file
+	static void processSaveFile(string, vector<vector<int>> posTower, int res[4], bool choice[], string file_map, string file_enemy);		// Lưu file
+	static void processLoadFile(string filename, vector<vector<int>>& posTower, int res[4], bool choice[], string& file_map, string& file_enemy);	// Tải file
 };

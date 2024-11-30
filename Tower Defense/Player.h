@@ -27,13 +27,14 @@ public:
 	int get_cost() { return cost; }
 	void in_cost(int a) { cost += a; }
 	void de_cost(int a) { cost -= a; }
+	void set_cost(int a) { cost = a; }
 	void print_hp(int x, int y, int bcolor, int color, int _hp);
 	void print_cost(int x, int y, int bcolor, int color);
 
 	static void print_cost_first(int x, int y, int bcolor, int color);
 	static void print_hp_player(int x, int y, int bcolor, int color);
 	static void print_cost_player(int x, int y, int bcolor, int color);
-	static void check_win(int num_enemy);
+	static void check_win(int num_enemy, vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy);
 
 	void setName(wstring);
 	wstring getName();

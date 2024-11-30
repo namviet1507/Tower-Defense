@@ -4,6 +4,7 @@
 int Game::mode = 0;
 bool Game::isPlaying = false;
 bool Game::isPause = false;
+bool Game::Flag_Pause = false;
 int Game::num_enemy = 16;
 
 void Game::setupGame() {
@@ -39,6 +40,15 @@ void Game::printBoard() {
 	Screen::printRectangle(130, 1, 24, 39);
 
 	// ▀ █ ▄ ▐ ▌
+
+	Controller::gotoXY(132, 30);
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Bấm ESC dừng trò chơi!");
+	}
+	else {
+		cout << "Enter ESC to pause game!";
+	}
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Controller::gotoXY(144, 4);

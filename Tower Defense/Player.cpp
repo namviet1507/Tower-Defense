@@ -1,6 +1,9 @@
 ﻿#include "Player.h"
 #include "Game.h"
 #include "Play.h"
+#include <chrono>
+
+using namespace std::chrono;
 
 bool ingame;
 Player player;
@@ -156,9 +159,10 @@ void Player::print_cost_player(int x, int y, int bcolor, int color)
 	}
 }
 
-void Player::check_win(int num_enemy)
+void Player::check_win(int num_enemy, vector<vector<int>> posTower, int _res[], bool choice[], string file_map, string file_enemy)
 {
 	int count = 0;
+	auto start = 0;
 	while (count < num_enemy)
 	{
 		int res = 0;
@@ -170,6 +174,8 @@ void Player::check_win(int num_enemy)
 			if (key == 1) {
 				mu.lock();
 				Game::isPause = true;
+				//auto start = high_resolution_clock::now();
+
 				res = Play::printMenuPause(135, 15, BRIGHT_WHITE, LIGHT_PURPLE);
 				mu.unlock();
 			}
@@ -183,10 +189,19 @@ void Player::check_win(int num_enemy)
 			if (res == 0) {
 				mu.lock();
 				Game::isPause = false;
+				Game::Flag_Pause = true;
 				mu.unlock();
 			}
 			else if (res == 1) {
+				string filename = Play::getFileSave();
 
+
+
+				ListFile::processSaveFile(filename, posTower, _res, choice, file_map, file_enemy);
+
+				mu.lock();
+				Game::isPause = false;
+				mu.unlock();
 			}
 			else if (res == 2) {
 				break;

@@ -19,6 +19,7 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
             break;
         }
         mu.lock();
+
         bool isPause = Game::isPause;
         mu.unlock();
 
