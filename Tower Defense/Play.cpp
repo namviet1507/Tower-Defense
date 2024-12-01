@@ -526,6 +526,8 @@ int Play::get_lever_Tower(int x, int y, Map m)
 			int tmp = Controller::getConsoleInput();
 			if (tmp == 3)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos--;
 				if (pos == 0)
@@ -568,6 +570,8 @@ int Play::get_lever_Tower(int x, int y, Map m)
 			}
 			else if (tmp == 4)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos++;
 				if (pos == 5)
@@ -609,6 +613,8 @@ int Play::get_lever_Tower(int x, int y, Map m)
 			}
 			else if (tmp == 6)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
 				m.printMap();
 				int c;
 				mu.lock();
@@ -618,7 +624,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 10)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -634,7 +640,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 20)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -650,7 +656,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 40)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -718,6 +724,8 @@ void Play::play_map(string filename_enemy, string filename_map)
 			int temp = Controller::getConsoleInput();
 			if (temp == 2) // up
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 				int i = 0;
 				do
@@ -733,6 +741,8 @@ void Play::play_map(string filename_enemy, string filename_map)
 			}
 			else if (temp == 3) // left
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 				int i = 0;
 				do
@@ -744,8 +754,10 @@ void Play::play_map(string filename_enemy, string filename_map)
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
-			else if (temp == 4)
+			else if (temp == 4) // right
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 
 				int i = 0;
@@ -759,8 +771,10 @@ void Play::play_map(string filename_enemy, string filename_map)
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
 
-			else if (temp == 5)
+			else if (temp == 5) //down
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 
 				int i = 0;
@@ -776,8 +790,10 @@ void Play::play_map(string filename_enemy, string filename_map)
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
-			else if (temp == 6)
+			else if (temp == 6) // Enter
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
 				int i;
 				i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
@@ -1021,12 +1037,14 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 
-
 	bullets.push_back(thread(Player::print_cost_player, 144, 5, BRIGHT_WHITE, GREEN));
 	bullets.push_back(thread(Player::print_hp_player, 144, 6, BRIGHT_WHITE, RED));
 	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
 	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choose, filename_map, filename_enemy));
 	bullets.push_back(thread(Game::printNumEnemy));
+
+	if (Menu::music_is_open)
+		thread(Controller::playSound, GAME_SOUND).detach();
 
 	for (auto& bu : bullets)
 	{
@@ -1080,7 +1098,7 @@ void Play::process_endgame() {
 	}
 	else if (wingame)
 	{
-		print_win(30, 18, YELLOW, LIGHT_PURPLE);
+		print_win(30, 18, LIGHT_YELLOW, LIGHT_PURPLE);
 		Sleep(3000);
 	}
 }
@@ -1435,12 +1453,12 @@ void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], 
 
 	if (losegame)
 	{
-		print_lose(30, 18, 8, 13);
+		print_lose(30, 18, YELLOW, LIGHT_PURPLE);
 		Sleep(3000);
 	}
 	else if (wingame)
 	{
-		print_win(30, 18, 8, 13);
+		print_win(30, 18, YELLOW, LIGHT_PURPLE);
 		Sleep(3000);
 	}
 

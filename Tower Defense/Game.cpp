@@ -39,7 +39,7 @@ void Game::printBoard() {
 	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
 	Screen::printRectangle(130, 1, 24, 39);
 
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Controller::SetColor(BRIGHT_WHITE, GREEN);
 	Controller::gotoXY(134, 3);
 	Screen::printVietnamese(L" ╔╦╦╦╗  ");
 	Controller::gotoXY(134, 3 + 1);
@@ -66,7 +66,7 @@ void Game::printBoard() {
 	Controller::gotoXY(144, 4);
 	wcout << player.getName();
 
-	int t = (Enemy::count * 1.0 / Game::num_enemy) * 15;
+	int t = (int)(Enemy::count * 1.0 / Game::num_enemy) * 15;
 	Controller::gotoXY(135 + t, 9);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printVietnamese(L"|");
@@ -112,7 +112,7 @@ void Game::printNumEnemy() {
 
 		if (cur_count != last_count) {
 			mu.lock();
-			int last_t = (last_count * 1.0 / Game::num_enemy) * 15;
+			int last_t = (int)(last_count * 1.0 / Game::num_enemy) * 15;
 	
 			Controller::gotoXY(135 + last_t, 9);
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
@@ -122,7 +122,7 @@ void Game::printNumEnemy() {
 			mu.unlock();
 
 			mu.lock();
-			int t = (cur_count * 1.0 / Game::num_enemy) * 15;
+			int t = (int)(cur_count * 1.0 / Game::num_enemy) * 15;
 
 			Controller::gotoXY(135 + t, 9);
 			Controller::SetColor(BRIGHT_WHITE, BLACK);

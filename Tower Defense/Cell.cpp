@@ -59,7 +59,7 @@ void Cell::printCell() {
 	Controller::gotoXY(pos.getX(), pos.getY());
 	Controller::SetColor(color, WHITE);
 	if (can_build) {
-		printDes(LIGHT_YELLOW, BLACK);
+		printDes(LIGHT_YELLOW, LIGHT_BLUE);
 	}
 	else if (isGrass) {
 		printGrass();

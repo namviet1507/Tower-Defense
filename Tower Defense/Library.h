@@ -84,7 +84,8 @@ using namespace std;
 #define MOVE_SOUND 0
 #define ENTER_SOUND 1
 #define ERROR_SOUND 2
-#define MATCH_SOUND 3
+#define DIE_SOUND 3
 #define WIN_SOUND 4
 #define BACKGROUND_SOUND 5
 #define LOSE_SOUND 6
+#define GAME_SOUND 7

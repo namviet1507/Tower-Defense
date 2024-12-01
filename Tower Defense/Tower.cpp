@@ -29,9 +29,9 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::gotoXY(x + 2, y - 1 - i);
-        Controller::SetColor(LIGHT_YELLOW, BLACK);
-        Screen::printVietnamese(L"^");
+        Controller::gotoXY(x + 3, y - 1 - i);
+        Controller::SetColor(LIGHT_YELLOW, RED);
+        Screen::printVietnamese(L"■");
         //cout <<" " << indexOfBulletFollowX << "," << indexOfBulletFollowY;
         mu.unlock();
 
@@ -41,9 +41,9 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
         Sleep(150);
 
         mu.lock();
-        Controller::gotoXY(x + 2, y - 1 - i);
+        Controller::gotoXY(x + 3, y - 1 - i);
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
-        Screen::printVietnamese(L" ");
+        cout << " ";
         mu.unlock();
 
         i += 1;
@@ -56,6 +56,8 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(1);
                     flag = true;
                     break;
@@ -156,15 +158,15 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         }
         mu.lock();
 
-        Controller::gotoXY(x - 5 - i, y + 3);
-        Controller::SetColor(LIGHT_YELLOW, BLACK);
-        Screen::printVietnamese(L"<");
+        Controller::gotoXY(x - 5 - i, y + 2);
+        Controller::SetColor(LIGHT_YELLOW, RED);
+        Screen::printVietnamese(L"■");
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
         Sleep(150);
         mu.lock();
-        Controller::gotoXY(x - 5 - i, y + 3);
+        Controller::gotoXY(x - 5 - i, y + 2);
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
         Screen::printVietnamese(L" ");
         mu.unlock();
@@ -179,6 +181,8 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(1);
                     flag = true;
                     break;
@@ -280,8 +284,8 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
-        Controller::SetColor(LIGHT_YELLOW, BLACK);
-        Screen::printVietnamese(L">");
+        Controller::SetColor(LIGHT_YELLOW, RED);
+        Screen::printVietnamese(L"■");
         mu.unlock();
 
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
@@ -292,7 +296,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
-        Screen::printVietnamese(L" ");
+        cout << " ";
         mu.unlock();
         i += 1;
 
@@ -305,6 +309,8 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(1);
                     flag = true;
                     break;
@@ -403,9 +409,9 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::gotoXY(x + 2, y + 6 + i);
-        Controller::SetColor(LIGHT_YELLOW, BLACK);
-        Screen::printVietnamese(L"v");
+        Controller::gotoXY(x + 3, y + 6 + i);
+        Controller::SetColor(LIGHT_YELLOW, RED);
+        Screen::printVietnamese(L"■");
         mu.unlock();
 
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
@@ -414,7 +420,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         Sleep(150);
 
         mu.lock();
-        Controller::gotoXY(x + 2, y + 6 + i);
+        Controller::gotoXY(x + 3, y + 6 + i);
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
         Screen::printVietnamese(L" ");
         mu.unlock();
@@ -429,6 +435,8 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(1);
                     flag = true;
                     break;
@@ -521,9 +529,9 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, BLACK);
         Controller::gotoXY(x + 2, y - 1 - i);
-        cout << "^";
+        Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y - 1 - i);
-        Screen::printVietnamese(L"^");
+        Screen::printVietnamese(L"■");
         cout << "^";
         mu.unlock();
 
@@ -646,12 +654,12 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x - 5 - i, y + 3);
-        Screen::printVietnamese(L"<");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x - 5 - i, y + 2);
-        Screen::printVietnamese(L"<");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
@@ -781,12 +789,12 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 8 + i, y + 2);
-        Screen::printVietnamese(L">");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 8 + i, y + 3);
-        Screen::printVietnamese(L">");
+        Screen::printVietnamese(L"■");
         mu.unlock();
 
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
@@ -922,9 +930,9 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 2, y + 6 + i);
-        Screen::printVietnamese(L"v");
+        Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y + 6 + i);
-        Screen::printVietnamese(L"v");
+        Screen::printVietnamese(L"■");
         mu.unlock();
 
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
@@ -1040,11 +1048,11 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 2, y - 1 - i);
-        Screen::printVietnamese(L"^");
+        Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y - 1 - i);
-        Screen::printVietnamese(L"^");
+        Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 6, y - 1 - i);
-        Screen::printVietnamese(L"^");
+        Screen::printVietnamese(L"■");
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i; // To process conlision with enemy
         mu.unlock();
@@ -1160,17 +1168,17 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x - 5 - i, y + 4);
-        Screen::printVietnamese(L"<");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x - 5 - i, y + 3);
-        Screen::printVietnamese(L"<");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x - 5 - i, y + 2);
-        Screen::printVietnamese(L"<");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
@@ -1292,17 +1300,17 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 8 + i, y + 2);
-        Screen::printVietnamese(L">");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 8 + i, y + 3);
-        Screen::printVietnamese(L">");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 8 + i, y + 4);
-        Screen::printVietnamese(L">");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
@@ -1426,17 +1434,17 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 2, y + 6 + i);
-        Screen::printVietnamese(L"v");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 4, y + 6 + i);
-        Screen::printVietnamese(L"v");
+        Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
         Controller::SetColor(14, BLACK);
         Controller::gotoXY(x + 6, y + 6 + i);
-        Screen::printVietnamese(L"v");
+        Screen::printVietnamese(L"■");
         mu.unlock();
 
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
