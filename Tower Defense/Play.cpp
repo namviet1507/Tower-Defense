@@ -244,24 +244,19 @@ void Play::print_win(int x, int y, int bcolor, int color)
 {
 	mu.lock();
 	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
-	int cnt = 15;
-	while (cnt--) {
-		Controller::SetColor(bcolor, rand() % 6 + 1);
-		Controller::gotoXY(x, y);
-		Controller::SetColor(bcolor, color);
-		Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
-		Controller::gotoXY(x, y + 1);
-		Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
-		Controller::gotoXY(x, y + 2);
-		Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
-		Controller::gotoXY(x, y + 3);
-		Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
-		Controller::gotoXY(x, y + 4);
-		Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
-		Controller::gotoXY(x, y + 5);
-		Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
-		Sleep(500);
-	}
+	Controller::SetColor(bcolor, color);
+	Controller::gotoXY(x, y);
+	Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
 	mu.unlock();
 }
 
