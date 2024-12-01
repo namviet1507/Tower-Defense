@@ -6,6 +6,7 @@
 
 class Play
 {
+	static Cell c;
 public:
 	static void colour_block(int x, int y, int h, int w, int color);
 	static void colour_block2(int x, int y, int w, int h, int bcolor);
@@ -42,8 +43,14 @@ public:
 
 	static void play_map(string, string);
 
+	static void print_quit_game(int x, int y, int bcolor, int color);
+
 	static void MOVE(string, Enemy&);
 	static void enemy_move1(int, string);
+
+	static void effect_tower_main(Cell&);
+
+	static void process_endgame();
 
 	static void playContinue(vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy);
 };

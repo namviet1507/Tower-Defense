@@ -10,6 +10,8 @@ extern bool wingame;
 extern bool losegame;
 extern bool showcost;
 extern bool isbreakmap1;
+extern bool isQuitGame;
+
 
 class Player {
 private:

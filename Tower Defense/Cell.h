@@ -77,6 +77,7 @@ public:
 
 	void printGrass();
 	void printBush();
+	void printDes(int bcolor, int color);
 	void setC(vector<bool>);
 
 	void setMark(int a) { mark = a; }

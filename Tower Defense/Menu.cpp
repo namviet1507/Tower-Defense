@@ -207,6 +207,7 @@ void Screen::printMainScreen() {
 					system("cls");
 					if (curChoice == 0) {
 						Game::mode = Screen::printLevel();
+						if (Game::mode == 3) continue;
 						Menu::signup();
 						Game::setupGame();
 					}
@@ -1047,6 +1048,7 @@ void Menu::Setting() {
 }
 
 void Menu::signup() {
+	Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
 	system("cls");
 	Screen::printLogoStandard();
 	Controller::SetColor(BRIGHT_WHITE, RED);
@@ -1332,7 +1334,10 @@ void ListFile::processSaveFile(string filename, vector<vector<int>> posTower, in
 
 	mu.lock();
 	int cost = player.get_cost();
+	wchar_t name[100];
+	wcscpy_s(name, 100, player.getName().c_str());
 	mu.unlock();
+	fout.write(reinterpret_cast<const char*>(name), sizeof(name));
 	fout.write((char*)&cost, sizeof(int));
 	for (int i = 0; i < 4; i++) {
 		fout.write((char*)&choice[i], sizeof(bool));
@@ -1367,10 +1372,13 @@ void ListFile::processLoadFile(string filename, vector<vector<int>>& posTower, i
 	file_enemy = str;
 
 	int cost;
+	wchar_t name[100];
 
+	fin.read(reinterpret_cast<char*>(name), sizeof(name));
 	fin.read((char*)&cost, sizeof(int));
 
 	mu.lock();
+	player.setName(name);
 	player.set_cost(cost);
 	mu.unlock();
 

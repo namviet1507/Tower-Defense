@@ -68,11 +68,18 @@ void Map::printMap() {
 	system("cls");
 	for (int i = 0; i < height; ++i) {
 		for (int j = 0; j < width; ++j) {
-			bool top = i > 0 && map[i - 1][j].getFlagBush();
-			bool bot = i < height - 1 && map[i + 1][j].getFlagBush();
-			bool left = j > 0 && map[i][j - 1].getFlagBush();
-			bool right = j < width - 1 && map[i][j + 1].getFlagBush();
-			map[i][j].setC({ top, bot, left, right });
+			if (map[i][j].getFlagBush()) {
+				bool top = i > 0 && map[i - 1][j].getFlagBush();
+				bool bot = i < height - 1 && map[i + 1][j].getFlagBush();
+				bool left = j > 0 && map[i][j - 1].getFlagBush();
+				bool right = j < width - 1 && map[i][j + 1].getFlagBush();
+				map[i][j].setC({ top, bot, left, right });
+			}
+			else if (map[i][j].getFlagBuild()) {
+				bool bot = i < height - 1 && map[i + 1][j].getFlagBuild();
+				bool right = j < width - 1 && map[i][j + 1].getFlagBuild();
+				map[i][j].setC({ bot, right });
+			}
 			map[i][j].printCell();
 		}
 	}

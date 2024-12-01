@@ -58,7 +58,10 @@ void Cell::printCell() {
 	int y = pos.getY();
 	Controller::gotoXY(pos.getX(), pos.getY());
 	Controller::SetColor(color, WHITE);
-	if (isGrass) {
+	if (can_build) {
+		printDes(LIGHT_YELLOW, BLACK);
+	}
+	else if (isGrass) {
 		printGrass();
 	}
 	else if(isBush) {
@@ -74,6 +77,50 @@ void Cell::printCell() {
 			x = pos.getX();
 			y = y + 1;
 		}
+	}
+}
+
+void Cell::printDes(int bcolor, int color) {
+	int x = pos.getX();
+	int y = pos.getY();
+	if (c.size() >= 2 && c[1]) {
+		Controller::SetColor(bcolor, color);
+		Controller::gotoXY(x, y);
+		Screen::printVietnamese(L" ╔╦╦╦╗    ╔╦╦╦╗ ");
+		Controller::gotoXY(x, y + 1);
+		Screen::printVietnamese(L" █████╩╩╩╩█████ ");
+		Controller::gotoXY(x, y + 2);
+		Screen::printVietnamese(L"  █■█      █■█  ");
+		Controller::gotoXY(x, y + 3);
+		Screen::printVietnamese(L" █▓█▓█    █▓█▓█ ");
+		Controller::gotoXY(x, y + 4);
+		Screen::printVietnamese(L"███████  ███████");
+
+	}
+	else if (c.size() >= 2 && c[0]) {
+		Controller::SetColor(bcolor, color);
+		Controller::gotoXY(x, y);
+		Screen::printVietnamese(L" ╔╦╦╦╗  ");
+		Controller::gotoXY(x, y + 1);
+		Screen::printVietnamese(L" █████  ");
+		Controller::gotoXY(x, y + 2);
+		Screen::printVietnamese(L"  █■█   ");
+		Controller::gotoXY(x, y + 3);
+		Screen::printVietnamese(L" █▓█▓█  ");
+		Controller::gotoXY(x, y + 4);
+		Screen::printVietnamese(L"███████ ");
+
+		Controller::SetColor(bcolor, color);
+		Controller::gotoXY(x, y + 5);
+		Screen::printVietnamese(L" ╔╦╦╦╗  ");
+		Controller::gotoXY(x, y + 1 + 5);
+		Screen::printVietnamese(L" █████  ");
+		Controller::gotoXY(x, y + 2 + 5);
+		Screen::printVietnamese(L"  █■█   ");
+		Controller::gotoXY(x, y + 3 + 5);
+		Screen::printVietnamese(L" █▓█▓█  ");
+		Controller::gotoXY(x, y + 4 + 5);
+		Screen::printVietnamese(L"███████ ");
 	}
 }
 
