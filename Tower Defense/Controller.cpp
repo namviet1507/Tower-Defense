@@ -1,5 +1,8 @@
 ﻿#include "Library.h"
 #include "Controller.h"
+#include <SFML/Audio.hpp>
+
+using namespace sf;
 
 HWND Controller::consoleWindow = GetConsoleWindow();
 HANDLE Controller::consoleOutput = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -118,7 +121,7 @@ int Controller::getConsoleInput() {
 			return 12;
 		else if (c == 85 || c == 117) // U, u
 			return 14;
-		else if (c == 32) // space
+		else if (c == 32)
 			return 15;
 		else
 			return 0;                 //nút khác
@@ -127,6 +130,25 @@ int Controller::getConsoleInput() {
 
 void Controller::playSound(int i)
 {
-	static vector<const wchar_t*> soundFile{ L"Sound\\MOVE.wav", L"Sound\\enterbutton.wav", L"Sound\\error.wav", L"Sound\\enter.wav", L"Sound\\win.wav",  L"Sound\\SoundGame.wav", L"Sound\\lose.wav", L"Sound\\nhacnen.wav" };
-	PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
+	static map<int, SoundBuffer> soundBuffers;
+	static map<int, Sound> sounds;
+
+	static vector<string> soundFile{
+		"Sound/MOVE.wav", "Sound/enterbutton.wav", "Sound/error.wav",
+		"Sound/enter.wav", "Sound/win.wav", "Sound/SoundGame.wav",
+		"Sound/lose.wav", "Sound/nhacnen.wav"
+	};
+
+	if (soundBuffers.find(i) == soundBuffers.end()) {
+		SoundBuffer buffer;
+		if (!buffer.loadFromFile(soundFile[i])) {
+			cerr << "Failed to load sound: " << soundFile[i] << std::endl;
+			return;
+		}
+		soundBuffers[i] = buffer;
+	}
+
+	// Phát âm thanh
+	sounds[i].setBuffer(soundBuffers[i]);
+	sounds[i].play();
 }

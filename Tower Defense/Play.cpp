@@ -1,12 +1,14 @@
 ﻿#include "Play.h"
+#include "Cell.h"
 
-
+Cell Play::c;
 
 void Play::colour_block(int x, int y, int h, int w, int color)
 {
 	Cell t;
 	t.setArea(h, w);
 	t.setColor(color);
+	t.setFlagGrass(false);
 	t.setPos(x, y);
 	t.printCell();
 }
@@ -81,7 +83,7 @@ void Play::print_box_continue(int x, int y, int bcolor, int color)
 void Play::print_box_yes(int x, int y, int bcolor, int color)
 {
 	Controller::gotoXY(x, y);
-	Controller::SetColor(8, color);
+	Controller::SetColor(bcolor, color);
 	putchar(204);
 	for (int i = 1; i < 42 - 1; i++) {
 		putchar(205);
@@ -109,7 +111,7 @@ void Play::print_box_yes(int x, int y, int bcolor, int color)
 void Play::print_box_no(int x, int y, int bcolor, int color)
 {
 	Controller::gotoXY(x, y);
-	Controller::SetColor(8, color);
+	Controller::SetColor(bcolor, color);
 	putchar(203);
 	for (int i = 1; i < 42; i++) {
 		putchar(205);
@@ -183,6 +185,25 @@ void Play::print_no(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"██   ████  ██████  ");
 }
 
+void Play::print_quit_game(int x, int y, int bcolor, int color) {
+	mu.lock();
+	print_rectangle(x - 1, y - 1, 76, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"   ██████╗ ██╗   ██╗██╗████████╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"  ██╔═══██╗██║   ██║██║╚══██╔══╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"  ██║   ██║██║   ██║██║   ██║       ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"  ██║▄▄ ██║██║   ██║██║   ██║       ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"  ╚██████╔╝╚██████╔╝██║   ██║       ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L"   ╚══▀▀═╝  ╚═════╝ ╚═╝   ╚═╝        ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	mu.unlock();
+}
+
 void Play::print_no_money(int x, int y, int bcolor, int color)
 {
 	print_rectangle(x - 1, y - 1, 73, 8, bcolor, color);
@@ -202,8 +223,7 @@ void Play::print_no_money(int x, int y, int bcolor, int color)
 }
 void Play::print_lose(int x, int y, int bcolor, int color)
 {
-
-
+	mu.lock();
 	print_rectangle(x - 1, y - 1, 76, 8, bcolor, color);
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
@@ -218,40 +238,48 @@ void Play::print_lose(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"███████╗╚██████╔╝███████║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
 	Controller::gotoXY(x, y + 5);
 	Screen::printVietnamese(L"╚══════╝ ╚═════╝ ╚══════╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	mu.unlock();
 }
 void Play::print_win(int x, int y, int bcolor, int color)
 {
+	mu.lock();
 	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
-	Controller::gotoXY(x, y);
-	Controller::SetColor(bcolor, color);
-	Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
-	Controller::gotoXY(x, y + 1);
-	Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
-	Controller::gotoXY(x, y + 2);
-	Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
-	Controller::gotoXY(x, y + 3);
-	Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
-	Controller::gotoXY(x, y + 4);
-	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
-	Controller::gotoXY(x, y + 5);
-	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	int cnt = 15;
+	while (cnt--) {
+		Controller::SetColor(bcolor, rand() % 6 + 1);
+		Controller::gotoXY(x, y);
+		Controller::SetColor(bcolor, color);
+		Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+		Controller::gotoXY(x, y + 1);
+		Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+		Controller::gotoXY(x, y + 2);
+		Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
+		Controller::gotoXY(x, y + 3);
+		Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+		Controller::gotoXY(x, y + 4);
+		Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+		Controller::gotoXY(x, y + 5);
+		Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+		Sleep(500);
+	}
+	mu.unlock();
 }
 
 void Play::print_tower_Level1(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 7, 9, bcolor, color);
+	print_rectangle(x, y, 10, 9, bcolor, color);
 	t.drawTowerLevel1_Up(x + 1, y + 2, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	Controller::gotoXY(x + 3, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "10 $";
 }
 void Play::print_tower_Level2(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 9, 9, bcolor, color);
-	t.drawTowerLevel2_Up(x + 1, y + 1, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	print_rectangle(x, y, 10, 9, bcolor, color);
+	t.drawTowerLevel2_Up(x + 1, y + 2, bcolor, color);
+	Controller::gotoXY(x + 3, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "20 $";
 }
@@ -259,8 +287,8 @@ void Play::print_tower_Level3(int x, int y, int bcolor, int color)
 {
 	Tower t;
 	print_rectangle(x, y, 11, 9, bcolor, color);
-	t.drawTowerLevel3_Up(x + 1, y + 1, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	t.drawTowerLevel3_Up(x + 2, y + 2, bcolor, color);
+	Controller::gotoXY(x + 4, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "40 $";
 }
@@ -269,23 +297,23 @@ void Play::print_x(int x, int y, int bcolor, int color)
 {
 
 	Controller::SetColor(bcolor, color);
-	Controller::gotoXY(x, y);
+	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 4, y);
+	Controller::gotoXY(x + 4, y + 1);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 1, y + 1);
+	Controller::gotoXY(x + 1, y + 2);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 2, y + 2);
+	Controller::gotoXY(x + 2, y + 3);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 1, y + 3);
+	Controller::gotoXY(x + 1, y + 4);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 3, y + 3);
+	Controller::gotoXY(x + 3, y + 4);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 3, y + 1);
+	Controller::gotoXY(x + 3, y + 2);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x, y + 4);
+	Controller::gotoXY(x, y + 5);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 4, y + 4);
+	Controller::gotoXY(x + 4, y + 5);
 	Screen::printVietnamese(L"█");
 
 
@@ -298,17 +326,17 @@ void Play::print_x_block(int x, int y, int bcolor, int color)
 
 void Play::print_menu_continue(int x, int y)
 {
-	print_box_continue(x - 1, y - 1, 8, 13);
-	print_continue(x, y, 8, 13);
-	print_yes(x, y + 7, 8, 13);
-	print_no(x + 42, y + 7, 8, 13);
+	print_box_continue(x - 1, y - 1, LIGHT_GREEN, LIGHT_PURPLE);
+	print_continue(x, y, LIGHT_GREEN, LIGHT_PURPLE);
+	print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
+	print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 }
 int Play::print_continue_board(int x, int y, Map m)
 {
 	print_menu_continue(30, 18);
 	int old_pos;
 	int pos = 0;
-	print_yes(x, y + 7, 6, 13);
+	print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 
 	while (true)
 	{
@@ -317,6 +345,8 @@ int Play::print_continue_board(int x, int y, Map m)
 			int tmp = Controller::getConsoleInput();
 			if (tmp == 3) // left
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos--;
 				if (pos == -1)
@@ -324,25 +354,27 @@ int Play::print_continue_board(int x, int y, Map m)
 
 				if (old_pos == 0)
 				{
-					print_yes(x, y + 7, 8, 13);
+					print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
 				}
 				else if (old_pos == 1)
 				{
-					print_no(x + 42, y + 7, 8, 13);
+					print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 				}
 
 				if (pos == 0)
 				{
-					print_yes(x, y + 7, 6, 13);
+					print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 				else if (pos == 1)
 				{
-					print_no(x + 42, y + 7, 6, 13);
+					print_no(x + 42, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 
 			}
 			else if (tmp == 4) // right
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos++;
 				if (pos == 2)
@@ -350,26 +382,28 @@ int Play::print_continue_board(int x, int y, Map m)
 
 				if (old_pos == 0)
 				{
-					print_yes(x, y + 7, 8, 13);
+					print_yes(x, y + 7, AQUA, LIGHT_PURPLE);
 				}
 				else if (old_pos == 1)
 				{
-					print_no(x + 42, y + 7, 8, 13);
+					print_no(x + 42, y + 7, AQUA, LIGHT_PURPLE);
 				}
 
 				if (pos == 0)
 				{
-					print_yes(x, y + 7, 6, 13);
+					print_yes(x, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 				else if (pos == 1)
 				{
-					print_no(x + 42, y + 7, 6, 13);
+					print_no(x + 42, y + 7, YELLOW, LIGHT_PURPLE);
 				}
 			}
 			else if (tmp == 6) // enter
 			{
-
-				m.printMap();
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
+				if (pos == 0)
+					m.printMap();
 				return pos;
 			}
 		}
@@ -381,13 +415,121 @@ int Play::print_continue_board(int x, int y, Map m)
 void Play::print_menu_Tower(int x, int y)
 {
 	print_tower_Level1(x, y, 5, 6);
-	print_tower_Level2(x + 7, y, 5, 6);
-	print_tower_Level3(x + 7 + 9, y, 5, 6);
-	print_x_block(x + 7 + 9 + 11, y, 5, 6);
+	print_tower_Level2(x + 10, y, 5, 6);
+	print_tower_Level3(x + 10 + 9, y, 5, 6);
+	print_x_block(x + 10 + 9 + 11, y, 5, 6);
+}
+
+void Play::printBoxContinue(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Tiếp tục");
+	}
+	else {
+		cout << "Continue";
+	}
+}
+
+void Play::printBoxSave(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Lưu Game");
+	}
+	else {
+		cout << "Save Game";
+	}
+}
+
+void Play::printBoxExit(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Thoát Game");
+	}
+	else {
+		cout << "Exit Game";
+	}
+}
+
+int Play::printMenuPause(int x, int y, int bcolor, int color) {
+	Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+	Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+	Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+
+	int choice = 0;
+
+	while (true) {
+		if (_kbhit()) {
+			switch (Controller::getConsoleInput())
+			{
+			case 2:
+				if (choice > 0) {
+					choice--;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 5:
+				if (choice < 2) {
+					choice++;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 6:
+				Play::printBoxContinue(x, y, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxSave(x, y + 4, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxExit(x, y + 8, BRIGHT_WHITE, BRIGHT_WHITE);
+				return choice;
+
+				break;
+			default:
+				break;
+			}
+		}
+	}
 }
 
 int Play::get_lever_Tower(int x, int y, Map m)
 {
+	if (x > 100) x = x -= (10 + 9 + 11 + 7);
+	if (y > 30) y -= 5;
+
+
 	print_menu_Tower(x, y);
 	int old_pos;
 	int pos = 1;
@@ -399,6 +541,8 @@ int Play::get_lever_Tower(int x, int y, Map m)
 			int tmp = Controller::getConsoleInput();
 			if (tmp == 3)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos--;
 				if (pos == 0)
@@ -410,15 +554,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (old_pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 5, 6);
+					print_tower_Level2(x + 10, y, 5, 6);
 				}
 				else if (old_pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 5, 6);
+					print_tower_Level3(x + 10 + 9, y, 5, 6);
 				}
 				else if (old_pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 5, 6);
+					print_x_block(x + 10 + 9 + 11, y, 5, 6);
 				}
 
 				if (pos == 1)
@@ -427,20 +571,22 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 4, 6);
+					print_tower_Level2(x + 10, y, 4, 6);
 				}
 				else if (pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 4, 6);
+					print_tower_Level3(x + 10 + 9, y, 4, 6);
 				}
 				else if (pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 4, 6);
+					print_x_block(x + 10 + 9 + 11, y, 4, 6);
 				}
 
 			}
 			else if (tmp == 4)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos++;
 				if (pos == 5)
@@ -452,15 +598,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (old_pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 5, 6);
+					print_tower_Level2(x + 10, y, 5, 6);
 				}
 				else if (old_pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 5, 6);
+					print_tower_Level3(x + 10 + 9, y, 5, 6);
 				}
 				else if (old_pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 5, 6);
+					print_x_block(x + 10 + 9 + 11, y, 5, 6);
 				}
 
 				if (pos == 1)
@@ -469,19 +615,21 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 4, 6);
+					print_tower_Level2(x + 10, y, 4, 6);
 				}
 				else if (pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 4, 6);
+					print_tower_Level3(x + 10 + 9, y, 4, 6);
 				}
 				else if (pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 4, 6);
+					print_x_block(x + 10 + 9 + 11, y, 4, 6);
 				}
 			}
 			else if (tmp == 6)
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
 				m.printMap();
 				int c;
 				mu.lock();
@@ -491,7 +639,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 10)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -507,7 +655,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 20)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -523,7 +671,7 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				{
 					if (c < 40)
 					{
-						print_no_money(30, 18, 8, 13);
+						print_no_money(30, 18, YELLOW, LIGHT_PURPLE);
 						Sleep(400);
 						m.printMap();
 						return 4;
@@ -550,22 +698,31 @@ void Play::play_map(string filename_enemy, string filename_map)
 	newMap.browseMap(pickWay);
 
 	player.new_hp(10);
-	Controller::setUpConsole();
+	player.set_cost(50);
 	Map test;
 	test.setMap(filename_map);
 	test.printMap();
+
+	for (int i = 0; i < test.getHeight(); i++) {
+		for (int j = 0; j < test.getWidth(); j++) {
+			if (test[i][j].getFlagBuild()) {
+				bool bot = i < test.getHeight() - 1 && test[i + 1][j].getFlagBuild();
+				bool right = j < test.getWidth() - 1 && test[i][j + 1].getFlagBuild();
+				if (bot || right) c = test[i][j];
+			}
+		}
+	}
 
 	vector< vector<int> > posTower;
 	test.findPositionOfTower(posTower);
 
 	bool choose[4] = { false,false,false,false };
 	int res[4] = { -1,-1,-1,-1 };
-
 	vector<thread> draws;
 	vector<thread> bullets;
-	vector<Tower> towers(posTower.size());
+	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(144, 5, BRIGHT_WHITE, YELLOW);
+	Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -576,20 +733,25 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 	int cnt = 0;
 	bool stop = false;
-
-	while (cnt < towers.size())
+	while (cnt < 4)
 	{
 		if (_kbhit())
 		{
 			int temp = Controller::getConsoleInput();
-			if (temp == 2) // up
+			if (temp == 1) { //esc
+				Menu::goBack();
+				return;
+			}
+			else if (temp == 2) // up
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 				int i = 0;
 				do
 				{
 					position++;
-					if (position == towers.size())
+					if (position == 4)
 						position = 2;
 
 				} while (choose[position] && i < cnt);
@@ -599,34 +761,40 @@ void Play::play_map(string filename_enemy, string filename_map)
 			}
 			else if (temp == 3) // left
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 				int i = 0;
 				do
 				{
 					position--;
 					if (position == -1)
-						position = (int)towers.size() - 1;
+						position = 3;
 				} while (choose[position] && i < cnt);
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
-			else if (temp == 4)
+			else if (temp == 4) // right
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 
 				int i = 0;
 				do
 				{
 					position++;
-					if (position == towers.size())
+					if (position == 4)
 						position = 0;
 				} while (choose[position] && i < cnt);
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
 
-			else if (temp == 5)
+			else if (temp == 5) //down
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = position;
 
 				int i = 0;
@@ -634,7 +802,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				{
 					position--;
 					if (position == -1)
-						position = (int)towers.size() - 1;
+						position = 3;
 					else if (position == 2)
 						position = 0;
 				} while (choose[position] && i < cnt);
@@ -642,21 +810,20 @@ void Play::play_map(string filename_enemy, string filename_map)
 				colour_block(posTower[old_pos][1], posTower[old_pos][2], 5, 8, 6);
 				colour_block(posTower[position][1], posTower[position][2], 5, 8, 4);
 			}
-			else if (temp == 6)
+			else if (temp == 6) // Enter
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
 				int i;
-				if (position == 0)
-					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
-				else
-					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
+				i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
 				//test.printMap();
-				Player::print_cost_first(144, 5, BRIGHT_WHITE, YELLOW);
+				Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
 				// push tower
-				for (int i = 0; i < towers.size(); i++)
+				for (int i = 0; i < 4; i++)
 				{
 					if (choose[i])
 					{
@@ -729,7 +896,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 					}
 				}
 
-				for (int j = 0; j < towers.size(); j++)
+				for (int j = 0; j < 4; j++)
 				{
 					if (choose[j] == false)
 					{
@@ -744,7 +911,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 	colour_block(posTower[position][1], posTower[position][2], 5, 8, 6);
 	///
-	for (int i = 0; i < towers.size(); i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (choose[i])
 		{
@@ -817,7 +984,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 	////////
-	for (int i = 0; i < towers.size(); i++)
+	for (int i = 0; i < 4; i++)
 	{
 		if (choose[i])
 		{
@@ -890,38 +1057,144 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 
+	bullets.push_back(thread(Player::print_cost_player, 140, 10, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 140, 11, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
+	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choose, filename_map, filename_enemy));
+	bullets.push_back(thread(Game::printNumEnemy));
 
-	bullets.push_back(thread(Player::print_cost_player, 144, 5, BLACK, YELLOW));
-	bullets.push_back(thread(Player::print_hp_player, 144, 6, BLACK, RED));
-	bullets.push_back(thread(enemy_move1, 20, filename_enemy));
-	bullets.push_back(thread(Player::check_win, 20));
-	bullets.push_back(thread(Game::runPlanEnemy));
+	if (Menu::music_is_open)
+		thread(Controller::playSound, GAME_SOUND).detach();
 
 	for (auto& bu : bullets)
 	{
 		bu.join();
 	}
-	if (losegame)
-	{
-		print_lose(30, 18, 8, 13);
-		Sleep(3000);
+
+	thread t(Play::process_endgame);
+
+	t.join();
+
+	if (isQuitGame) {
+		Game::isPlaying = false;
+		Menu::goBack();
+		return;
 	}
-	else
-	{
-		if (wingame)
-		{
-			print_win(30, 18, 8, 13);
-			Sleep(3000);
-		}
-	}
+
+	//if (isQuitGame) {
+	//	print_quit_game(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+	//	Sleep(3000);
+	//}
+	//else if (losegame)
+	//{
+	//	print_lose(30, 18,  LIGHT_YELLOW, LIGHT_BLUE);
+	//	Sleep(3000);
+	//}
+	//else if (wingame)
+	//{
+	//	print_win(30, 18, YELLOW, LIGHT_PURPLE);
+	//	Sleep(3000);
+	//}
 
 	int value = print_continue_board(30, 18, test);
 
 	if (value == 1)
 	{
-		isbreakmap1 = true;
+		Game::isPlaying = false;
+		Menu::goBack();
+		//isbreakmap1 = true;
 	}
+}
 
+void Play::process_endgame() {
+	if (isQuitGame) {
+		if (Menu::sound_is_open)
+			Controller::playSound(ERROR_SOUND);
+		print_quit_game(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+		Sleep(4000);
+	}
+	else if (losegame)
+	{
+		if (Menu::sound_is_open)
+			Controller::playSound(LOSE_SOUND);
+		print_lose(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+		Sleep(4000);
+	}
+	else if (wingame)
+	{
+		if (Menu::sound_is_open)
+			Controller::playSound(WIN_SOUND);
+		print_win(30, 18, LIGHT_YELLOW, LIGHT_PURPLE);
+		Sleep(4000);
+	}
+}
+
+string Play::getFileSave() {
+	mu.lock();
+	print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(132, 35);
+	putchar(204);
+	for (int i = 1; i < 21; i++) {
+		Controller::gotoXY(132 + i, 35);
+		putchar(205);
+	}
+	Controller::gotoXY(132 + 21, 35);
+	putchar(185);
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	if (Screen::isVie) {
+		Controller::gotoXY(136, 33);
+		Screen::printVietnamese(L"Nhập tên file");
+		Controller::gotoXY(134, 34);
+		Screen::printVietnamese(L"(Độ dài 6 đến 12)");
+	}
+	else {
+		Controller::gotoXY(136, 33);
+		cout << "Enter file name";
+		Controller::gotoXY(136, 34);
+		cout << "(Length 6 - 12)";
+	}
+	mu.unlock();
+	string filename;
+	do {
+		mu.lock();
+		Controller::gotoXY(134, 36);
+		getline(cin, filename);
+		if (filename.size() > 12 || filename.size() < 6) {
+			print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BLACK);
+			Controller::gotoXY(132, 35);
+			putchar(204);
+			for (int i = 1; i < 21; i++) {
+				Controller::gotoXY(132 + i, 35);
+				putchar(205);
+			}
+			Controller::gotoXY(132 + 21, 35);
+			putchar(185);
+
+			Controller::SetColor(BRIGHT_WHITE, BLACK);
+			if (Screen::isVie) {
+				Controller::gotoXY(136, 33);
+				Screen::printVietnamese(L"Nhập tên file");
+				Controller::gotoXY(134, 34);
+				Screen::printVietnamese(L"(Độ dài 6 đến 12)");
+			}
+			else {
+				Controller::gotoXY(136, 33);
+				cout << "Enter file name";
+				Controller::gotoXY(136, 34);
+				cout << "(Length 6 - 12)";
+			}
+			Controller::gotoXY(134, 36);
+			cout << "               ";
+		}
+		mu.unlock();
+	} while (filename.size() > 12 || filename.size() < 6);
+
+	mu.lock();
+	print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BRIGHT_WHITE);
+	mu.unlock();
+
+	return filename;
 }
 
 void Play::MOVE(string filename, Enemy& e)
@@ -968,13 +1241,36 @@ void Play::MOVE(string filename, Enemy& e)
 		mu.lock();
 		player.de_hp(1);
 		mu.unlock();
+
+		effect_tower_main(c);
 	}
 	e.set_hp(0);
 }
+
+void Play::effect_tower_main(Cell& c) {
+	if (Menu::sound_is_open)
+		thread(Controller::playSound, ERROR_SOUND).detach();
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, RED);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, BLACK);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, RED);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, BLACK);
+	mu.unlock();
+}
+
 void Play::enemy_move1(int num, string fileName)
 {
 	e_global.clear();
-	//e_global.resize(num);
+	e_global.resize(num);
 	vector<thread> threads;
 
 	for (int i = 0; i < num; i++)
@@ -987,18 +1283,248 @@ void Play::enemy_move1(int num, string fileName)
 		{
 			break;
 		}
+		mu.lock();
+
+		bool isPause = Game::isPause;
+
+		mu.unlock();
+
+		if (isPause) {
+			--i;
+			continue;
+		}
 
 		mu.lock();
-		Enemy dumy_e;
-		e_global.push_back(dumy_e);
-		Enemy& e = e_global[i];
+		bool Flag_Pause = Game::Flag_Pause;
 		mu.unlock();
+
+
+		if (Flag_Pause)
+		{
+			Sleep(5000);
+			mu.lock();
+			Game::Flag_Pause = false;
+			mu.unlock();
+		}
+
+
+		mu.lock();
+		Enemy& e = e_global[i];
+		Enemy::count++;
+		mu.unlock();
+
+		//Sleep(5000);
 		threads.push_back(thread(MOVE, fileName, ref(e)));
-		Sleep(5000 );
+		Sleep(5000);
 	}
 
 	for (auto& th : threads)
 	{
 		if (th.joinable()) th.join();
+	}
+}
+
+void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy) {
+	Enemy::count = 0;
+	Map newMap;
+	newMap.setMap(file_enemy);
+	vector< vector<int> > pickWay;
+	newMap.browseMap(pickWay);
+
+	player.new_hp(10);
+	Controller::setUpConsole();
+	Map test;
+	test.setMap(file_map);
+	test.printMap();
+
+	vector<thread> bullets;
+	vector<Tower> towers(4);
+	showcost = true;
+	Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
+	ingame = true;
+	losegame = false;
+	wingame = false;
+
+	///
+	for (int i = 0; i < 4; i++)
+	{
+		if (choice[i])
+		{
+			if (posTower[i][0] == 0) // up
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 1) // down
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 2) // left
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 3) // right
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+		}
+	}
+
+	////////
+	for (int i = 0; i < 4; i++)
+	{
+		if (choice[i])
+		{
+			if (posTower[i][0] == 0) // up
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 1) // down
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 2) // left
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 3) // right
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+		}
+	}
+
+
+
+	bullets.push_back(thread(Player::print_cost_player, 140, 10, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 140, 11, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(enemy_move1, Game::num_enemy, file_enemy));
+	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choice, file_map, file_enemy));
+	bullets.push_back(thread(Game::printNumEnemy));
+	if (Menu::music_is_open)
+		thread(Controller::playSound, GAME_SOUND).detach();
+
+	for (auto& bu : bullets)
+	{
+		bu.join();
+	}
+
+	if (losegame)
+	{
+		print_lose(30, 18, YELLOW, LIGHT_PURPLE);
+		Sleep(3000);
+	}
+	else if (wingame)
+	{
+		print_win(30, 18, YELLOW, LIGHT_PURPLE);
+		Sleep(3000);
+	}
+
+	int value = print_continue_board(30, 18, test);
+
+	if (value == 1)
+	{
+		Game::isPlaying = false;
+		Menu::goBack();
+		//isbreakmap1 = true;
 	}
 }

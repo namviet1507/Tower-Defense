@@ -3,7 +3,6 @@
 #include "Menu.h"
 #include "Controller.h"
 #include "Point.h"
-#include "Tower.h"
 
 class Cell {
 	int row;
@@ -11,18 +10,20 @@ class Cell {
 
 	int width;
 	int height;
-
 	int color;
 	int color_hover;
 
-	bool is_destination;
+	bool can_build;
 	bool is_tower;
 	bool is_road;
 
-	vector<bool> type; // 1: grass, 2: bush, 3: land
+	bool isGrass;
+	bool isBush;
 
 	int mark;
 	Point pos; // position (top left corner)
+
+	vector<bool> c;
 public:
 	Cell() {
 		row = 0;
@@ -33,10 +34,11 @@ public:
 		color_hover = LIGHT_YELLOW;
 		pos.setX(0);
 		pos.setY(0);
-		is_destination = false;
+		can_build = false;
 		is_tower = false;
 		is_road = false;
-		type.resize(3);
+		isGrass = true;
+		isBush = false;
 	}
 
 	void setRowCol(int, int);
@@ -46,23 +48,19 @@ public:
 	void setPos(int, int);
 	void setArea(int, int);
 
-	void setFlagDes(bool);
+	void setFlagBuild(bool);
 	void setFlagTower(bool);
 	void setFlagRoad(bool);
 
+	bool getFlagBuild();
+	bool getFlagTower();
+	bool getFlagRoad();
+
 	void setFlagGrass(bool);
 	void setFlagBush(bool);
-	void setFlagLand(bool);
-
-	vector<bool> getType();
 
 	bool getFlagGrass();
 	bool getFlagBush();
-	bool getFlagLand();
-
-	bool getFlagDes();
-	bool getFlagTower();
-	bool getFlagRoad();
 
 	int getRow();
 	int getCol();
@@ -76,6 +74,11 @@ public:
 
 	void printCell();
 	void hoverCell();
+
+	void printGrass();
+	void printBush();
+	void printDes(int bcolor, int color);
+	void setC(vector<bool>);
 
 	void setMark(int a) { mark = a; }
 	int getMark() { return mark; }

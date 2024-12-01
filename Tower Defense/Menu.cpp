@@ -8,8 +8,6 @@ bool Menu::sound_is_open;
 char NAMEFILE[100];
 char FILENAME[100];
 
-vector<string> ListFile::list_map;
-
 bool Screen::isVie = true;
 void Screen::printRectangle(int left, int top, int width, int height)
 {
@@ -33,13 +31,6 @@ void Screen::printRectangle(int left, int top, int width, int height)
 	for (i = 0; i < width; i++)
 		putchar(196);
 	putchar(217);
-
-	for (int i = top + 1; i < height + top; i++) {
-		for (int j = left + 1; j < width + 1 + left; j++) {
-			Controller::gotoXY(j, i);
-			putchar(32);
-		}
-	}
 }
 
 void Screen::printMainScreen() {
@@ -216,7 +207,8 @@ void Screen::printMainScreen() {
 					system("cls");
 					if (curChoice == 0) {
 						Game::mode = Screen::printLevel();
-						Game::file_map = ListFile::getFileMap();
+						if (Game::mode == 3) continue;
+						Menu::signup();
 						Game::setupGame();
 					}
 					else if (curChoice == 1) {
@@ -449,7 +441,7 @@ void ListFile::printListFile(int start, int end, vector<string> arrFilename) {
 
 string ListFile::getFile() {
 	fstream listFile;
-	listFile.open(LIST_FILE, ios::in | ios::binary);
+	listFile.open(LIST_FILE, ios::in);
 
 	if (!listFile) {
 		Controller::SetColor(BLACK, BRIGHT_WHITE);
@@ -461,16 +453,21 @@ string ListFile::getFile() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printRectangle(35, 12, 40, 14);
 	Controller::gotoXY(49, 13);
-	Screen::printVietnamese(L"Danh sách FILE");
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Danh sách FILE");
+	}
+	else {
+		cout << "List FILE";
+	}
 	Controller::gotoXY(36, 14);
 	for (int i = 0; i < 39; i++) {
 		putchar(196);
 	}
 
-	char* filename = new char[100]; // ten file user luu
+	string filename; // ten file user luu
 	vector<string> arrFilename;
 	bool check = true;
-	while (listFile.read((char*)filename, 100)) {
+	while (getline(listFile, filename)) {
 		check = false;
 		arrFilename.push_back(filename);
 	}
@@ -652,12 +649,12 @@ string ListFile::getFile() {
 			case 6: // Enter
 				if (isBack) return "";
 				else {
-					strcpy_s(filename, 100, arrFilename[index].c_str());
+					/*strcpy_s(filename, 100, arrFilename[index].c_str());
 					char* temp = new char[100];
 					strcpy_s(temp, 100, filename);
 					strcpy_s(FILENAME, 100, filename);
-					strcat_s(temp, 100, ".bin\0");
-					return temp;
+					strcat_s(temp, 100, ".bin\0");*/
+					return arrFilename[index];
 				}
 				break;
 			default:
@@ -667,59 +664,6 @@ string ListFile::getFile() {
 	}
 	return "";
 }
-
-//void Menu::processLoadFile(string filename) {
-//	fstream inFile;
-//
-//	inFile.open("readLoadGame/" + filename, ios::in | ios::binary);
-//
-//	if (!inFile) return;
-//
-//	int row, col;
-//	char last_sign, sign;
-//	size_t size;
-//
-//	size_t length;
-//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
-//	wstring wstr1(length, L'\0');
-//	inFile.read(reinterpret_cast<char*>(&wstr1[0]), length * sizeof(wchar_t));
-//	a.playerName = wstr1;
-//
-//	inFile.read((char*)&a.score, sizeof(a.score));
-//
-//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
-//	wstring wstr2(length, L'\0');
-//	inFile.read(reinterpret_cast<char*>(&wstr2[0]), length * sizeof(wchar_t));
-//	b.playerName = wstr2;
-//
-//	inFile.read((char*)&b.score, sizeof(b.score));
-//
-//	inFile.read((char*)&mode, sizeof(mode));
-//
-//	inFile.read((char*)&row, sizeof(row));
-//	inFile.read((char*)&col, sizeof(col));
-//	inFile.read((char*)&last_sign, sizeof(last_sign));
-//	inFile.read((char*)&size, sizeof(size));
-//	createBoard();
-//	cur_point = &board[row][col];
-//	for (int i = 0; i < size; i++) {
-//
-//		inFile.read((char*)&row, sizeof(row));
-//		inFile.read((char*)&col, sizeof(col));
-//		inFile.read((char*)&sign, sizeof(sign));
-//		board[row][col].sign = sign;
-//		history.push(&board[row][col]);
-//	}
-//
-//	system("cls");
-//	system("color F0");
-//	printBoard();
-//	printScoreBoard(); // in bảng điểm
-//	Game::isPlaying = true;
-//	controlPoint();
-//
-//	inFile.close();
-//}
 
 void Menu::readLoadGame() {
 	system("cls");
@@ -763,14 +707,21 @@ void Menu::readLoadGame() {
 	Screen::printVietnamese(L" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝\n");
 
 
-	//string filename = getFile();
-	//if (filename != "") {
-	//	//Game::processLoadFile(filename);
-	//	return;
-	//}
-	//else {
-	//	Menu::goBack();
-	//}
+	string filename = ListFile::getFile();
+	if (filename != "") {
+		vector<vector<int>> posTower(4, vector<int>(5));
+		int res[4];
+		bool choice[4];
+		string file_map;
+		string file_enemy;
+		ListFile::processLoadFile(filename, posTower, res, choice, file_map, file_enemy);
+
+		Play::playContinue(posTower, res, choice, file_map, file_enemy);
+		return;
+	}
+	else {
+		Menu::goBack();
+	}
 }
 
 void Menu::Setting() {
@@ -1097,7 +1048,24 @@ void Menu::Setting() {
 }
 
 void Menu::signup() {
-
+	Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+	system("cls");
+	Screen::printLogoStandard();
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(28, 16);
+	Screen::printVietnamese(L"Nhập tên của bạn ngắn thôi nha, ít hơn 20 ký tự");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(35, 18);
+	Screen::printVietnamese(L"Nhập tên:  ");
+	_setmode(_fileno(stdin), _O_U16TEXT);
+	wstring name;
+	getline(wcin, name);
+	player.setName(name);
+	if (player.getName() == L"")
+		player.setName(L"Unknown");
+	_setmode(_fileno(stdin), _O_TEXT);
+	if (Menu::sound_is_open)
+		Controller::playSound(ENTER_SOUND);
 }
 
 void Screen::printVietnamese(wstring text) {
@@ -1343,407 +1311,91 @@ void Menu::goBack() {
 	Screen::printMainScreen();
 }
 
-void ListFile::getListFileMap() {
-	fstream file_list_map;
+void ListFile::processSaveFile(string filename, vector<vector<int>> posTower, int res[4], bool choice[], string file_map, string file_enemy) {
+	fstream fout;
 
-	string path;
-	if (Game::mode == 0) path = FileListMapEasy;
-	else if (Game::mode == 1) path = FileListMapNormal;
-	else if (Game::mode == 2) path = FileListMapDificult;
+	fout.open(LIST_FILE, ios::app);
 
-	file_list_map.open(path.c_str(), ios::in | ios::binary);
-	if (file_list_map.is_open() == false)
-		return;
+	if (fout.is_open() == false) return;
+	fout << filename << '\n';
+	fout.close();
 
-	char filename[100];
-	list_map.clear();
-	while (file_list_map.read((char*)&filename, 100)) {
-		string s = filename;
-		if (s.find("enemy") != string::npos) continue;
-		int start = 0;
-		int end = (int)s.rfind('_');
-		s = s.substr(start, end - start);
-		list_map.push_back(s);
+	filename = ".\\ListSaveFile\\" + filename + ".bin";
+
+	fout.open(filename.c_str(), ios::out | ios::binary);
+
+	if (fout.is_open() == false) return;
+
+	char str[100];
+	strcpy_s(str, 100, file_map.c_str());
+	fout.write(str, 100);
+	strcpy_s(str, 100, file_enemy.c_str());
+	fout.write(str, 100);
+
+	mu.lock();
+	int cost = player.get_cost();
+	wchar_t name[100];
+	wcscpy_s(name, 100, player.getName().c_str());
+	mu.unlock();
+	fout.write(reinterpret_cast<const char*>(name), sizeof(name));
+	fout.write((char*)&cost, sizeof(int));
+	for (int i = 0; i < 4; i++) {
+		fout.write((char*)&choice[i], sizeof(bool));
 	}
 
-	file_list_map.close();
-}
-
-string ListFile::getFileMap() {
-	getListFileMap();
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	system("cls");
-	Screen::printLogoStandard();
-	int x = 44, y = 14;
-
-	if (list_map.size() == 0) {
-		Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-		Screen::printRectangle(x, y, 12, 4);
-		if (Screen::isVie) {
-			Controller::gotoXY(x + 4, y + 2);
-			Screen::printVietnamese(L"TRỞ LẠI");
-		}
-		else {
-			Controller::gotoXY(x + 5, y + 2);
-			cout << "BACK";
-		}
-		cin.get();
-		Menu::goBack();
-		return "";
-	}
-
-
-	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-	for (int i = 0; i < list_map.size(); i++) {
-		Screen::printRectangle(x, y, 12, 4);
-		Controller::gotoXY(x + 4, y + 2);
-		cout << list_map[i];
-
-		if ((i + 1) % 3 == 0) {
-			y += 6;
-			x = 44;
-		}
-		else x += 24;
-	}
-	Screen::printRectangle(x, y, 12, 4);
-	if (Screen::isVie) {
-		Controller::gotoXY(x + 4, y + 2);
-		Screen::printVietnamese(L"TRỞ LẠI");
-	}
-	else {
-		Controller::gotoXY(x + 5, y + 2);
-		cout << "BACK";
-	}
-
-	string res;
-	string* pointer = &list_map[0];
-	x = 44; y = 14;
-	Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-	Screen::printRectangle(x, y, 12, 4);
-	Controller::gotoXY(x + 4, y + 2);
-	cout << *pointer;
-	int row = 0;
-	int col = 0;
-	while (true) {
-		switch (Controller::getConsoleInput()) {
-		case 1:
-			return "";
-			break;
-		case 2: // up
-			if (Menu::sound_is_open) {
-				Controller::playSound(MOVE_SOUND);
-			}
-			if (pointer == nullptr && row > 0) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				if (Screen::isVie) {
-					Controller::gotoXY(x + 4, y + 2);
-					Screen::printVietnamese(L"TRỞ LẠI");
-				}
-				else {
-					Controller::gotoXY(x + 5, y + 2);
-					cout << "BACK";
-				}
-				y -= 6;
-				row--;
-				pointer = &list_map.back() - 2;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			if (pointer == nullptr) break;
-			if (row > 0) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer -= 3;
-				y -= 6;
-				row--;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			break;
-		case 3: // left
-			if (Menu::sound_is_open) {
-				Controller::playSound(MOVE_SOUND);
-			}
-			if (pointer == nullptr && col > 0) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				if (Screen::isVie) {
-					Controller::gotoXY(x + 4, y + 2);
-					Screen::printVietnamese(L"TRỞ LẠI");
-				}
-				else {
-					Controller::gotoXY(x + 5, y + 2);
-					cout << "BACK";
-				}
-				x -= 24;
-				col--;
-				pointer = &list_map.back();
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			if (pointer == nullptr) break;
-			if (col > 0) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer -= 1;
-				x -= 24;
-				col--;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			break;
-		case 4: // right
-			if (Menu::sound_is_open) {
-				Controller::playSound(MOVE_SOUND);
-			}
-			if (pointer == nullptr)  break;
-			if (pointer - &list_map[0] == list_map.size() - 1 && col < 2) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer = nullptr;
-				x += 24;
-				col++;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				if (Screen::isVie) {
-					Controller::gotoXY(x + 4, y + 2);
-					Screen::printVietnamese(L"TRỞ LẠI");
-				}
-				else {
-					Controller::gotoXY(x + 5, y + 2);
-					cout << "BACK";
-				}
-			}
-			else if (col < 2) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer += 1;
-				col++;
-				x += 24;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			break;
-		case 5: // down
-			if (Menu::sound_is_open) {
-				Controller::playSound(MOVE_SOUND);
-			}
-			if (pointer == nullptr)  break;
-			if (pointer - &list_map[0] + 3 == list_map.size()) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer = nullptr;
-				y += 6;
-				row++;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				if (Screen::isVie) {
-					Controller::gotoXY(x + 4, y + 2);
-					Screen::printVietnamese(L"TRỞ LẠI");
-				}
-				else {
-					Controller::gotoXY(x + 5, y + 2);
-					cout << "BACK";
-				}
-			}
-			else if (&list_map.back() - pointer > 2) {
-				Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-				pointer += 3;
-				y += 6;
-				row++;
-				Controller::SetColor(LIGHT_PURPLE, BRIGHT_WHITE);
-				Screen::printRectangle(x, y, 12, 4);
-				Controller::gotoXY(x + 4, y + 2);
-				cout << *pointer;
-			}
-			break;
-		case 6: // enter
-			if (Menu::sound_is_open) {
-				Controller::playSound(ENTER_SOUND);
-			}
-			if (pointer == nullptr) {
-				Menu::goBack();
-				break;
-			}
-
-			return *pointer;
-			break;
-		default:
-			break;
+	for (int i = 0; i < 4; i++) {
+		if (choice[i]) {
+			fout.write((char*)&res[i], sizeof(int));
+			fout.write((char*)&posTower[i][0], sizeof(int));
+			fout.write((char*)&posTower[i][1], sizeof(int));
+			fout.write((char*)&posTower[i][2], sizeof(int));
+			fout.write((char*)&posTower[i][3], sizeof(int));
+			fout.write((char*)&posTower[i][4], sizeof(int));
 		}
 	}
 
-	return "";
+	fout.close();
 }
 
-void Screen::printTower(int x, int y) {
-	Controller::gotoXY(x, y);
-	Controller::setColorRGB(RGB_GRAY, RGB_BLACK);
-	Screen::printVietnamese(L" ▄ ");
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▄|");
-	Controller::SetColor(BRIGHT_WHITE, RED);
-	Screen::printVietnamese(L"▀");
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▄");
-	Controller::setColorRGB(RGB_GRAY, RGB_BLACK);
-	Screen::printVietnamese(L" ▄ ");
+void ListFile::processLoadFile(string filename, vector<vector<int>>& posTower, int res[4], bool choice[], string& file_map, string& file_enemy) {
+	filename = ".\\ListSaveFile\\" + filename + ".bin";
 
-	Controller::gotoXY(x, y + 1);
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L"█        █");
+	fstream fin(filename.c_str(), ios::in | ios::binary);
 
+	if (fin.is_open() == false) return;
 
-	Controller::gotoXY(x, y + 2);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L" ");
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L"█      █");
+	char str[100];
 
-	Controller::gotoXY(x, y + 3);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L" ");
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L"█ ");
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L"▐");
-	Controller::setColorRGB(RGB_BROWN, RGB_GRAY);
-	Screen::printVietnamese(L"██");
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L"▌");
-	Controller::setColorRGB(RGB_BLACK, RGB_GRAY);
-	Screen::printVietnamese(L" █");
-}
+	fin.read(str, 100);
+	file_map = str;
+	fin.read(str, 100);
+	file_enemy = str;
 
-void Screen::printAnt(int x, int y) {
-	Controller::gotoXY(x, y);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▄");
-	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
-	Screen::printVietnamese(L"▄▄▄▄");
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▄");
+	int cost;
+	wchar_t name[100];
 
-	Controller::gotoXY(x, y + 1);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▀");
-	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
-	Screen::printVietnamese(L"▀▀");
-	Controller::SetColor(BRIGHT_WHITE, AQUA);
-	Controller::setColorRGB(RGB_TUR, RGB_WHITE);
-	Screen::printVietnamese(L"▀");
-	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
-	Screen::printVietnamese(L"▄");
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▀█");
+	fin.read(reinterpret_cast<char*>(name), sizeof(name));
+	fin.read((char*)&cost, sizeof(int));
 
-	Controller::gotoXY(x, y + 2);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"█ ▀");
-	Controller::setColorRGB(RGB_TUR, RGB_BLACK);
-	Screen::printVietnamese(L"▀▀▀");
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▀▄");
+	mu.lock();
+	player.setName(name);
+	player.set_cost(cost);
+	mu.unlock();
 
-	Controller::gotoXY(x, y + 3);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"  ▀    ▀");
-}
+	for (int i = 0; i < 4; i++) {
+		fin.read((char*)&choice[i], sizeof(bool));
+	}
+	for (int i = 0; i < 4; i++) {
+		if (choice[i]) {
+			fin.read((char*)&res[i], sizeof(int));
+			fin.read((char*)&posTower[i][0], sizeof(int));
+			fin.read((char*)&posTower[i][1], sizeof(int));
+			fin.read((char*)&posTower[i][2], sizeof(int));
+			fin.read((char*)&posTower[i][3], sizeof(int));
+			fin.read((char*)&posTower[i][4], sizeof(int));
+		}
 
-void Screen::printBall(int x, int y) {
-	Controller::gotoXY(x, y);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▄▀▀▄");
-	Controller::gotoXY(x, y + 1);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Screen::printVietnamese(L"▀▄▄▀");
+	}
 
-}
-
-void Screen::printGrass(int x, int y) {
-	Controller::setColorRGB(RGB_L_GREEN, RGB_Y_GREEN);
-	Controller::gotoXY(x, y);
-	Screen::printVietnamese(L" ▄    ▄ ");
-	Controller::gotoXY(x, y + 1);
-	Screen::printVietnamese(L" ▀▀ ▄▄  ");
-	Controller::gotoXY(x, y + 2);
-	Screen::printVietnamese(L"  ▄  ▀▀ ");
-	Controller::gotoXY(x, y + 3);
-	Screen::printVietnamese(L"   ▀    ");
-	Controller::gotoXY(x, y + 4);
-	Screen::printVietnamese(L"   ▀▀▀  ");
-}
-
-void Screen::printBush(int x, int y) {
-	Controller::gotoXY(x, y);
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"██▀▀▀▀██");
-
-	Controller::gotoXY(x, y + 1);
-	Controller::setColorRGB(RGB_D_GREEN, RGB_Y_GREEN);
-	Screen::printVietnamese(L"█▀ ");
-	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
-	Screen::printVietnamese(L"▀");
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"   █");
-
-	Controller::gotoXY(x, y + 2);
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"█ ");
-	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
-	Screen::printVietnamese(L" ▄▀███");
-
-	Controller::gotoXY(x, y + 3);
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"▄  ");
-	Controller::setColorRGB(RGB_GREEN, RGB_Y_GREEN);
-	Screen::printVietnamese(L"▄███");
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"█");
-
-	Controller::gotoXY(x, y + 4);
-	Controller::setColorRGB(RGB_D_GREEN, RGB_GREEN);
-	Screen::printVietnamese(L"██▄▄▄███");
-}
-
-void Screen::printLand(int x, int y) {
-	Controller::gotoXY(x, y);
-	Controller::setColorRGB(RGB_L_GREEN, RGB_Y_GREEN);
-	Screen::printVietnamese(L" ▄ ▄█   ");
-	Controller::gotoXY(x, y + 1);
-	Controller::setColorRGB(RGB_BROWN, RGB_Y_GREEN);
-	Screen::printVietnamese(L" ▄▄  ▄▄ ");
-	Controller::gotoXY(x, y + 2);
-	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
-	Screen::printVietnamese(L" ▀██▀ ██");
-	Controller::gotoXY(x, y + 3);
-	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
-	Screen::printVietnamese(L" █▀█▄ ██");
-	Controller::gotoXY(x, y + 4);
-	Controller::setColorRGB(RGB_BROWN, RGB_L_BROWN);
-	Screen::printVietnamese(L"██▄█████");
+	fin.close();
 }

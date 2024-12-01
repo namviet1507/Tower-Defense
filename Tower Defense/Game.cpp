@@ -3,106 +3,137 @@
 
 int Game::mode = 0;
 bool Game::isPlaying = false;
-string Game::file_map = "";
-string Game::file_enemy = "";
-int Game::num_enemy = 20;
+bool Game::isPause = false;
+bool Game::Flag_Pause = false;
+int Game::num_enemy = 16;
 
 void Game::setupGame() {
-
 	if (Game::mode == 3) {
 		Menu::goBack();
-		return;
 	}
 	Game::isPlaying = true;
-	Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
 	system("cls");
-
-	string list_mode[3] = { "Easy", "Normal", "Difficult" };
-
-	file_enemy = "./Map/" + list_mode[mode] + "/" + file_map + "_enemy.txt";
-	file_map = "./Map/" + list_mode[mode] + "/" + file_map + "_map.txt";
-
-	printBoard();
-	Enemy::count = 0;
+	system("color F0");
 
 
-	isbreakmap1 = false;
-	while (!isbreakmap1)
-		Play::play_map(file_enemy, file_map);
+	if (mode == 0)
+	{
+		isbreakmap1 = false;
+		while (!isbreakmap1)
+			Play::play_map(".\\Map\\level1_enemy.txt", ".\\Map\\level1_map.txt");
+	}
+	else if (mode == 1)
+	{
+		isbreakmap1 = false;
+		while (!isbreakmap1)
+			Play::play_map(".\\Map\\level2_enemy.txt", ".\\Map\\level2_map.txt");
+	}
+	else {
+		isbreakmap1 = false;
+		while (!isbreakmap1)
+			Play::play_map(".\\Map\\level3_enemy.txt", ".\\Map\\level3_map.txt");
+	}
 }
 
 void Game::printBoard() {
 	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
 	Screen::printRectangle(130, 1, 24, 39);
 
-	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
-	Screen::printRectangle(137, 36, 10, 2);
-	Controller::gotoXY(140, 37);
-	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
-	if (Screen::isVie)
-		Screen::printVietnamese(L"THOÁT");
-	else
-		cout << "EXIT";
+	Controller::SetColor(BRIGHT_WHITE, GREEN);
+	Controller::gotoXY(140, 3);
+	Screen::printVietnamese(L" ╔╦╦╦╗  ");
+	Controller::gotoXY(140, 4);
+	Screen::printVietnamese(L" █████  ");
+	Controller::gotoXY(140, 5);
+	Screen::printVietnamese(L"  █■█   ");
+	Controller::gotoXY(140, 6);
+	Screen::printVietnamese(L" █▓█▓█  ");
+	Controller::gotoXY(140, 7);
+	Screen::printVietnamese(L"███████ ");
 
 	// ▀ █ ▄ ▐ ▌
 
-	Screen::printTower(132, 3);
+	Controller::gotoXY(132, 35);
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Bấm ESC dừng trò chơi!");
+	}
+	else {
+		cout << "Enter ESC to pause game!";
+	}
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(144, 4);
-	Screen::printVietnamese(L"UNKNOWN");
+	Controller::gotoXY(140, 9);
+	wcout << player.getName();
 
-	Controller::gotoXY(135, 9);
+	int t = (int)(Enemy::count * 1.0 / Game::num_enemy) * 15;
+	Controller::gotoXY(135 + t, 13);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printVietnamese(L"|");
 	Controller::SetColor(BRIGHT_WHITE, RED);
 	Screen::printVietnamese(L"▀");
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(135, 10);
+	Controller::gotoXY(135, 14);
 	for (int i = 0; i < 16; i++) {
-		if (i % 5 == 0)
+		if (i == 0 || i == 15)
 			Screen::printVietnamese(L"█");
 		else
 			Screen::printVietnamese(L"▄");
 	}
 }
 
-void Game::runPlanEnemy() {
-	int x = 135;
-	int y = 9;
-	int last = Enemy::count;
+void Game::printNumEnemy() {
+	mu.lock();
+	bool check = ingame;
+	mu.unlock();
 
-	while (Enemy::count < num_enemy) {
+	mu.lock();
+	bool isPause = Game::isPause;
+	int last_count = Enemy::count;
+	mu.unlock();
 
-		if (Enemy::count != last) {
+
+	while (check)
+	{
+		
+		mu.lock();
+		check = ingame;
+		mu.unlock();
+		mu.lock();
+		isPause = Game::isPause;
+		mu.unlock();
+
+		if (isPause) continue;
+
+		mu.lock();
+		int cur_count = Enemy::count;
+		mu.unlock();
+
+		if (cur_count != last_count) {
 			mu.lock();
-			int last_t = static_cast<int>((last) * (15 * 1.0 / num_enemy));
-			mu.unlock();
-
-			mu.lock();
-			Controller::gotoXY(x + last_t, y);
+			int last_t = (int)((last_count * 1.0 / Game::num_enemy) * 15);
+	
+			Controller::gotoXY(135 + last_t, 13);
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
-			Screen::printVietnamese(L"  ");
+			Screen::printVietnamese(L"|");
+			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
+			Screen::printVietnamese(L"▀");
+
 			mu.unlock();
 
 			mu.lock();
-			int t = static_cast<int>(Enemy::count * (15 * 1.0 / num_enemy));
-			mu.unlock();
+			int t = (int)((cur_count * 1.0 / Game::num_enemy) * 15);
 
-			mu.lock();
-			Controller::gotoXY(x + t, y);
+			Controller::gotoXY(135 + t, 13);
 			Controller::SetColor(BRIGHT_WHITE, BLACK);
 			Screen::printVietnamese(L"|");
 			Controller::SetColor(BRIGHT_WHITE, RED);
 			Screen::printVietnamese(L"▀");
 			mu.unlock();
-
-
-			mu.lock();
-			last = Enemy::count;
-			mu.unlock();
-
+			
+			last_count = cur_count;
 		}
+
 	}
 }

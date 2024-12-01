@@ -4,7 +4,7 @@
 struct Controller {
 	static HWND consoleWindow;    //Con trỏ xử lí cửa sổ console
 	static HANDLE consoleOutput;  //Con trỏ xử lí output console
-	static void SetColor(int background_color, int text_color);			  //Cài đặt màu
+	static void SetColor(int, int);			  //Cài đặt màu
 	static void setColorRGB(int red, int green, int blue, int bgRed, int bgGreen, int bgBlue);
 	static void setUpConsole();               //Thiết lập cửa sổ console
 	static void gotoXY(int, int);			  //Di chuyển con trỏ đến vị trí x,y

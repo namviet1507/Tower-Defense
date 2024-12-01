@@ -2,7 +2,7 @@
 #include "Library.h"
 #include "Player.h"
 
-#define LIST_FILE "listFile.txt"
+#define LIST_FILE "./ListSaveFile/listFile.txt"
 class Menu
 {
 private:
@@ -14,8 +14,9 @@ public:
 	static void goBack();									//Trở về menu
 	static void readLoadGame();								//Đọc bảng xếp hạng
 
-	static void helpScreen();								//Màn hình hướng dẫn
-	static void signup();									// Đăng ký
+		static void helpScreen();								//Màn hình hướng dẫn
+		static void signup();									// Đăng ký
+
 };
 
 struct Screen {
@@ -43,11 +44,6 @@ struct ListFile {
 	// load game
 	static void printListFile(int start, int end, vector<string> arrFilename);
 	static string getFile();
-	static void processSaveFile(char);		// Lưu file
-	static void processLoadFile(string filename);	// Tải file
-
-	// get file of map
-	static vector<string> list_map;
-	static void getListFileMap();
-	static string getFileMap();
+	static void processSaveFile(string, vector<vector<int>> posTower, int res[4], bool choice[], string file_map, string file_enemy);		// Lưu file
+	static void processLoadFile(string filename, vector<vector<int>>& posTower, int res[4], bool choice[], string& file_map, string& file_enemy);	// Tải file
 };

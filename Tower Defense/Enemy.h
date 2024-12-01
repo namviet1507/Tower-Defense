@@ -17,8 +17,7 @@ class Enemy
 	int speed;
 public:
 	static int count;
-
-	Enemy() { hp = 10; x_e = 0; y_e = 0; count++; speed = 1; }
+	Enemy() { hp = 10; x_e = 0; y_e = 0; }
 
 	int get_x() { return x_e; }
 	int get_y() { return y_e; }

@@ -70,6 +70,14 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(SolutionDir)SFML\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SFML\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(SolutionDir)SFML\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)SFML\lib;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -105,13 +113,13 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-audio.lib;sfml-system-d.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -123,15 +131,15 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)SFML\lib;$(SolutionDir)SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-audio-d.lib;sfml-audio.lib;sfml-system-d.lib;sfml-system.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-audio.lib;sfml-network.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -142,6 +150,7 @@
     <ClInclude Include="Library.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Menu.h" />
+    <ClInclude Include="Monster.h" />
     <ClInclude Include="Play.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Point.h" />
@@ -155,10 +164,22 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Play.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Point.cpp" />
     <ClCompile Include="Tower.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ListSaveFile\listFile.txt" />
+    <Text Include="Map\level1.txt" />
+    <Text Include="Map\level1_enemy.txt" />
+    <Text Include="Map\level1_map.txt" />
+    <Text Include="Map\level2.txt" />
+    <Text Include="Map\level2_enemy.txt" />
+    <Text Include="Map\level2_map.txt" />
+    <Text Include="Map\level3_enemy.txt" />
+    <Text Include="Map\level3_map.txt" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sound\effect.wav" />
@@ -172,21 +193,7 @@
     <Media Include="Sound\win.wav" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="Map\Easy\leve1_enemy.txt" />
-    <Text Include="Map\Easy\level1_enemy.txt" />
-    <Text Include="Map\Easy\level1_map.txt" />
-    <Text Include="Map\Easy\level2_enemy.txt" />
-    <Text Include="Map\Easy\level2_map.txt" />
-    <Text Include="Map\Easy\level3_enemy.txt" />
-    <Text Include="Map\Easy\level3_map.txt" />
-    <Text Include="Map\Easy\level4_enemy.txt" />
-    <Text Include="Map\Easy\level4_map.txt" />
-    <Text Include="Map\Normal\level1_enemy.txt" />
-    <Text Include="Map\Normal\level1_map.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Map\Easy\ListFileMap.bin" />
-    <None Include="Map\Normal\ListFileMap.bin" />
+    <None Include="ListSaveFile\savegame1.bin" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

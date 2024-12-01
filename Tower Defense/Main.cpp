@@ -6,14 +6,10 @@
 #include "Play.h"
 
 int main() {
-	Map test;
-
-	test.createMap();
-
-	/*Controller::setUpConsole();
+	Sleep(100);
+	Controller::setUpConsole();
 	Menu::music_is_open = true;
 	Menu::sound_is_open = true;
-	Screen::printMainScreen();*/
-
+	Screen::printMainScreen();
 	return 0;
 }
