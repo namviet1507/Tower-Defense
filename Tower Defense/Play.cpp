@@ -522,6 +522,10 @@ int Play::printMenuPause(int x, int y, int bcolor, int color) {
 
 int Play::get_lever_Tower(int x, int y, Map m)
 {
+	if (x > 100) x = x -= (10 + 9 + 11 + 7);
+	if (y > 30) y -= 5;
+
+
 	print_menu_Tower(x, y);
 	int old_pos;
 	int pos = 1;
@@ -690,6 +694,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	newMap.browseMap(pickWay);
 
 	player.new_hp(10);
+	player.set_cost(50);
 	Map test;
 	test.setMap(filename_map);
 	test.printMap();

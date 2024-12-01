@@ -178,6 +178,8 @@ void Cell::printBush() {
 		Screen::printVietnamese(L"        ");
 	}
 
+	if (c.size() == 0) c.resize(4, false);
+
 	int ran = 3127 * (row + 16) * (col * 17);
 
 	//c[0] top, c[1] bot, c[2] left, c[3] right

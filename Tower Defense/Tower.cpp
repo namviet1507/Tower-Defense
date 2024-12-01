@@ -124,12 +124,18 @@ void Tower::tower_bullet_level1_Up(int x, int y, int x_end, int y_end)
             continue;
         }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel1_Up, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(150);
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel1_Up, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
+        
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -249,12 +255,19 @@ void Tower::tower_bullet_level1_Left(int x, int y, int x_end, int y_end)
         if (isPause) {
             continue;
         }
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel1_Left, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(150);
+
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel1_Left, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -375,12 +388,19 @@ void Tower::tower_bullet_level1_Right(int x, int y, int x_end, int y_end)
         if (isPause) {
             continue;
         }
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel1_Right, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(150);
+
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel1_Right, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -489,12 +509,19 @@ void Tower::tower_bullet_level1_Down(int x, int y, int x_end, int y_end)
         if (isPause) {
             continue;
         }
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel1_Down, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(150);
+
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel1_Down, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
+
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -615,13 +642,18 @@ void Tower::tower_bullet_level2_Up(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel2_Up, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(120);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -754,13 +786,18 @@ void Tower::tower_bullet_level2_Left(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel2_Left, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel2_Left, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(120);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -888,22 +925,19 @@ void Tower::tower_bullet_level2_Right(int x, int y, int x_end, int y_end)
             continue;
         }
 
-
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel2_Right, &bullet, x, y, x_end, y_end);
-
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(120);
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel2_Right, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
         }
 
-        //if(bullet_firt.joinable())
-        //{
-        //    Controller::gotoXY(125, 32);
-        //    cout << "hi";
-        //    Sleep(3000);
-        //}
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
+        }
     }
 }
 
@@ -1016,13 +1050,18 @@ void Tower::tower_bullet_level2_Down(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel2_Down, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel2_Down, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(120);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -1138,13 +1177,18 @@ void Tower::tower_bullet_level3_Up(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel3_Up, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel3_Up, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(100);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -1272,13 +1316,18 @@ void Tower::tower_bullet_level3_Left(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel3_Left, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel3_Left, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(100);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -1408,13 +1457,18 @@ void Tower::tower_bullet_level3_Right(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel3_Right, &magazine[i], x, y, x_end, y_end));
+            Sleep(3000);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel3_Right, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(100);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
@@ -1544,13 +1598,18 @@ void Tower::tower_bullet_level3_Down(int x, int y, int x_end, int y_end)
             continue;
         }
 
+        vector<Bullet> magazine(5);
+        vector<thread> t_bullet;
+        for (int i = 0; i < 5; i++) {
+            t_bullet.push_back(thread(&Bullet::wayBulletOfLevel3_Down, &magazine[i], x, y, x_end, y_end));
+            Sleep(1500);
+        }
 
-        Bullet bullet;
-        thread bullet_firt(&Bullet::wayBulletOfLevel3_Down, &bullet, x, y, x_end, y_end);
-        if (bullet_firt.joinable())
-        {
-            bullet_firt.join();
-            Sleep(100);
+        for (int i = 0; i < 5; i++) {
+            if (t_bullet[i].joinable())
+            {
+                t_bullet[i].join();
+            }
         }
     }
 }
