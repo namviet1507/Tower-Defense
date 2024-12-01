@@ -29,7 +29,7 @@ void Player::print_hp(int x, int y, int bcolor, int color, int _hp)
 	Controller::SetColor(bcolor, color);
 	for (int i = 0; i < _hp; i++)
 	{
-		Screen::printVietnamese(L"█");
+		Screen::printVietnamese(L"▌");
 	}
 	mu.unlock();
 	//Sleep(1000);
@@ -177,7 +177,7 @@ void Player::check_win(int num_enemy, vector<vector<int>> posTower, int _res[], 
 				Game::isPause = true;
 				//auto start = high_resolution_clock::now();
 
-				res = Play::printMenuPause(135, 15, BRIGHT_WHITE, LIGHT_PURPLE);
+				res = Play::printMenuPause(135, 17, BRIGHT_WHITE, LIGHT_PURPLE);
 				mu.unlock();
 			}
 		}
@@ -195,9 +195,6 @@ void Player::check_win(int num_enemy, vector<vector<int>> posTower, int _res[], 
 			}
 			else if (res == 1) {
 				string filename = Play::getFileSave();
-
-
-
 				ListFile::processSaveFile(filename, posTower, _res, choice, file_map, file_enemy);
 
 				mu.lock();
