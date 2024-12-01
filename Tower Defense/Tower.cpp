@@ -511,9 +511,10 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, BLACK);
         Controller::gotoXY(x + 2, y - 1 - i);
-        Screen::printVietnamese(L"^");
+        cout << "^";
         Controller::gotoXY(x + 4, y - 1 - i);
         Screen::printVietnamese(L"^");
+        cout << "^";
         mu.unlock();
 
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
@@ -524,9 +525,9 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
         Controller::gotoXY(x + 2, y - 1 - i);
-        Screen::printVietnamese(L" ");
+        cout << " ";
         Controller::gotoXY(x + 4, y - 1 - i);
-        Screen::printVietnamese(L" ");
+        cout << " ";
         i += 1;
         mu.unlock();
 
