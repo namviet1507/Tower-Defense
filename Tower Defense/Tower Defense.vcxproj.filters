@@ -19,6 +19,9 @@
     <Filter Include="Resource Files\Sound">
       <UniqueIdentifier>{0f23092d-8c0d-437d-8e59-2ce1babc6087}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\ListSaveFile">
+      <UniqueIdentifier>{d7ef00fa-914e-4888-9936-bc2ba567f1bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Controller.h">
@@ -109,6 +112,9 @@
     <Text Include="Map\level2.txt">
       <Filter>Resource Files\Map</Filter>
     </Text>
+    <Text Include="ListSaveFile\listFile.txt">
+      <Filter>Resource Files\ListSaveFile</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sound\effect.wav">
@@ -138,5 +144,10 @@
     <Media Include="Sound\win.wav">
       <Filter>Resource Files\Sound</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ListSaveFile\savegame1.bin">
+      <Filter>Resource Files\ListSaveFile</Filter>
+    </None>
   </ItemGroup>
 </Project>
