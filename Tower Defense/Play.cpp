@@ -387,6 +387,110 @@ void Play::print_menu_Tower(int x, int y)
 	print_x_block(x + 7 + 9 + 11, y, 5, 6);
 }
 
+void Play::printBoxContinue(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+	
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Tiếp tục");
+	}
+	else {
+		cout << "Continue";
+	}
+}
+
+void Play::printBoxSave(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Lưu Game");
+	}
+	else {
+		cout << "Save Game";
+	}
+}
+
+void Play::printBoxExit(int x, int y, int bcolor, int color) {
+	print_rectangle(x, y, 15, 3, bcolor, color);
+
+	Controller::gotoXY(x + 3, y + 1);
+	Controller::SetColor(bcolor, color);
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Thoát Game");
+	}
+	else {
+		cout << "Exit Game";
+	}
+}
+
+int Play::printMenuPause(int x, int y, int bcolor, int color) {
+	Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+	Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+	Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+
+	int choice = 0;
+
+	while (true) {
+		if (_kbhit()) {
+			switch (Controller::getConsoleInput())
+			{
+			case 2:
+				if (choice > 0) {
+					choice--;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 5:
+				if (choice < 2) {
+					choice++;
+					if (choice == 0) {
+						Play::printBoxContinue(x, y, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else if (choice == 1) {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, LIGHT_PURPLE, BRIGHT_WHITE);
+						Play::printBoxExit(x, y + 8, BRIGHT_WHITE, LIGHT_PURPLE);
+					}
+					else {
+						Play::printBoxContinue(x, y, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxSave(x, y + 4, BRIGHT_WHITE, LIGHT_PURPLE);
+						Play::printBoxExit(x, y + 8, LIGHT_PURPLE, BRIGHT_WHITE);
+					}
+				}
+				break;
+			case 6:
+				Play::printBoxContinue(x, y, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxSave(x, y + 4, BRIGHT_WHITE, BRIGHT_WHITE);
+				Play::printBoxExit(x, y + 8, BRIGHT_WHITE, BRIGHT_WHITE);
+				return choice;
+
+				break;
+			default:
+				break;
+			}
+		}
+	}
+}
+
 int Play::get_lever_Tower(int x, int y, Map m)
 {
 	print_menu_Tower(x, y);
@@ -551,12 +655,11 @@ void Play::play_map(string filename_enemy, string filename_map)
 	newMap.browseMap(pickWay);
 
 	player.new_hp(10);
-	Controller::setUpConsole();
 	Map test;
 	test.setMap(filename_map);
 	test.printMap();
 
-	vector< vector<int> > posTower;
+	vector< vector<int> > posTower; 
 	test.findPositionOfTower(posTower);
 
 	bool choose[4] = { false,false,false,false };
@@ -891,26 +994,25 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 
 	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 138, 3, 0, 4));
-	bullets.push_back(thread(enemy_move1, 20, filename_enemy));
-	bullets.push_back(thread(Player::check_win, 20));
+	bullets.push_back(thread(Player::print_hp_player, 138, 3, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
+	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choose, filename_map, filename_enemy));
+	bullets.push_back(thread(Game::printNumEnemy));
 
 	for (auto& bu : bullets)
 	{
 		bu.join();
 	}
+
 	if (losegame)
 	{
 		print_lose(30, 18, YELLOW, LIGHT_PURPLE);
 		Sleep(3000);
 	}
-	else
+	else if (wingame)
 	{
-		if (wingame)
-		{
-			print_win(30, 18, YELLOW, LIGHT_PURPLE);
-			Sleep(3000);
-		}
+		print_win(30, 18, YELLOW, LIGHT_PURPLE);
+		Sleep(3000);
 	}
 
 	int value = print_continue_board(30, 18, test);
@@ -921,6 +1023,47 @@ void Play::play_map(string filename_enemy, string filename_map)
 		Menu::goBack();
 		//isbreakmap1 = true;
 	}
+}
+
+string Play::getFileSave() {
+	mu.lock();
+	print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(132, 35);
+	putchar(204);
+	for (int i = 1; i < 21; i++) {
+		Controller::gotoXY(132 + i, 35);
+		putchar(205);
+	}
+	Controller::gotoXY(132 + 21, 35);
+	putchar(185);
+
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	if (Screen::isVie) {
+		Controller::gotoXY(136, 33);
+		Screen::printVietnamese(L"Nhập tên file");
+		Controller::gotoXY(134, 34);
+		Screen::printVietnamese(L"(Độ dài 6 đến 12)");
+	}
+	else {
+		Controller::gotoXY(136, 33);
+		cout << "Enter file name";
+		Controller::gotoXY(136, 34);
+		cout << "(Length 6 - 12)";
+	}
+	mu.unlock();
+	string filename;
+	do {
+		mu.lock();
+		Controller::gotoXY(134, 36);
+		getline(cin, filename);
+		mu.unlock();
+	} while (filename.size() > 12 || filename.size() < 6);
+
+	mu.lock();
+	print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BRIGHT_WHITE);
+	mu.unlock();
+
+	return filename;
 }
 
 void Play::MOVE(string filename, Enemy& e)
@@ -986,10 +1129,37 @@ void Play::enemy_move1(int num, string fileName)
 		{
 			break;
 		}
+		mu.lock();
+
+		bool isPause = Game::isPause;
+		
+		mu.unlock();
+
+		if (isPause) {
+			--i;
+			continue;
+		}
+
+		mu.lock();
+		bool Flag_Pause = Game::Flag_Pause;
+		mu.unlock();
+
+
+		if (Flag_Pause)
+		{
+			Sleep(5000);
+			mu.lock();
+			Game::Flag_Pause = false;
+			mu.unlock();
+		}
+
 
 		mu.lock();
 		Enemy& e = e_global[i];
+		Enemy::count++;
 		mu.unlock();
+
+		//Sleep(5000);
 		threads.push_back(thread(MOVE, fileName, ref(e)));
 		Sleep(5000);
 	}
@@ -997,5 +1167,207 @@ void Play::enemy_move1(int num, string fileName)
 	for (auto& th : threads)
 	{
 		if (th.joinable()) th.join();
+	}
+}
+
+void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy) {
+	Map newMap;
+	newMap.setMap(file_enemy);
+	vector< vector<int> > pickWay;
+	newMap.browseMap(pickWay);
+
+	player.new_hp(10);
+	Controller::setUpConsole();
+	Map test;
+	test.setMap(file_map);
+	test.printMap();
+
+	vector<thread> bullets;
+	vector<Tower> towers(4);
+	showcost = true;
+	Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
+	ingame = true;
+	losegame = false;
+	wingame = false;
+
+	///
+	for (int i = 0; i < 4; i++)
+	{
+		if (choice[i])
+		{
+			if (posTower[i][0] == 0) // up
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Up(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 1) // down
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Down(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 2) // left
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Left(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+
+
+			if (posTower[i][0] == 3) // right
+			{
+				if (res[i] == 1)
+				{
+					towers[i].drawTowerLevel1_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 2)
+				{
+					towers[i].drawTowerLevel2_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+				else if (res[i] == 3)
+				{
+					towers[i].drawTowerLevel3_Right(posTower[i][1], posTower[i][2], 6, 4);
+				}
+			}
+		}
+	}
+
+	////////
+	for (int i = 0; i < 4; i++)
+	{
+		if (choice[i])
+		{
+			if (posTower[i][0] == 0) // up
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Up, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 1) // down
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Down, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 2) // left
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Left, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+
+
+			if (posTower[i][0] == 3) // right
+			{
+				if (res[i] == 1)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level1_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 2)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level2_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+				else if (res[i] == 3)
+				{
+					bullets.push_back(thread(&Tower::tower_bullet_level3_Right, &towers[i], posTower[i][1], posTower[i][2], posTower[i][3], posTower[i][4]));
+				}
+			}
+		}
+	}
+
+
+
+	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 138, 3, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(enemy_move1, Game::num_enemy, file_enemy));
+	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choice, file_map, file_enemy));
+	bullets.push_back(thread(Game::printNumEnemy));
+
+	for (auto& bu : bullets)
+	{
+		bu.join();
+	}
+
+	if (losegame)
+	{
+		print_lose(30, 18, 8, 13);
+		Sleep(3000);
+	}
+	else if (wingame)
+	{
+		print_win(30, 18, 8, 13);
+		Sleep(3000);
+	}
+
+	int value = print_continue_board(30, 18, test);
+
+	if (value == 1)
+	{
+		Game::isPlaying = false;
+		Menu::goBack();
+		//isbreakmap1 = true;
 	}
 }

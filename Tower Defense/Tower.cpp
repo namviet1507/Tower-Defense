@@ -1,6 +1,7 @@
 ﻿#include "Tower.h"
 #include "Controller.h"
 #include "Library.h"
+#include "Game.h"
 #include <mutex>
 
 mutex mu_global2;
@@ -17,6 +18,15 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::gotoXY(x + 2, y - 1 - i);
@@ -59,15 +69,33 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Up(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::gotoXY(x + 2, y);
+    //Controller::gotoXY(x + 2, y);
+    //Controller::SetColor(colorFirst, colorSecond);
+    //Screen::printVietnamese(L"▓");
+    //Controller::gotoXY(x + 2, y + 1);
+    //Screen::printVietnamese(L"▓");
+    //Controller::gotoXY(x, y + 2);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 3);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+
+    //╔╦╦▐╦╦╦╗
+    //╠▓▄▐ ▄▓╣
+    //╠▓████▓╣
+    //╠▓████▓╣
+    //╚╩╩╩╩╩╩╝
+
     Controller::SetColor(colorFirst, colorSecond);
-    Screen::printVietnamese(L"▓");
-    Controller::gotoXY(x + 2, y + 1);
-    Screen::printVietnamese(L"▓");
+    Controller::gotoXY(x, y);
+    Screen::printVietnamese(L"╔╦╦▐╦╦╦╗");
+    Controller::gotoXY(x, y + 1);
+    Screen::printVietnamese(L"╠▓▄▐ ▄▓╣");    // 3 
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"╠▓████▓╣"); // 5
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"╠▓████▓╣"); // 9
+    Controller::gotoXY(x, y + 4);
+    Screen::printVietnamese(L"╚╩╩╩╩╩╩╝");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -84,6 +112,14 @@ void Tower::tower_bullet_level1_Up(int x, int y, int x_end, int y_end)
         if (check == false)
         {
             break;
+        }
+
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
         }
 
         Bullet bullet;
@@ -110,7 +146,16 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
         mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+        mu.lock();
+
         Controller::gotoXY(x - 5 - i, y + 3);
         Controller::SetColor(LIGHT_YELLOW, BLACK);
         Screen::printVietnamese(L"<");
@@ -147,7 +192,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Left(int x, int y, int colorFirst, int colorSecond)
 {
-    Controller::SetColor(colorFirst, colorSecond);
+    /*Controller::SetColor(colorFirst, colorSecond);
 
     Controller::gotoXY(x + 3, y + 2);
     Screen::printVietnamese(L"▓▓▓▓▓");
@@ -156,7 +201,28 @@ void Tower::drawTowerLevel1_Left(int x, int y, int colorFirst, int colorSecond)
     Controller::gotoXY(x + 3, y + 4);
     Screen::printVietnamese(L"▓▓▓▓▓");
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓");
+    Screen::printVietnamese(L"▓▓▓");*/
+
+   // ╔╦╦╦╦╦╗
+   // ╠▓▄▄▄▄╣
+   //■■■■███╣
+   // ╠▓▀▀▀▀╣
+   // ╚╩╩╩╩╩╝
+
+    Controller::SetColor(colorFirst, colorSecond);
+
+    Controller::gotoXY(x + 1, y);
+    Screen::printVietnamese(L"╔╦╦╦╦╦╗");
+    Controller::gotoXY(x + 1, y + 1);
+    Screen::printVietnamese(L"╠▓▄▄▄▄╣");
+    Controller::gotoXY(x, y + 2);
+    Screen::printVietnamese(L"■■■■███╣");
+    Controller::gotoXY(x + 1, y + 3);
+    Screen::printVietnamese(L"╠▓▀▀▀▀╣");
+    Controller::gotoXY(x + 1, y + 4);
+    Screen::printVietnamese(L"╚╩╩╩╩╩╝");
+
+
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
 }
@@ -172,7 +238,13 @@ void Tower::tower_bullet_level1_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Left, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -189,6 +261,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
     int i = 0;
     while ((x + 8 + i) < x_end)
     {
+
         bool check;
         mu.lock();
         check = ingame;
@@ -196,6 +269,13 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         if (check == false)
         {
             break;
+        }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
         }
 
         mu.lock();
@@ -238,15 +318,34 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Right(int x, int y, int colorFirst, int colorSecond)
 {
+    //Controller::SetColor(colorFirst, colorSecond);
+    //Controller::gotoXY(x, y + 2);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 3);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x, y + 4);
+    //Screen::printVietnamese(L"▓▓▓▓▓");
+    //Controller::gotoXY(x + 5, y + 3);
+    //Screen::printVietnamese(L"===");
+
+    //╔╦╦╦╦╦╗
+    //╠▓▄▄▄▄╣
+    //╠▓██■■■■
+    //╠▓▀▀▀▀╣
+    //╚╩╩╩╩╩╝
+
     Controller::SetColor(colorFirst, colorSecond);
+
+    Controller::gotoXY(x, y);
+    Screen::printVietnamese(L"╔╦╦╦╦╦╗");
+    Controller::gotoXY(x, y + 1);
+    Screen::printVietnamese(L"╠▓▄▄▄▄╣");
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"╠▓██■■■■");
     Controller::gotoXY(x, y + 3);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"╠▓▀▀▀▀╣");
     Controller::gotoXY(x, y + 4);
-    Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x + 5, y + 3);
-    Screen::printVietnamese(L"===");
+    Screen::printVietnamese(L"╚╩╩╩╩╩╝");
 
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
@@ -263,7 +362,13 @@ void Tower::tower_bullet_level1_Right(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Right, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -288,6 +393,14 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::gotoXY(x + 2, y + 6 + i);
@@ -329,15 +442,23 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
 }
 void Tower::drawTowerLevel1_Down(int x, int y, int colorFirst, int colorSecond)
 {
+    //╔╦╦╦╦╦╦╗
+    //╠▓████▓╣
+    //╠▓████▓╣
+    //╠▓▀▐ ▀▓╣
+    //╚╩╩▐╩╩╩╝
+
     Controller::SetColor(colorFirst, colorSecond);
+    Controller::gotoXY(x, y);
+    Screen::printVietnamese(L"╔╦╦╦╦╦╦╗");
     Controller::gotoXY(x, y + 1);
-    Screen::printVietnamese(L"▓▓▓▓▓");
+    Screen::printVietnamese(L"╠▓████▓╣");    // 3 
     Controller::gotoXY(x, y + 2);
-    Screen::printVietnamese(L"▓▓▓▓▓");
-    Controller::gotoXY(x + 2, y + 3);
-    Screen::printVietnamese(L"▓");
-    Controller::gotoXY(x + 2, y + 4);
-    Screen::printVietnamese(L"▓");
+    Screen::printVietnamese(L"╠▓████▓╣"); // 5
+    Controller::gotoXY(x, y + 3);
+    Screen::printVietnamese(L"╠▓▀▐ ▀▓╣"); // 5
+    Controller::gotoXY(x, y + 4);
+    Screen::printVietnamese(L"╚╩╩▐╩╩╩╝"); // 9
     indexOfTowerFollowX = x; // To process LOAD GAME.
     indexOfTowerFollowY = y; // To process LOAD GAME.
 }
@@ -353,7 +474,13 @@ void Tower::tower_bullet_level1_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+        mu.lock();
+        bool isPause = Game::isPause;
+        mu.unlock();
 
+        if (isPause) {
+            continue;
+        }
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel1_Down, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())

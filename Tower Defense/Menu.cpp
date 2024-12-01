@@ -207,6 +207,7 @@ void Screen::printMainScreen() {
 					system("cls");
 					if (curChoice == 0) {
 						Game::mode = Screen::printLevel();
+						Menu::signup();
 						Game::setupGame();
 					}
 					else if (curChoice == 1) {
@@ -439,7 +440,7 @@ void ListFile::printListFile(int start, int end, vector<string> arrFilename) {
 
 string ListFile::getFile() {
 	fstream listFile;
-	listFile.open(LIST_FILE, ios::in | ios::binary);
+	listFile.open(LIST_FILE, ios::in);
 
 	if (!listFile) {
 		Controller::SetColor(BLACK, BRIGHT_WHITE);
@@ -451,16 +452,21 @@ string ListFile::getFile() {
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printRectangle(35, 12, 40, 14);
 	Controller::gotoXY(49, 13);
-	Screen::printVietnamese(L"Danh sách FILE");
+	if (Screen::isVie) {
+		Screen::printVietnamese(L"Danh sách FILE");
+	}
+	else {
+		cout << "List FILE";
+	}
 	Controller::gotoXY(36, 14);
 	for (int i = 0; i < 39; i++) {
 		putchar(196);
 	}
 
-	char* filename = new char[100]; // ten file user luu
+	string filename; // ten file user luu
 	vector<string> arrFilename;
 	bool check = true;
-	while (listFile.read((char*)filename, 100)) {
+	while (getline(listFile, filename)) {
 		check = false;
 		arrFilename.push_back(filename);
 	}
@@ -642,12 +648,12 @@ string ListFile::getFile() {
 			case 6: // Enter
 				if (isBack) return "";
 				else {
-					strcpy_s(filename, 100, arrFilename[index].c_str());
+					/*strcpy_s(filename, 100, arrFilename[index].c_str());
 					char* temp = new char[100];
 					strcpy_s(temp, 100, filename);
 					strcpy_s(FILENAME, 100, filename);
-					strcat_s(temp, 100, ".bin\0");
-					return temp;
+					strcat_s(temp, 100, ".bin\0");*/
+					return arrFilename[index];
 				}
 				break;
 			default:
@@ -657,59 +663,6 @@ string ListFile::getFile() {
 	}
 	return "";
 }
-
-//void Menu::processLoadFile(string filename) {
-//	fstream inFile;
-//
-//	inFile.open("readLoadGame/" + filename, ios::in | ios::binary);
-//
-//	if (!inFile) return;
-//
-//	int row, col;
-//	char last_sign, sign;
-//	size_t size;
-//
-//	size_t length;
-//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
-//	wstring wstr1(length, L'\0');
-//	inFile.read(reinterpret_cast<char*>(&wstr1[0]), length * sizeof(wchar_t));
-//	a.playerName = wstr1;
-//
-//	inFile.read((char*)&a.score, sizeof(a.score));
-//
-//	inFile.read(reinterpret_cast<char*>(&length), sizeof(length));
-//	wstring wstr2(length, L'\0');
-//	inFile.read(reinterpret_cast<char*>(&wstr2[0]), length * sizeof(wchar_t));
-//	b.playerName = wstr2;
-//
-//	inFile.read((char*)&b.score, sizeof(b.score));
-//
-//	inFile.read((char*)&mode, sizeof(mode));
-//
-//	inFile.read((char*)&row, sizeof(row));
-//	inFile.read((char*)&col, sizeof(col));
-//	inFile.read((char*)&last_sign, sizeof(last_sign));
-//	inFile.read((char*)&size, sizeof(size));
-//	createBoard();
-//	cur_point = &board[row][col];
-//	for (int i = 0; i < size; i++) {
-//
-//		inFile.read((char*)&row, sizeof(row));
-//		inFile.read((char*)&col, sizeof(col));
-//		inFile.read((char*)&sign, sizeof(sign));
-//		board[row][col].sign = sign;
-//		history.push(&board[row][col]);
-//	}
-//
-//	system("cls");
-//	system("color F0");
-//	printBoard();
-//	printScoreBoard(); // in bảng điểm
-//	Game::isPlaying = true;
-//	controlPoint();
-//
-//	inFile.close();
-//}
 
 void Menu::readLoadGame() {
 	system("cls");
@@ -753,14 +706,21 @@ void Menu::readLoadGame() {
 	Screen::printVietnamese(L" ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝\n");
 
 
-	//string filename = getFile();
-	//if (filename != "") {
-	//	//Game::processLoadFile(filename);
-	//	return;
-	//}
-	//else {
-	//	Menu::goBack();
-	//}
+	string filename = ListFile::getFile();
+	if (filename != "") {
+		vector<vector<int>> posTower(4, vector<int>(5));
+		int res[4];
+		bool choice[4];
+		string file_map;
+		string file_enemy;
+		ListFile::processLoadFile(filename, posTower, res, choice, file_map, file_enemy);
+
+		Play::playContinue(posTower, res, choice, file_map, file_enemy);
+		return;
+	}
+	else {
+		Menu::goBack();
+	}
 }
 
 void Menu::Setting() {
@@ -1087,7 +1047,23 @@ void Menu::Setting() {
 }
 
 void Menu::signup() {
-
+	system("cls");
+	Screen::printLogoStandard();
+	Controller::SetColor(BRIGHT_WHITE, RED);
+	Controller::gotoXY(28, 16);
+	Screen::printVietnamese(L"Nhập tên của bạn ngắn thôi nha, ít hơn 20 ký tự");
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
+	Controller::gotoXY(35, 18);
+	Screen::printVietnamese(L"Nhập tên:  ");
+	_setmode(_fileno(stdin), _O_U16TEXT);
+	wstring name;
+	getline(wcin, name);
+	player.setName(name);
+	if (player.getName() == L"")
+		player.setName(L"Unknown");
+	_setmode(_fileno(stdin), _O_TEXT);
+	if (Menu::sound_is_open)
+		Controller::playSound(ENTER_SOUND);
 }
 
 void Screen::printVietnamese(wstring text) {
@@ -1331,4 +1307,87 @@ void Menu::helpScreen() {
 
 void Menu::goBack() {
 	Screen::printMainScreen();
+}
+
+void ListFile::processSaveFile(string filename, vector<vector<int>> posTower, int res[4], bool choice[], string file_map, string file_enemy) {
+	fstream fout;
+
+	fout.open(LIST_FILE, ios::app);
+
+	if (fout.is_open() == false) return;
+	fout << filename << '\n';
+	fout.close();
+	
+	filename = ".\\ListSaveFile\\" + filename + ".bin";
+
+	fout.open(filename.c_str(), ios::out | ios::binary);
+
+	if (fout.is_open() == false) return;
+
+	char str[100];
+	strcpy_s(str, 100, file_map.c_str());
+	fout.write(str, 100);
+	strcpy_s(str, 100, file_enemy.c_str());
+	fout.write(str, 100);
+
+	mu.lock();
+	int cost = player.get_cost();
+	mu.unlock();
+	fout.write((char*)&cost, sizeof(int));
+	for (int i = 0; i < 4; i++) {
+		fout.write((char*)&choice[i], sizeof(bool));
+	}
+
+	for (int i = 0; i < 4; i++) {
+		if (choice[i]) {
+			fout.write((char*)&res[i], sizeof(int));
+			fout.write((char*)&posTower[i][0], sizeof(int));
+			fout.write((char*)&posTower[i][1], sizeof(int));
+			fout.write((char*)&posTower[i][2], sizeof(int));
+			fout.write((char*)&posTower[i][3], sizeof(int));
+			fout.write((char*)&posTower[i][4], sizeof(int));
+		}
+	}
+
+	fout.close();
+}
+
+void ListFile::processLoadFile(string filename, vector<vector<int>>& posTower, int res[4], bool choice[], string& file_map, string& file_enemy) {
+	filename = ".\\ListSaveFile\\" + filename + ".bin";
+
+	fstream fin(filename.c_str(), ios::in | ios::binary);
+
+	if (fin.is_open() == false) return;
+
+	char str[100];
+
+	fin.read(str, 100);
+	file_map = str;
+	fin.read(str, 100);
+	file_enemy = str;
+
+	int cost;
+
+	fin.read((char*)&cost, sizeof(int));
+
+	mu.lock();
+	player.set_cost(cost);
+	mu.unlock();
+
+	for (int i = 0; i < 4; i++) {
+		fin.read((char*)&choice[i], sizeof(bool));
+	}
+	for (int i = 0; i < 4; i++) {
+		if (choice[i]) {
+			fin.read((char*)&res[i], sizeof(int));
+			fin.read((char*)&posTower[i][0], sizeof(int));
+			fin.read((char*)&posTower[i][1], sizeof(int));
+			fin.read((char*)&posTower[i][2], sizeof(int));
+			fin.read((char*)&posTower[i][3], sizeof(int));
+			fin.read((char*)&posTower[i][4], sizeof(int));
+		}
+
+	}
+
+	fin.close();
 }

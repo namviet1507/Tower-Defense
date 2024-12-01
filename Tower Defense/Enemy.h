@@ -15,6 +15,7 @@ class Enemy
 	int x_e;
 	int y_e;
 public:
+	static int count;
 	Enemy() { hp = 10; x_e = 0; y_e = 0; }
 
 	int get_x() { return x_e; }

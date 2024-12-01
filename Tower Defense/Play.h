@@ -11,6 +11,12 @@ public:
 	static void colour_block2(int x, int y, int w, int h, int bcolor);
 	static void print_rectangle(int x, int y, int w, int h, int bcolor, int color);
 
+	static void printBoxContinue(int x, int y, int bcolor, int color);
+	static void printBoxSave(int x, int y, int bcolor, int color);
+	static void printBoxExit(int x, int y, int bcolor, int color);
+
+	static int printMenuPause(int x, int y, int bcolor, int color);
+
 	static void print_box_continue(int x, int y, int bcolor, int color);
 	static void print_box_yes(int x, int y, int bcolor, int color);
 	static void print_box_no(int x, int y, int bcolor, int color);
@@ -26,6 +32,8 @@ public:
 	static void print_x(int x, int y, int bcolor, int color);
 	static void print_x_block(int x, int y, int bcolor, int color);
 
+	static string getFileSave();
+
 	static void print_menu_continue(int x, int y);
 
 	static int print_continue_board(int x, int y, Map m);
@@ -36,6 +44,8 @@ public:
 
 	static void MOVE(string, Enemy&);
 	static void enemy_move1(int, string);
+
+	static void playContinue(vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy);
 };
 
 

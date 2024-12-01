@@ -1,6 +1,8 @@
 ﻿#include "Enemy.h"
 #include "Controller.h"
+#include "Game.h"
 mutex mu;
+int Enemy::count = 0;
 
 void Enemy::showl_x(int x, int y, int bcolor, int color)
 {
@@ -10,42 +12,32 @@ void Enemy::showl_x(int x, int y, int bcolor, int color)
 	Controller::SetColor(bcolor, 12);
 	for (int i = 0; i < hp; i++)
 		cout << char(254);
-	mu.unlock();
 
-	mu.lock();
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░█");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"▒▒░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"██▓▓▓▓▓░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"█▓▓▓▓██░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"▓▓██▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"▓▓▒▒▓▓▒▒▒▒░░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"▓▓████");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	Screen::printVietnamese(L"██");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y + 6);
 	cout << char(254) << char(254);
 	mu.unlock();
@@ -61,42 +53,33 @@ void Enemy::showr_x(int x, int y, int bcolor, int color)
 	Controller::SetColor(bcolor, 12);
 	for (int i = 0; i < hp; i++)
 		cout << char(254);
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░█");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"▒▒░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"██▓▓▓▓▓░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"█▓▓▓▓██░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"▓▓██▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"▓▓▒▒▓▓▒▒▒▒░░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"▓▓████");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	cout << char(254) << char(254);
 	//Screen::printVietnamese(L"██");
-	mu.unlock();
-	mu.lock();
+
 
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"▓▓");
@@ -114,40 +97,31 @@ void Enemy::dele_x(int x, int y)
 	Controller::SetColor(LIGHT_YELLOW, LIGHT_RED);
 	for (int i = 0; i < 10; i++)
 		Screen::printVietnamese(L" ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"   ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"    ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"         ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"         ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"      ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"            ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"      ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"  ");
 	mu.unlock();
@@ -166,49 +140,40 @@ void Enemy::showl_l(int x, int y, int bcolor, int color)
 	for (int i = 0; i < hp; i++)
 		cout << char(254);
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░▒▒");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"█░░");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"░▓▓▓▓▓██");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"░▓▓▓▓▓▓█");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"▓▓▓▓▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"░░▓▓▓▓▓▓▓▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"████▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	Screen::printVietnamese(L"▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y + 6);
 	cout << char(254) << char(254);
 	mu.unlock();
@@ -225,41 +190,32 @@ void Enemy::showr_l(int x, int y, int bcolor, int color)
 	Controller::SetColor(bcolor, 12);
 	for (int i = 0; i < hp; i++)
 		cout << char(254);
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░▒▒");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"█░░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"░▓▓▓▓▓██");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"░▓▓▓▓▓▓█");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"▓▓▓▓▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"░░▓▓▓▓▓▓▓▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"████▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"██");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	cout << char(254) << char(254);
 	mu.unlock();
@@ -276,40 +232,31 @@ void Enemy::dele_l(int x, int y)
 	Controller::SetColor(LIGHT_YELLOW, LIGHT_RED);
 	for (int i = 0; i < 10; i++)
 		Screen::printVietnamese(L" ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"   ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y);
 	Screen::printVietnamese(L"   ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"        ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"        ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 3);
 	Screen::printVietnamese(L"      ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"           ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"      ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 6);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 5, y + 6);
 	Screen::printVietnamese(L"  ");
 	mu.unlock();
@@ -328,45 +275,36 @@ void Enemy::showl_p(int x, int y, int bcolor, int color)
 		cout << char(254);
 	for (int i = 0; i < hp / 2; i++)
 		cout << char(254);
-	mu.unlock();
-	mu.lock();
+
 
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"██");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"██▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 3);
 	Screen::printVietnamese(L"▓▓▓▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"▓▓▓▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"▓▓");
 
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 3, y + 6);
 	cout << char(254);
 
-	mu.unlock();
-	mu.lock();
 	Controller::gotoXY(x, y + 6);
 	Screen::printVietnamese(L"██");
 	mu.unlock();
@@ -385,37 +323,29 @@ void Enemy::showr_p(int x, int y, int bcolor, int color)
 		cout << char(254);
 	for (int i = 0; i < hp / 2; i++)
 		cout << char(254);
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
 	Screen::printVietnamese(L"░░");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"██");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"██▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 3);
 	Screen::printVietnamese(L"▓▓▓▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"▓▓▓▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"▓▓");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 2, y + 6);
 	Screen::printVietnamese(L"██");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 6);
 	cout << char(254);
 	mu.unlock();
@@ -435,36 +365,28 @@ void Enemy::dele_p(int x, int y)
 		cout << " ";
 	for (int i = 0; i < 5; i++)
 		Screen::printVietnamese(L" ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 2);
 	Screen::printVietnamese(L"   ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 3);
 	Screen::printVietnamese(L"     ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x - 1, y + 4);
 	Screen::printVietnamese(L"     ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 1, y + 5);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x, y + 6);
 	Screen::printVietnamese(L"  ");
-	mu.unlock();
-	mu.lock();
+
 	Controller::gotoXY(x + 2, y + 6);
 	Screen::printVietnamese(L"  ");
 	mu.unlock();
@@ -597,6 +519,16 @@ void Enemy::move_l(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
+
 			if (hp <= 0)
 			{
 				break;
@@ -618,8 +550,11 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 	int step = (y_end - y_start) / 2;
 	if (true)
 	{
+
+		
 		for (int i = 0; i < step; i++)
 		{
+
 			bool check;
 			mu.lock();
 			check = ingame;
@@ -628,6 +563,15 @@ void Enemy::move_x(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 
 			if (hp <= 0)
 			{
@@ -669,6 +613,15 @@ void Enemy::move_p(int x_start, int y_start, int x_end, int y_end)
 				break;
 			}
 
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 			if (hp <= 0)
 			{
 				break;
@@ -700,6 +653,15 @@ void Enemy::move_t(int x_start, int y_start, int x_end, int y_end)
 			{
 				break;
 			}
+			mu.lock();
+			bool isPause = Game::isPause;
+			mu.unlock();
+
+			if (isPause) {
+				i--;
+				continue;
+			}
+
 
 			if (hp <= 0)
 			{

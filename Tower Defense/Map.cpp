@@ -1,4 +1,5 @@
 #include "Map.h"
+#include "Game.h"
 
 int Map::getHeight() {
 	return height;
@@ -75,6 +76,8 @@ void Map::printMap() {
 			map[i][j].printCell();
 		}
 	}
+
+	Game::printBoard();
 }
 
 vector<Cell>& Map::operator [] (int index) {
