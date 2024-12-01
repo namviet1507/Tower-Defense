@@ -152,8 +152,8 @@ void Cell::printGrass() {
 	int ran = 3127 * (row + 16) * (col * 17);
 	int n = ran % 4;
 	for (int i = 0; i < n; i++) {
-		int denta_x = (ran * (row * i + 10 - col * i)) % 8;
-		int denta_y = (ran * (row * i + 10 - col * i)) % 5;
+		int denta_x = abs(ran * (row * i + 10 - col * i)) % 8;
+		int denta_y = abs(ran * (row * i + 10 - col * i)) % 5;
 		int t = (ran * (row * i + 10 - col * i)) % 3;
 		Controller::gotoXY(x + denta_x, y + denta_y);
 		if (t == 0) {
