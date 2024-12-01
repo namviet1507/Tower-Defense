@@ -244,19 +244,26 @@ void Play::print_win(int x, int y, int bcolor, int color)
 {
 	mu.lock();
 	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
-	Controller::gotoXY(x, y);
-	Controller::SetColor(bcolor, color);
-	Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
-	Controller::gotoXY(x, y + 1);
-	Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
-	Controller::gotoXY(x, y + 2);
-	Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
-	Controller::gotoXY(x, y + 3);
-	Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
-	Controller::gotoXY(x, y + 4);
-	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
-	Controller::gotoXY(x, y + 5);
-	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	int cnt = 15;
+	while (cnt--) {
+		Controller::SetColor(bcolor, rand() % 6 + 1);
+		if(cnt == 0)
+			Controller::SetColor(bcolor, color);
+		Controller::gotoXY(x, y);
+		Controller::SetColor(bcolor, color);
+		Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+		Controller::gotoXY(x, y + 1);
+		Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+		Controller::gotoXY(x, y + 2);
+		Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
+		Controller::gotoXY(x, y + 3);
+		Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+		Controller::gotoXY(x, y + 4);
+		Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+		Controller::gotoXY(x, y + 5);
+		Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+		Sleep(500);
+	}
 	mu.unlock();
 }
 
@@ -1088,18 +1095,24 @@ void Play::play_map(string filename_enemy, string filename_map)
 
 void Play::process_endgame() {
 	if (isQuitGame) {
+		if (Menu::sound_is_open)
+			Controller::playSound(ERROR_SOUND);
 		print_quit_game(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
-		Sleep(3000);
+		Sleep(4000);
 	}
 	else if (losegame)
 	{
+		if (Menu::sound_is_open)
+			Controller::playSound(LOSE_SOUND);
 		print_lose(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
-		Sleep(3000);
+		Sleep(4000);
 	}
 	else if (wingame)
 	{
+		if (Menu::sound_is_open)
+			Controller::playSound(WIN_SOUND);
 		print_win(30, 18, LIGHT_YELLOW, LIGHT_PURPLE);
-		Sleep(3000);
+		Sleep(4000);
 	}
 }
 

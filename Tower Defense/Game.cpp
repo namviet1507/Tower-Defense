@@ -96,10 +96,10 @@ void Game::printNumEnemy() {
 
 	while (check)
 	{
+		
 		mu.lock();
 		check = ingame;
 		mu.unlock();
-
 		mu.lock();
 		isPause = Game::isPause;
 		mu.unlock();
@@ -112,17 +112,18 @@ void Game::printNumEnemy() {
 
 		if (cur_count != last_count) {
 			mu.lock();
-			int last_t = (int)(last_count * 1.0 / Game::num_enemy) * 15;
+			int last_t = (int)((last_count * 1.0 / Game::num_enemy) * 15);
 	
 			Controller::gotoXY(135 + last_t, 9);
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
 			Screen::printVietnamese(L"|");
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
 			Screen::printVietnamese(L"▀");
+
 			mu.unlock();
 
 			mu.lock();
-			int t = (int)(cur_count * 1.0 / Game::num_enemy) * 15;
+			int t = (int)((cur_count * 1.0 / Game::num_enemy) * 15);
 
 			Controller::gotoXY(135 + t, 9);
 			Controller::SetColor(BRIGHT_WHITE, BLACK);

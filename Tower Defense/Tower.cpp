@@ -527,12 +527,11 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(LIGHT_YELLOW, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y - 1 - i);
         Screen::printVietnamese(L"■");
-        cout << "^";
         mu.unlock();
 
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
@@ -559,6 +558,8 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(2);
                     flag = true;
                     break;
@@ -652,12 +653,12 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x - 5 - i, y + 3);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x - 5 - i, y + 2);
         Screen::printVietnamese(L"■");
         mu.unlock();
@@ -685,6 +686,8 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(2);
                     flag = true;
                     break;
@@ -787,12 +790,12 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 8 + i, y + 2);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 8 + i, y + 3);
         Screen::printVietnamese(L"■");
         mu.unlock();
@@ -823,6 +826,8 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(2);
                     flag = true;
                     break;
@@ -928,7 +933,7 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 2, y + 6 + i);
         Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y + 6 + i);
@@ -958,6 +963,8 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(2);
                     flag = true;
                     break;
@@ -1046,7 +1053,7 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"■");
         Controller::gotoXY(x + 4, y - 1 - i);
@@ -1079,6 +1086,8 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(3);
                     flag = true;
                     break;
@@ -1166,17 +1175,17 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x - 5 - i, y + 4);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x - 5 - i, y + 3);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x - 5 - i, y + 2);
         Screen::printVietnamese(L"■");
         mu.unlock();
@@ -1209,6 +1218,8 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 5)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(3);
                     flag = true;
                     break;
@@ -1298,17 +1309,17 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 8 + i, y + 2);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 8 + i, y + 3);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 8 + i, y + 4);
         Screen::printVietnamese(L"■");
         mu.unlock();
@@ -1343,6 +1354,8 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(3);
                     flag = true;
                     break;
@@ -1432,17 +1445,17 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
 
 
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 2, y + 6 + i);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 4, y + 6 + i);
         Screen::printVietnamese(L"■");
         mu.unlock();
         mu.lock();
-        Controller::SetColor(14, BLACK);
+        Controller::SetColor(LIGHT_YELLOW, RED);
         Controller::gotoXY(x + 6, y + 6 + i);
         Screen::printVietnamese(L"■");
         mu.unlock();
@@ -1478,6 +1491,8 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
             {
                 if (Enemy::get_distance(indexOfBulletFollowX, indexOfBulletFollowY, enemy.get_x(), enemy.get_y()) <= 6)
                 {
+                    if (Menu::sound_is_open)
+                        thread(Controller::playSound, DIE_SOUND).detach();
                     enemy.sub_hp(3);
                     flag = true;
                     break;

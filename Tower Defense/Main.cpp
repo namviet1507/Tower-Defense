@@ -12,6 +12,5 @@ int main() {
 	Menu::sound_is_open = true;
 	Screen::printMainScreen();
 
-
 	return 0;
 }
