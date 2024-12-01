@@ -1,6 +1,7 @@
 ﻿#include "Play.h"
+#include "Cell.h"
 
-
+Cell Play::c;
 
 void Play::colour_block(int x, int y, int h, int w, int color)
 {
@@ -184,6 +185,25 @@ void Play::print_no(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"██   ████  ██████  ");
 }
 
+void Play::print_quit_game(int x, int y, int bcolor, int color) {
+	mu.lock();
+	print_rectangle(x - 1, y - 1, 76, 8, bcolor, color);
+	Controller::gotoXY(x, y);
+	Controller::SetColor(bcolor, color);
+	Screen::printVietnamese(L"   ██████╗ ██╗   ██╗██╗████████╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"  ██╔═══██╗██║   ██║██║╚══██╔══╝    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"  ██║   ██║██║   ██║██║   ██║       ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"  ██║▄▄ ██║██║   ██║██║   ██║       ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"  ╚██████╔╝╚██████╔╝██║   ██║       ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L"   ╚══▀▀═╝  ╚═════╝ ╚═╝   ╚═╝        ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	mu.unlock();
+}
+
 void Play::print_no_money(int x, int y, int bcolor, int color)
 {
 	print_rectangle(x - 1, y - 1, 73, 8, bcolor, color);
@@ -203,8 +223,7 @@ void Play::print_no_money(int x, int y, int bcolor, int color)
 }
 void Play::print_lose(int x, int y, int bcolor, int color)
 {
-
-
+	mu.lock();
 	print_rectangle(x - 1, y - 1, 76, 8, bcolor, color);
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
@@ -219,9 +238,11 @@ void Play::print_lose(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"███████╗╚██████╔╝███████║███████╗    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
 	Controller::gotoXY(x, y + 5);
 	Screen::printVietnamese(L"╚══════╝ ╚═════╝ ╚══════╝╚══════╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	mu.unlock();
 }
 void Play::print_win(int x, int y, int bcolor, int color)
 {
+	mu.lock();
 	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
 	Controller::gotoXY(x, y);
 	Controller::SetColor(bcolor, color);
@@ -236,14 +257,15 @@ void Play::print_win(int x, int y, int bcolor, int color)
 	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
 	Controller::gotoXY(x, y + 5);
 	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
+	mu.unlock();
 }
 
 void Play::print_tower_Level1(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 7, 9, bcolor, color);
+	print_rectangle(x, y, 10, 9, bcolor, color);
 	t.drawTowerLevel1_Up(x + 1, y + 2, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	Controller::gotoXY(x + 3, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "10 $";
 }
@@ -252,7 +274,7 @@ void Play::print_tower_Level2(int x, int y, int bcolor, int color)
 	Tower t;
 	print_rectangle(x, y, 9, 9, bcolor, color);
 	t.drawTowerLevel2_Up(x + 1, y + 1, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	Controller::gotoXY(x + 3, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "20 $";
 }
@@ -261,7 +283,7 @@ void Play::print_tower_Level3(int x, int y, int bcolor, int color)
 	Tower t;
 	print_rectangle(x, y, 11, 9, bcolor, color);
 	t.drawTowerLevel3_Up(x + 1, y + 1, bcolor, color);
-	Controller::gotoXY(x + 2, y + 7);
+	Controller::gotoXY(x + 4, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "40 $";
 }
@@ -382,9 +404,9 @@ int Play::print_continue_board(int x, int y, Map m)
 void Play::print_menu_Tower(int x, int y)
 {
 	print_tower_Level1(x, y, 5, 6);
-	print_tower_Level2(x + 7, y, 5, 6);
-	print_tower_Level3(x + 7 + 9, y, 5, 6);
-	print_x_block(x + 7 + 9 + 11, y, 5, 6);
+	print_tower_Level2(x + 10, y, 5, 6);
+	print_tower_Level3(x + 10 + 9, y, 5, 6);
+	print_x_block(x + 10 + 9 + 11, y, 5, 6);
 }
 
 void Play::printBoxContinue(int x, int y, int bcolor, int color) {
@@ -515,15 +537,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (old_pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 5, 6);
+					print_tower_Level2(x + 10, y, 5, 6);
 				}
 				else if (old_pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 5, 6);
+					print_tower_Level3(x + 10 + 9, y, 5, 6);
 				}
 				else if (old_pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 5, 6);
+					print_x_block(x + 10 + 9 + 11, y, 5, 6);
 				}
 
 				if (pos == 1)
@@ -532,15 +554,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 4, 6);
+					print_tower_Level2(x + 10, y, 4, 6);
 				}
 				else if (pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 4, 6);
+					print_tower_Level3(x + 10 + 9, y, 4, 6);
 				}
 				else if (pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 4, 6);
+					print_x_block(x + 10 + 9 + 11, y, 4, 6);
 				}
 
 			}
@@ -557,15 +579,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (old_pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 5, 6);
+					print_tower_Level2(x + 10, y, 5, 6);
 				}
 				else if (old_pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 5, 6);
+					print_tower_Level3(x + 10 + 9, y, 5, 6);
 				}
 				else if (old_pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 5, 6);
+					print_x_block(x + 10 + 9 + 11, y, 5, 6);
 				}
 
 				if (pos == 1)
@@ -574,15 +596,15 @@ int Play::get_lever_Tower(int x, int y, Map m)
 				}
 				else if (pos == 2)
 				{
-					print_tower_Level2(x + 7, y, 4, 6);
+					print_tower_Level2(x + 10, y, 4, 6);
 				}
 				else if (pos == 3)
 				{
-					print_tower_Level3(x + 7 + 9, y, 4, 6);
+					print_tower_Level3(x + 10 + 9, y, 4, 6);
 				}
 				else if (pos == 4)
 				{
-					print_x_block(x + 7 + 9 + 11, y, 4, 6);
+					print_x_block(x + 10 + 9 + 11, y, 4, 6);
 				}
 			}
 			else if (tmp == 6)
@@ -659,6 +681,16 @@ void Play::play_map(string filename_enemy, string filename_map)
 	test.setMap(filename_map);
 	test.printMap();
 
+	for (int i = 0; i < test.getHeight(); i++) {
+		for (int j = 0; j < test.getWidth(); j++) {
+			if (test[i][j].getFlagBuild()) {
+				bool bot = i < test.getHeight() - 1 && test[i + 1][j].getFlagBuild();
+				bool right = j < test.getWidth() - 1 && test[i][j + 1].getFlagBuild();
+				if (bot || right) c = test[i][j];
+			}
+		}
+	}
+
 	vector< vector<int> > posTower; 
 	test.findPositionOfTower(posTower);
 
@@ -668,7 +700,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
+	Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -747,13 +779,10 @@ void Play::play_map(string filename_enemy, string filename_map)
 			else if (temp == 6)
 			{
 				int i;
-				if (position == 0)
-					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
-				else
-					i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
+				i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
 				//test.printMap();
-				Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
+				Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
@@ -993,8 +1022,8 @@ void Play::play_map(string filename_enemy, string filename_map)
 	}
 
 
-	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 138, 3, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(Player::print_cost_player, 144, 5, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 144, 6, BRIGHT_WHITE, RED));
 	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
 	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choose, filename_map, filename_enemy));
 	bullets.push_back(thread(Game::printNumEnemy));
@@ -1004,16 +1033,30 @@ void Play::play_map(string filename_enemy, string filename_map)
 		bu.join();
 	}
 
-	if (losegame)
-	{
-		print_lose(30, 18, YELLOW, LIGHT_PURPLE);
-		Sleep(3000);
+	thread t(Play::process_endgame);
+
+	t.join();
+
+	if (isQuitGame) {
+		Game::isPlaying = false;
+		Menu::goBack();
+		return;
 	}
-	else if (wingame)
-	{
-		print_win(30, 18, YELLOW, LIGHT_PURPLE);
-		Sleep(3000);
-	}
+
+	//if (isQuitGame) {
+	//	print_quit_game(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+	//	Sleep(3000);
+	//}
+	//else if (losegame)
+	//{
+	//	print_lose(30, 18,  LIGHT_YELLOW, LIGHT_BLUE);
+	//	Sleep(3000);
+	//}
+	//else if (wingame)
+	//{
+	//	print_win(30, 18, YELLOW, LIGHT_PURPLE);
+	//	Sleep(3000);
+	//}
 
 	int value = print_continue_board(30, 18, test);
 
@@ -1022,6 +1065,23 @@ void Play::play_map(string filename_enemy, string filename_map)
 		Game::isPlaying = false;
 		Menu::goBack();
 		//isbreakmap1 = true;
+	}
+}
+
+void Play::process_endgame() {
+	if (isQuitGame) {
+		print_quit_game(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+		Sleep(3000);
+	}
+	else if (losegame)
+	{
+		print_lose(30, 18, LIGHT_YELLOW, LIGHT_BLUE);
+		Sleep(3000);
+	}
+	else if (wingame)
+	{
+		print_win(30, 18, YELLOW, LIGHT_PURPLE);
+		Sleep(3000);
 	}
 }
 
@@ -1110,9 +1170,30 @@ void Play::MOVE(string filename, Enemy& e)
 		mu.lock();
 		player.de_hp(1);
 		mu.unlock();
+
+		effect_tower_main(c);
 	}
 	e.set_hp(0);
 }
+
+void Play::effect_tower_main(Cell& c) {
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, RED);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, BLACK);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, RED);
+	mu.unlock();
+	Sleep(100);
+	mu.lock();
+	c.printDes(LIGHT_YELLOW, BLACK);
+	mu.unlock();
+}
+
 void Play::enemy_move1(int num, string fileName)
 {
 	e_global.clear();
@@ -1171,6 +1252,7 @@ void Play::enemy_move1(int num, string fileName)
 }
 
 void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], string file_map, string file_enemy) {
+	Enemy::count = 0;
 	Map newMap;
 	newMap.setMap(file_enemy);
 	vector< vector<int> > pickWay;
@@ -1185,7 +1267,7 @@ void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], 
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(142, 2, BRIGHT_WHITE, GREEN);
+	Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -1340,8 +1422,8 @@ void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], 
 
 
 
-	bullets.push_back(thread(Player::print_cost_player, 142, 2, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 138, 3, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(Player::print_cost_player, 144, 5, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 144, 6, BRIGHT_WHITE, RED));
 	bullets.push_back(thread(enemy_move1, Game::num_enemy, file_enemy));
 	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choice, file_map, file_enemy));
 	bullets.push_back(thread(Game::printNumEnemy));

@@ -509,6 +509,16 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         }
 
         mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
+        mu.lock();
         Controller::SetColor(LIGHT_YELLOW, BLACK);
         Controller::gotoXY(x + 2, y - 1 - i);
         Screen::printVietnamese(L"^");
@@ -586,6 +596,16 @@ void Tower::tower_bullet_level2_Up(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -611,6 +631,16 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -703,6 +733,16 @@ void Tower::tower_bullet_level2_Left(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Left, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -726,6 +766,16 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -815,6 +865,16 @@ void Tower::tower_bullet_level2_Right(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Right, &bullet, x, y, x_end, y_end);
 
@@ -847,6 +907,16 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -921,6 +991,16 @@ void Tower::tower_bullet_level2_Down(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel2_Down, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -945,6 +1025,16 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -1021,6 +1111,16 @@ void Tower::tower_bullet_level3_Up(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel3_Up, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -1045,6 +1145,16 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -1133,6 +1243,16 @@ void Tower::tower_bullet_level3_Left(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel3_Left, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -1157,6 +1277,16 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -1247,6 +1377,16 @@ void Tower::tower_bullet_level3_Right(int x, int y, int x_end, int y_end)
             break;
         }
 
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
+
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel3_Right, &bullet, x, y, x_end, y_end);
         if (bullet_firt.joinable())
@@ -1271,6 +1411,16 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         mu.lock();
         Controller::SetColor(14, BLACK);
@@ -1360,6 +1510,16 @@ void Tower::tower_bullet_level3_Down(int x, int y, int x_end, int y_end)
         {
             break;
         }
+
+        mu.lock();
+
+        bool isPause = Game::isPause;
+        mu.unlock();
+
+        if (isPause) {
+            continue;
+        }
+
 
         Bullet bullet;
         thread bullet_firt(&Bullet::wayBulletOfLevel3_Down, &bullet, x, y, x_end, y_end);

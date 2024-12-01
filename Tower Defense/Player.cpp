@@ -11,6 +11,7 @@ bool wingame;
 bool losegame;
 bool showcost;
 bool isbreakmap1;
+bool isQuitGame;
 
 void Player::setName(wstring name) {
 	this->name = name;
@@ -204,7 +205,13 @@ void Player::check_win(int num_enemy, vector<vector<int>> posTower, int _res[], 
 				mu.unlock();
 			}
 			else if (res == 2) {
-				break;
+				mu.lock();
+				wingame = false;
+				ingame = false;
+				showcost = false;
+				isQuitGame = true;
+				mu.unlock();
+				return;
 			}
 		}
 

@@ -39,6 +39,18 @@ void Game::printBoard() {
 	Controller::SetColor(BRIGHT_WHITE, LIGHT_PURPLE);
 	Screen::printRectangle(130, 1, 24, 39);
 
+	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(134, 3);
+	Screen::printVietnamese(L" ╔╦╦╦╗  ");
+	Controller::gotoXY(134, 3 + 1);
+	Screen::printVietnamese(L" █████  ");
+	Controller::gotoXY(134, 3 + 2);
+	Screen::printVietnamese(L"  █■█   ");
+	Controller::gotoXY(134, 3 + 3);
+	Screen::printVietnamese(L" █▓█▓█  ");
+	Controller::gotoXY(134, 3 + 4);
+	Screen::printVietnamese(L"███████ ");
+
 	// ▀ █ ▄ ▐ ▌
 
 	Controller::gotoXY(132, 30);
@@ -52,9 +64,10 @@ void Game::printBoard() {
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Controller::gotoXY(144, 4);
-	Screen::printVietnamese(L"UNKNOWN");
+	wcout << player.getName();
 
-	Controller::gotoXY(135, 9);
+	int t = (Enemy::count * 1.0 / Game::num_enemy) * 15;
+	Controller::gotoXY(135 + t, 9);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printVietnamese(L"|");
 	Controller::SetColor(BRIGHT_WHITE, RED);
