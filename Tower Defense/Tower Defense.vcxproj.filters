@@ -115,6 +115,18 @@
     <Text Include="ListSaveFile\listFile.txt">
       <Filter>Resource Files\ListSaveFile</Filter>
     </Text>
+    <Text Include="Map\level2_enemy.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level2_map.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level3_enemy.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
+    <Text Include="Map\level3_map.txt">
+      <Filter>Resource Files\Map</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Sound\effect.wav">

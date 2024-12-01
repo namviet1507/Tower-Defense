@@ -4,10 +4,9 @@
 #include "Map.h"
 #include "Game.h"
 
-class Play
+struct Play
 {
 	static Cell c;
-public:
 	static void colour_block(int x, int y, int h, int w, int color);
 	static void colour_block2(int x, int y, int w, int h, int bcolor);
 	static void print_rectangle(int x, int y, int w, int h, int bcolor, int color);

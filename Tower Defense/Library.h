@@ -14,6 +14,7 @@
 #include <stack>
 #include <set>
 #include <cmath>
+#include <atomic>
 
 #include <io.h>
 #include <fcntl.h>

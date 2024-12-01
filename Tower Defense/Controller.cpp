@@ -133,9 +133,6 @@ void Controller::playSound(int i)
 	static map<int, SoundBuffer> soundBuffers;
 	static map<int, Sound> sounds;
 
-	//static vector<const wchar_t*> soundFile{ L"Sound\\MOVE.wav", L"Sound\\enterbutton.wav", L"Sound\\error.wav", L"Sound\\enter.wav", L"Sound\\win.wav",  L"Sound\\SoundGame.wav", L"Sound\\lose.wav", L"Sound\\nhacnen.wav" };
-	//PlaySound(soundFile[i], NULL, SND_FILENAME | SND_ASYNC);
-
 	static vector<string> soundFile{
 		"Sound/MOVE.wav", "Sound/enterbutton.wav", "Sound/error.wav",
 		"Sound/enter.wav", "Sound/win.wav", "Sound/SoundGame.wav",

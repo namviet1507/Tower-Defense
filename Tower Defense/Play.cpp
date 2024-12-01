@@ -247,8 +247,6 @@ void Play::print_win(int x, int y, int bcolor, int color)
 	int cnt = 15;
 	while (cnt--) {
 		Controller::SetColor(bcolor, rand() % 6 + 1);
-		if(cnt == 0)
-			Controller::SetColor(bcolor, color);
 		Controller::gotoXY(x, y);
 		Controller::SetColor(bcolor, color);
 		Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
@@ -279,8 +277,8 @@ void Play::print_tower_Level1(int x, int y, int bcolor, int color)
 void Play::print_tower_Level2(int x, int y, int bcolor, int color)
 {
 	Tower t;
-	print_rectangle(x, y, 9, 9, bcolor, color);
-	t.drawTowerLevel2_Up(x + 1, y + 1, bcolor, color);
+	print_rectangle(x, y, 10, 9, bcolor, color);
+	t.drawTowerLevel2_Up(x + 1, y + 2, bcolor, color);
 	Controller::gotoXY(x + 3, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "20 $";
@@ -289,7 +287,7 @@ void Play::print_tower_Level3(int x, int y, int bcolor, int color)
 {
 	Tower t;
 	print_rectangle(x, y, 11, 9, bcolor, color);
-	t.drawTowerLevel3_Up(x + 1, y + 1, bcolor, color);
+	t.drawTowerLevel3_Up(x + 2, y + 2, bcolor, color);
 	Controller::gotoXY(x + 4, y + 7);
 	Controller::SetColor(bcolor, color);
 	cout << "40 $";
@@ -299,23 +297,23 @@ void Play::print_x(int x, int y, int bcolor, int color)
 {
 
 	Controller::SetColor(bcolor, color);
-	Controller::gotoXY(x, y);
+	Controller::gotoXY(x, y + 1);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 4, y);
+	Controller::gotoXY(x + 4, y + 1);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 1, y + 1);
+	Controller::gotoXY(x + 1, y + 2);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 2, y + 2);
+	Controller::gotoXY(x + 2, y + 3);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 1, y + 3);
+	Controller::gotoXY(x + 1, y + 4);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 3, y + 3);
+	Controller::gotoXY(x + 3, y + 4);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 3, y + 1);
+	Controller::gotoXY(x + 3, y + 2);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x, y + 4);
+	Controller::gotoXY(x, y + 5);
 	Screen::printVietnamese(L"█");
-	Controller::gotoXY(x + 4, y + 4);
+	Controller::gotoXY(x + 4, y + 5);
 	Screen::printVietnamese(L"█");
 
 
@@ -347,6 +345,8 @@ int Play::print_continue_board(int x, int y, Map m)
 			int tmp = Controller::getConsoleInput();
 			if (tmp == 3) // left
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos--;
 				if (pos == -1)
@@ -373,6 +373,8 @@ int Play::print_continue_board(int x, int y, Map m)
 			}
 			else if (tmp == 4) // right
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(MOVE_SOUND);
 				old_pos = pos;
 				pos++;
 				if (pos == 2)
@@ -398,6 +400,8 @@ int Play::print_continue_board(int x, int y, Map m)
 			}
 			else if (tmp == 6) // enter
 			{
+				if (Menu::sound_is_open)
+					Controller::playSound(ENTER_SOUND);
 				if(pos == 0)
 					m.printMap();
 				return pos;
@@ -1213,6 +1217,8 @@ void Play::MOVE(string filename, Enemy& e)
 }
 
 void Play::effect_tower_main(Cell& c) {
+	if(Menu::sound_is_open)
+		thread(Controller::playSound, ERROR_SOUND).detach();
 	mu.lock();
 	c.printDes(LIGHT_YELLOW, RED);
 	mu.unlock();
