@@ -697,6 +697,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	Map test;
 	test.setMap(filename_map);
 	test.printMap();
+	Enemy::count = 0;
 
 	for (int i = 0; i < test.getHeight(); i++) {
 		for (int j = 0; j < test.getWidth(); j++) {
