@@ -38,7 +38,7 @@ void Bullet::wayBulletOfLevel1_Up(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2;      //To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  // To process conlision with enemy
 
-        Sleep(150);
+        Sleep(70);
 
         mu.lock();
         Controller::gotoXY(x + 3, y - 1 - i);
@@ -170,7 +170,7 @@ void Bullet::wayBulletOfLevel1_Left(int x, int y, int x_end, int y_end)
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
-        Sleep(150);
+        Sleep(70);
         mu.lock();
         Controller::gotoXY(x - 5 - i, y + 2);
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -304,7 +304,7 @@ void Bullet::wayBulletOfLevel1_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(150);
+        Sleep(70);
 
         mu.lock();
         Controller::gotoXY(x + 8 + i, y + 2);
@@ -437,7 +437,7 @@ void Bullet::wayBulletOfLevel1_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(150);
+        Sleep(70);
 
         mu.lock();
         Controller::gotoXY(x + 3, y + 6 + i);
@@ -564,7 +564,7 @@ void Bullet::wayBulletOfLevel2_Up(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i;  //To process conlision with enemy
 
-        Sleep(120);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -697,7 +697,7 @@ void Bullet::wayBulletOfLevel2_Left(int x, int y, int x_end, int y_end)
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
-        Sleep(120);
+        Sleep(70);
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
         Controller::gotoXY(x - 5 - i, y + 3);
@@ -835,7 +835,7 @@ void Bullet::wayBulletOfLevel2_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(120);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -970,7 +970,7 @@ void Bullet::wayBulletOfLevel2_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(120);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -1100,7 +1100,7 @@ void Bullet::wayBulletOfLevel3_Up(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y - 1 - i; // To process conlision with enemy
         mu.unlock();
-        Sleep(100);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -1238,7 +1238,7 @@ void Bullet::wayBulletOfLevel3_Left(int x, int y, int x_end, int y_end)
         mu.unlock();
         indexOfBulletFollowX = x - 5 - i;      //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
-        Sleep(100);
+        Sleep(70);
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
         Controller::gotoXY(x - 5 - i, y + 4);
@@ -1381,7 +1381,7 @@ void Bullet::wayBulletOfLevel3_Right(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 8 + i;     //To process conlision with enemy
         indexOfBulletFollowY = y + 2;  // To process conlision with enemy
 
-        Sleep(100);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
@@ -1526,7 +1526,7 @@ void Bullet::wayBulletOfLevel3_Down(int x, int y, int x_end, int y_end)
         indexOfBulletFollowX = x + 2; // To process conlision with enemy
         indexOfBulletFollowY = y + 6 + i;  //To process conlision with enemy
 
-        Sleep(100);
+        Sleep(70);
 
         mu.lock();
         Controller::SetColor(LIGHT_YELLOW, LIGHT_YELLOW);
