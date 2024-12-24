@@ -12,13 +12,5 @@ int main() {
 	Menu::sound_is_open = true;
 	Screen::printMainScreen();
 
-	//Map test;
-	//test.createMap();
-
-	//Controller::SetColor(BLACK, WHITE);
-	//system("cls");
-
-	//test.createMap();
-
 	return 0;
 }
