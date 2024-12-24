@@ -40,21 +40,21 @@ void Game::printBoard() {
 	Screen::printRectangle(130, 1, 24, 39);
 
 	Controller::SetColor(BRIGHT_WHITE, GREEN);
-	Controller::gotoXY(134, 3);
+	Controller::gotoXY(140, 3);
 	Screen::printVietnamese(L" ╔╦╦╦╗  ");
-	Controller::gotoXY(134, 3 + 1);
+	Controller::gotoXY(140, 4);
 	Screen::printVietnamese(L" █████  ");
-	Controller::gotoXY(134, 3 + 2);
+	Controller::gotoXY(140, 5);
 	Screen::printVietnamese(L"  █■█   ");
-	Controller::gotoXY(134, 3 + 3);
+	Controller::gotoXY(140, 6);
 	Screen::printVietnamese(L" █▓█▓█  ");
-	Controller::gotoXY(134, 3 + 4);
+	Controller::gotoXY(140, 7);
 	Screen::printVietnamese(L"███████ ");
 
 	// ▀ █ ▄ ▐ ▌
 
-	Controller::gotoXY(132, 30);
-	Controller::SetColor(BRIGHT_WHITE, BLACK);
+	Controller::gotoXY(132, 35);
+	Controller::SetColor(BRIGHT_WHITE, LIGHT_BLUE);
 	if (Screen::isVie) {
 		Screen::printVietnamese(L"Bấm ESC dừng trò chơi!");
 	}
@@ -63,18 +63,18 @@ void Game::printBoard() {
 	}
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(144, 4);
+	Controller::gotoXY(140, 9);
 	wcout << player.getName();
 
 	int t = (int)(Enemy::count * 1.0 / Game::num_enemy) * 15;
-	Controller::gotoXY(135 + t, 9);
+	Controller::gotoXY(135 + t, 13);
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
 	Screen::printVietnamese(L"|");
 	Controller::SetColor(BRIGHT_WHITE, RED);
 	Screen::printVietnamese(L"▀");
 
 	Controller::SetColor(BRIGHT_WHITE, BLACK);
-	Controller::gotoXY(135, 10);
+	Controller::gotoXY(135, 14);
 	for (int i = 0; i < 16; i++) {
 		if (i == 0 || i == 15)
 			Screen::printVietnamese(L"█");
@@ -114,7 +114,7 @@ void Game::printNumEnemy() {
 			mu.lock();
 			int last_t = (int)((last_count * 1.0 / Game::num_enemy) * 15);
 	
-			Controller::gotoXY(135 + last_t, 9);
+			Controller::gotoXY(135 + last_t, 13);
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
 			Screen::printVietnamese(L"|");
 			Controller::SetColor(BRIGHT_WHITE, BRIGHT_WHITE);
@@ -125,7 +125,7 @@ void Game::printNumEnemy() {
 			mu.lock();
 			int t = (int)((cur_count * 1.0 / Game::num_enemy) * 15);
 
-			Controller::gotoXY(135 + t, 9);
+			Controller::gotoXY(135 + t, 13);
 			Controller::SetColor(BRIGHT_WHITE, BLACK);
 			Screen::printVietnamese(L"|");
 			Controller::SetColor(BRIGHT_WHITE, RED);

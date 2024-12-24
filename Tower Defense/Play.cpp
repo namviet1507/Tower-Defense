@@ -244,24 +244,19 @@ void Play::print_win(int x, int y, int bcolor, int color)
 {
 	mu.lock();
 	print_rectangle(x - 1, y - 1, 66, 8, bcolor, color);
-	int cnt = 15;
-	while (cnt--) {
-		Controller::SetColor(bcolor, rand() % 6 + 1);
-		Controller::gotoXY(x, y);
-		Controller::SetColor(bcolor, color);
-		Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
-		Controller::gotoXY(x, y + 1);
-		Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
-		Controller::gotoXY(x, y + 2);
-		Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
-		Controller::gotoXY(x, y + 3);
-		Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
-		Controller::gotoXY(x, y + 4);
-		Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
-		Controller::gotoXY(x, y + 5);
-		Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
-		Sleep(500);
-	}
+	Controller::SetColor(bcolor, color);
+	Controller::gotoXY(x, y);
+	Screen::printVietnamese(L"██╗    ██╗██╗███╗   ██╗     ██████╗  █████╗ ███╗   ███╗███████╗");
+	Controller::gotoXY(x, y + 1);
+	Screen::printVietnamese(L"██║    ██║██║████╗  ██║    ██╔════╝ ██╔══██╗████╗ ████║██╔════╝");
+	Controller::gotoXY(x, y + 2);
+	Screen::printVietnamese(L"██║ █╗ ██║██║██╔██╗ ██║    ██║  ███╗███████║██╔████╔██║█████╗  ");
+	Controller::gotoXY(x, y + 3);
+	Screen::printVietnamese(L"██║███╗██║██║██║╚██╗██║    ██║   ██║██╔══██║██║╚██╔╝██║██╔══╝  ");
+	Controller::gotoXY(x, y + 4);
+	Screen::printVietnamese(L"╚███╔███╔╝██║██║ ╚████║    ╚██████╔╝██║  ██║██║ ╚═╝ ██║███████╗");
+	Controller::gotoXY(x, y + 5);
+	Screen::printVietnamese(L" ╚══╝╚══╝ ╚═╝╚═╝  ╚═══╝     ╚═════╝ ╚═╝  ╚═╝╚═╝     ╚═╝╚══════╝");
 	mu.unlock();
 }
 
@@ -702,6 +697,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	Map test;
 	test.setMap(filename_map);
 	test.printMap();
+	Enemy::count = 0;
 
 	for (int i = 0; i < test.getHeight(); i++) {
 		for (int j = 0; j < test.getWidth(); j++) {
@@ -722,7 +718,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
+	Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -738,7 +734,11 @@ void Play::play_map(string filename_enemy, string filename_map)
 		if (_kbhit())
 		{
 			int temp = Controller::getConsoleInput();
-			if (temp == 2) // up
+			if (temp == 1) { //esc
+				Menu::goBack();
+				return;
+			}
+			else if (temp == 2) // up
 			{
 				if (Menu::sound_is_open)
 					Controller::playSound(MOVE_SOUND);
@@ -814,7 +814,7 @@ void Play::play_map(string filename_enemy, string filename_map)
 				i = get_lever_Tower(posTower[position][1], posTower[position][2], test);
 
 				//test.printMap();
-				Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
+				Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
 				choose[position] = true;
 				cnt++;
 				res[position] = i;
@@ -1053,8 +1053,8 @@ void Play::play_map(string filename_enemy, string filename_map)
 		}
 	}
 
-	bullets.push_back(thread(Player::print_cost_player, 144, 5, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 144, 6, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(Player::print_cost_player, 140, 10, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 140, 11, BRIGHT_WHITE, RED));
 	bullets.push_back(thread(enemy_move1, Game::num_enemy, filename_enemy));
 	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choose, filename_map, filename_enemy));
 	bullets.push_back(thread(Game::printNumEnemy));
@@ -1156,6 +1156,33 @@ string Play::getFileSave() {
 		mu.lock();
 		Controller::gotoXY(134, 36);
 		getline(cin, filename);
+		if (filename.size() > 12 || filename.size() < 6) {
+			print_rectangle(132, 32, 22, 7, BRIGHT_WHITE, BLACK);
+			Controller::gotoXY(132, 35);
+			putchar(204);
+			for (int i = 1; i < 21; i++) {
+				Controller::gotoXY(132 + i, 35);
+				putchar(205);
+			}
+			Controller::gotoXY(132 + 21, 35);
+			putchar(185);
+
+			Controller::SetColor(BRIGHT_WHITE, BLACK);
+			if (Screen::isVie) {
+				Controller::gotoXY(136, 33);
+				Screen::printVietnamese(L"Nhập tên file");
+				Controller::gotoXY(134, 34);
+				Screen::printVietnamese(L"(Độ dài 6 đến 12)");
+			}
+			else {
+				Controller::gotoXY(136, 33);
+				cout << "Enter file name";
+				Controller::gotoXY(136, 34);
+				cout << "(Length 6 - 12)";
+			}
+			Controller::gotoXY(134, 36);
+			cout << "               ";
+		}
 		mu.unlock();
 	} while (filename.size() > 12 || filename.size() < 6);
 
@@ -1309,7 +1336,7 @@ void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], 
 	vector<thread> bullets;
 	vector<Tower> towers(4);
 	showcost = true;
-	Player::print_cost_first(144, 5, BRIGHT_WHITE, GREEN);
+	Player::print_cost_first(140, 10, BRIGHT_WHITE, GREEN);
 	ingame = true;
 	losegame = false;
 	wingame = false;
@@ -1464,11 +1491,13 @@ void Play::playContinue(vector<vector<int>> posTower, int res[], bool choice[], 
 
 
 
-	bullets.push_back(thread(Player::print_cost_player, 144, 5, BRIGHT_WHITE, GREEN));
-	bullets.push_back(thread(Player::print_hp_player, 144, 6, BRIGHT_WHITE, RED));
+	bullets.push_back(thread(Player::print_cost_player, 140, 10, BRIGHT_WHITE, GREEN));
+	bullets.push_back(thread(Player::print_hp_player, 140, 11, BRIGHT_WHITE, RED));
 	bullets.push_back(thread(enemy_move1, Game::num_enemy, file_enemy));
 	bullets.push_back(thread(Player::check_win, Game::num_enemy, posTower, res, choice, file_map, file_enemy));
 	bullets.push_back(thread(Game::printNumEnemy));
+	if (Menu::music_is_open)
+		thread(Controller::playSound, GAME_SOUND).detach();
 
 	for (auto& bu : bullets)
 	{
